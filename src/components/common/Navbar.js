@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Bell, User } from "lucide-react";
 import "../../styles/components/common/navbar.css";
 const Navbar = () => {
   const location = useLocation();

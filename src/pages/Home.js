@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database, Check, ArrowDown } from 'lucide-react';
+import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database } from 'lucide-react';
 import DashboardImage from '../assets/images/Dashboard.png';
 import workflow from "../assets/images/workflow.png"
 const Home = () => {

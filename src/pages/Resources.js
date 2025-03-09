@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FaRocket, FaCode, FaCog, FaTools, FaChartLine, FaFileAlt, FaBars, FaArrowLeft, FaArrowRight, FaLayerGroup, FaCheck, FaGlobe, FaPlay } from 'react-icons/fa';
+import { FaRocket, FaCode, FaTools, FaFileAlt, FaBars, FaArrowLeft, FaArrowRight, FaLayerGroup, FaCheck, FaGlobe, FaPlay } from 'react-icons/fa';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 const sections = {
