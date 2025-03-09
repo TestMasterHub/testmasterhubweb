@@ -1,0 +1,210 @@
+/* custom.css */
+
+/* General Styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #333;
+  }
+  
+  /* Button styling */
+  .btn {
+    border-radius: 5px;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+  }
+  
+  /* Card hover effects */
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Testimonial styling */
+  .testimonial-card {
+    position: relative;
+  }
+  
+  .testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 60px;
+    color: rgba(13, 110, 253, 0.1);
+    font-family: Georgia, serif;
+  }
+  
+  /* Better accordion styling */
+  .accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(13, 110, 253, 0.25);
+  }
+  
+  .accordion-button:not(.collapsed) {
+    background-color: rgba(13, 110, 253, 0.05);
+    color: #0d6efd;
+  }
+  
+  /* Hero section enhancements */
+  .display-4, .display-5, .display-6 {
+    font-weight: 700;
+  }
+  
+  /* Ensuring footer always stays at bottom */
+  .min-vh-100 {
+    min-height: 100vh;
+  }
+  
+  /* Custom badge styling */
+  .badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+  }
+  
+  /* Feature icon styling */
+  .feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+  }
+  
+  /* Navigation styling */
+  .navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .navbar-brand {
+    font-weight: 700;
+  }
+  
+  .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+  }
+  
+  /* Section spacing */
+  section {
+    padding: 4rem 0;
+  }
+  
+  /* Custom background colors */
+  .bg-dark {
+    background-color: #212529 !important;
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  
+  /* Improved image styling */
+  .img-fluid {
+    border-radius: 0.5rem;
+  }
+  
+  /* Custom list styling for features */
+  .feature-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .feature-list li {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .feature-list li i,
+  .feature-list li svg {
+    margin-right: 0.75rem;
+    color: #0d6efd;
+  }
+  
+  /* Pricing card styles */
+  .pricing-card {
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .pricing-card:hover {
+    border-color: #0d6efd;
+  }
+  
+  .pricing-card.highlighted {
+    border: 2px solid #0d6efd;
+    transform: scale(1.05);
+  }
+  
+  /* Testimonial avatar */
+  .testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Improved typography */
+  .lead {
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
+  .text-muted {
+    color: #6c757d !important;
+  }
+  
+  /* Custom animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fadeInUp {
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  
+  /* Custom media queries */
+  @media (max-width: 768px) {
+    .display-4 {
+      font-size: 2.5rem;
+    }
+    
+    .display-5, .display-6 {
+      font-size: 2rem;
+    }
+    
+    section {
+      padding: 2.5rem 0;
+    }
+    
+    .pricing-card.highlighted {
+      transform: none;
+    }
+  }
