@@ -21,6 +21,44 @@ const sections = {
           <li>Save your tests in collections for future use</li>
         </ol>
         
+        <h5>Install Guide:</h5>
+        <ol>
+          <li><strong>Download the Installer</strong>
+            <ul>
+              <li>Visit the official TestMasterHub website to download the latest version.</li>
+              <li>Choose the appropriate version based on your operating system (Windows/macOS/Linux).</li>
+            </ul>
+          </li>
+          <li><strong>Run the Installer</strong>
+            <ul>
+              <li>Locate the downloaded file and double-click to launch the installer.</li>
+              <li>Follow the on-screen instructions to complete the installation process.</li>
+            </ul>
+          </li>
+          <li><strong>Bypassing Windows SmartScreen (If Blocked)</strong>
+            <ul>
+              <li>If SmartScreen blocks it:
+                <ul>
+                  <li>Click "More Info"</li>
+                  <li>Select "Run Anyway" to proceed.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><strong>Launch TestMasterHub</strong>
+            <ul>
+              <li>Open the application from the Start menu (Windows) or Applications folder (macOS).</li>
+              <li>If running on Linux, execute the binary file using the terminal.</li>
+            </ul>
+          </li>
+          <li><strong>Verify Installation</strong>
+            <ul>
+              <li>Ensure the installation was successful by navigating to the settings or version page.</li>
+              <li>Test by creating a sample API request.</li>
+            </ul>
+          </li>
+        </ol>
+        
         <p>TestMasterHub's intuitive interface makes API testing accessible for both experienced testers and beginners, allowing you to validate APIs efficiently with minimal effort.</p>
       </div>
     `
