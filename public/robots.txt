@@ -1,3 +1,11 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt for TestMasterHub
 User-agent: *
-Disallow:
+Disallow: /admin/           # Block admin pages (if applicable)
+Disallow: /private/         # Block private data (if any)
+Disallow: /temp/            # Block temporary files
+
+# Allow all other pages
+Allow: /
+
+# Specify Sitemap Location
+Sitemap: https://www.testmasterhub.com/sitemap.xml
