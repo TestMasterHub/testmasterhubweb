@@ -7,7 +7,7 @@ const DownloadPage = () => {
   const [release, setRelease] = useState(null);
 
   useEffect(() => {
-    fetch("https://testmasterhub-release-server.vercel.app/v1/release/latest")
+    fetch("https://api.intranet.testmasterhub.com/v1/release/latest")
       .then(response => response.json())
       .then(data => setRelease(data))
       .catch(error => console.error("Error fetching release data:", error));

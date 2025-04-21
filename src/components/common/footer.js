@@ -104,8 +104,9 @@ const Footer = () => {
             </form>
             <p className="small mt-3">
               <Mail size={16} className="me-1" />
-              <a href="mailto:social.testmasterhub@gmail.com" className="text-white text-decoration-none">
-                contact@testmasterhub.com
+              <a href="mailto:social.testmasterhub@gmail.com-0984
+            " className="text-white text-decoration-none">
+                contact@testmasterhub
               </a>
             </p>
           </div>
