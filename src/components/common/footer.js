@@ -71,7 +71,7 @@ const Footer = () => {
             <h6 className="text-uppercase mb-4">Community</h6>
             <ul className="list-unstyled">
               <li className="mb-2">
-                <Link to="/community/forum" className="text-white text-decoration-none">Forum</Link>
+                <Link to="/forum" className="text-white text-decoration-none">Forum</Link>
               </li>
               <li className="mb-2">
                 <Link to="/community/events" className="text-white text-decoration-none">Events</Link>
