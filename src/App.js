@@ -7,6 +7,10 @@ import Product from './pages/Product';
 import Pricing from './pages/Pricing';
 import Enterprise from './pages/Enterprise';
 import DownloadPage from './pages/DownloadPage';
+import InvitePage from './pages/InvitePage';
+import PrivacyPolicy from './pages/privacy';
+import TermsOfService from './pages/TermsOfService';
+import Sitemap from './pages/Sitemap';
 // Import custom CSS
 import './styles/custom.css';
 import Resources from './pages/Resources';
@@ -24,8 +28,13 @@ function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/enterprise" element={<Enterprise />} />
             <Route path="/resources" element={<Resources />} />
-            <Route path="/community" element={<div className="container py-5"><h1>Community Page</h1><p>This page is under construction.</p></div>} />
+            {/* <Route path="/community" element={<div className="container py-5"><h1>Community Page</h1><p>This page is under construction.</p></div>} /> */}
             <Route path="/download" element={<DownloadPage />} />
+            <Route path="/invite/BetaList/users" element={<InvitePage /> } />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/sitemap" element={<Sitemap />} />
+            {/* Add more routes as needed */}
           </Routes>
         </main>
         <Footer />

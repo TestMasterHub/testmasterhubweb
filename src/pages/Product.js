@@ -27,6 +27,10 @@ const features = [
     title: 'User-Friendly UI',
     description: 'A modern and easy-to-use interface to enhance productivity.',
   },
+  {
+    title: 'Secure Encryption',
+    description: 'Ensure data protection with robust encryption for sensitive information.',
+  },
 ];
 
 const Product = () => {
@@ -54,8 +58,8 @@ const Product = () => {
       {/* CTA Section */}
       <section className="text-center mt-5">
         <h2 className="fw-bold">Get Started with TestMasterHub</h2>
-        <p className="text-muted">Start testing your APIs efficiently today.</p>
-        <button className="btn btn-primary btn-lg">Try for Free</button>
+        <p className="lead">Start optimizing your API testing workflow today.</p>
+        <button className="btn btn-primary btn-lg">Download Now</button>
       </section>
     </div>
   );

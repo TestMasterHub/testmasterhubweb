@@ -13,16 +13,16 @@ const Footer = () => {
               The complete API testing solution for developers and QA teams. Simplify and streamline your API testing workflow.
             </p>
             <div className="d-flex mt-4">
-              <a href="https://github.com" className="text-white me-3" aria-label="GitHub">
+              <a href="https://github.com/TestMasterHub/testmasterhub-app-support" className="text-white me-3" aria-label="GitHub">
                 <Github size={20} />
               </a>
-              <a href="https://twitter.com" className="text-white me-3" aria-label="Twitter">
+              <a href="https://x.com/TestmasterHub" className="text-white me-3" aria-label="Twitter">
                 <Twitter size={20} />
               </a>
-              <a href="https://linkedin.com" className="text-white me-3" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/testmasterhub/" className="text-white me-3" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </a>
-              <a href="https://youtube.com" className="text-white" aria-label="YouTube">
+              <a href="https://www.youtube.com/@TestmasterHubIN" className="text-white" aria-label="YouTube">
                 <Youtube size={20} />
               </a>
             </div>
@@ -35,12 +35,12 @@ const Footer = () => {
               <li className="mb-2">
                 <Link to="/product" className="text-white text-decoration-none">Features</Link>
               </li>
-              <li className="mb-2">
+              {/* <li className="mb-2">
                 <Link to="/pricing" className="text-white text-decoration-none">Pricing</Link>
-              </li>
-              <li className="mb-2">
+              </li> */}
+              {/* <li className="mb-2">
                 <Link to="/enterprise" className="text-white text-decoration-none">Enterprise</Link>
-              </li>
+              </li> */}
               <li className="mb-2">
                 <Link to="/download" className="text-white text-decoration-none">Download</Link>
               </li>
@@ -58,16 +58,16 @@ const Footer = () => {
                 <Link to="/resources/tutorials" className="text-white text-decoration-none">Tutorials</Link>
               </li>
               <li className="mb-2">
-                <Link to="/resources/api" className="text-white text-decoration-none">API Reference</Link>
+                <Link to="/resources" className="text-white text-decoration-none">API Reference</Link>
               </li>
-              <li className="mb-2">
+              {/* <li className="mb-2">
                 <Link to="/resources/blog" className="text-white text-decoration-none">Blog</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
           {/* Community */}
-          <div className="col-lg-2 col-md-6 mb-4 mb-lg-0">
+          {/* <div className="col-lg-2 col-md-6 mb-4 mb-lg-0">
             <h6 className="text-uppercase mb-4">Community</h6>
             <ul className="list-unstyled">
               <li className="mb-2">
@@ -83,7 +83,7 @@ const Footer = () => {
                 <Link to="/community/showcase" className="text-white text-decoration-none">Showcase</Link>
               </li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Newsletter */}
           <div className="col-lg-3 col-md-6 mb-4 mb-lg-0">

@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database } from 'lucide-react';
+import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database, Sparkles, Brain,Mail } from 'lucide-react';
+
 import DashboardImage from '../assets/images/Dashboard.png';
 import workflow from "../assets/images/workflow.png"
 import masterlogo from "../assets/images/testmasterhub-Icon.svg"
@@ -8,7 +9,7 @@ const Home = () => {
   return (
     <div>
       {/* Product Hunt Alert Banner */}
-      <section className="py-3 bg-warning bg-opacity-10">
+      {/* <section className="py-3 bg-warning bg-opacity-10">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8 mb-2 mb-md-0">
@@ -24,27 +25,40 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Hero Section */}
+      {/* AI-Powered Hero Section */}
       <section className="bg-dark text-white py-5">
         <div className="container">
           <div className="row align-items-center py-5">
             <div className="col-lg-6 mb-5 mb-lg-0">
+              <div className="d-flex align-items-center mb-3">
+                <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-pill px-3 py-1 me-3">
+                  <div className="d-flex align-items-center">
+                    <Sparkles size={16} className="me-2" />
+                    <span className="small fw-bold">AI-POWERED ASSERTIONS</span>
+                  </div>
+                </div>
+                <span className="badge bg-success">NEW</span>
+              </div>
               <h1 className="display-4 fw-bold mb-4">
-                Powerful API Testing Made Simple
+                Complete API Testing Platform with AI-Powered Assertions
               </h1>
               <p className="lead mb-4">
-                TestMasterHub helps development teams build, test, and monitor APIs faster. 
-                Trusted by thousands of developers worldwide.
+                TestMasterHub provides comprehensive API testing capabilities with intelligent auto-assertion generation. 
+                Our AI analyzes your API responses and automatically creates smart validations, saving you time while ensuring thorough testing coverage.
               </p>
-              <div className="d-flex flex-wrap gap-3">
+              <div className="d-flex flex-wrap gap-3 mb-4">
                 <a className="btn btn-primary btn-lg d-flex align-items-center" href='/download'>
-                  Try for Free <ArrowRight size={18} className="ms-2" />
+                  Try TestMasterHub Free <ArrowRight size={18} className="ms-2" />
                 </a>
                 <button className="btn btn-outline-light btn-lg">
                   Watch Demo
                 </button>
+              </div>
+              <div className="d-flex align-items-center text-muted">
+                <Brain size={16} className="me-2" />
+                <small>Featuring intelligent auto-assertion generation</small>
               </div>
             </div>
             <div className="col-lg-6">
@@ -54,8 +68,9 @@ const Home = () => {
                   alt="TestMasterHub Dashboard" 
                   className="img-fluid rounded shadow-lg"
                 />
-                <div className="position-absolute top-0 start-0 translate-middle bg-primary text-white rounded-pill px-3 py-2">
-                  NEW
+                <div className="position-absolute top-0 start-0 translate-middle">
+                  <div className="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-pill px-3 py-2 d-flex align-items-center">
+                  </div>
                 </div>
               </div>
             </div>
@@ -63,24 +78,232 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Logos Section */}
-      {/* <section className="py-4 bg-light">
+      {/* AI Features Highlight */}
+      <section className="py-5 bg-gradient-to-r from-purple-50 to-blue-50">
         <div className="container">
-          <p className="text-center text-muted mb-4">Trusted by leading companies worldwide</p>
-          <div className="row justify-content-center align-items-center">
-            {['Company A', 'Company B', 'Company C', 'Company D', 'Company E'].map((company, index) => (
-              <div key={index} className="col-6 col-md-2 text-center mb-3 mb-md-0">
-                <div className="bg-white rounded p-3 mx-2">
-                  <span className="fw-bold text-secondary">{company}</span>
+          <div className="text-center mb-5">
+            <div className="d-inline-flex align-items-center bg-white rounded-pill px-4 py-2 shadow-sm mb-3">
+              <Sparkles size={20} className="text-primary me-2" />
+              <span className="fw-bold text-primary">AI-POWERED ASSERTIONS</span>
+            </div>
+            <h2 className="display-6 fw-bold mb-3">Intelligent Auto-Assertion Generation</h2>
+            <p className="lead text-muted mx-auto" style={{ maxWidth: '800px' }}>
+              Our AI engine automatically analyzes your API responses and generates comprehensive assertions. 
+              No more manual validation setup - let AI create smart test validations while you focus on building great APIs.
+            </p>
+          </div>
+          
+          <div className="row g-4">
+            <div className="col-lg-4">
+              <div className="card h-100 border-0 shadow-lg bg-white">
+                <div className="card-body p-4 text-center">
+                  <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-circle p-3 d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '60px', height: '60px' }}>
+                    <Brain size={28} className="text-white" />
+                  </div>
+                  <h3 className="h4 fw-bold mb-3">Smart Response Analysis</h3>
+                  <p className="text-muted mb-3">
+                    AI analyzes your API responses in real-time, understanding data structure, patterns, and expected values. 
+                    It automatically generates comprehensive assertions for status codes, response times, and data validation.
+                  </p>
+                  <div className="bg-light rounded p-2 text-start">
+                    <small className="text-muted font-monospace">
+                      ✨ Auto-generated: status === 200<br/>
+                      ✨ Auto-generated: response.data.length {'>'} 0<br/>
+                      ✨ Auto-generated: response.user.email.includes('@')
+                    </small>
+                  </div>
                 </div>
               </div>
-            ))}
+            </div>
+            
+            <div className="col-lg-4">
+              <div className="card h-100 border-0 shadow-lg bg-white">
+                <div className="card-body p-4 text-center">
+                  <div className="bg-gradient-to-r from-green-500 to-teal-500 rounded-circle p-3 d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '60px', height: '60px' }}>
+                    <Sparkles  size={28} className="text-white" />
+                  </div>
+                  <h3 className="h4 fw-bold mb-3">Comprehensive Validation</h3>
+                  <p className="text-muted mb-3">
+                    From basic status code validation to complex JSON schema verification, 
+                    AI creates thorough test assertions that cover edge cases and ensure robust API validation.
+                  </p>
+                  <div className="bg-light rounded p-2 text-start">
+                    <small className="text-muted">
+                      🤖 Validates: Response structure<br/>
+                      🤖 Validates: Data types & formats<br/>
+                      🤖 Validates: Required fields presence
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-lg-4">
+              <div className="card h-100 border-0 shadow-lg bg-white">
+                <div className="card-body p-4 text-center">
+                  <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-circle p-3 d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '60px', height: '60px' }}>
+                    <Sparkles size={28} className="text-white" />
+                  </div>
+                  <h3 className="h4 fw-bold mb-3">Time-Saving Automation</h3>
+                  <p className="text-muted mb-3">
+                    Eliminate manual assertion writing with AI-powered automation. 
+                    Get instant, accurate validations that adapt to your API responses, reducing testing time by up to 70%.
+                  </p>
+                  <div className="bg-light rounded p-2 text-start">
+                    <small className="text-muted">
+                      ⚡ Instant assertion generation<br/>
+                      ⚡ Adaptive to response patterns<br/>
+                      ⚡ Reduces manual testing effort
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-5">
+            <div className="bg-white rounded-pill d-inline-flex align-items-center px-4 py-2 shadow-sm">
+              <span className="me-3 fw-bold text-dark">Ready to experience AI-powered assertions?</span>
+              <a href="/download" className="btn btn-primary btn-sm rounded-pill">
+                Start Free Trial
+              </a>
+            </div>
           </div>
         </div>
-      </section> */}
-
+      </section>
+      {/* Email Reports Feature Highlight */}
+      <section className="py-5 bg-light">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6 mb-4 mb-lg-0">
+              <div className="d-flex align-items-center mb-3">
+                <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-pill px-3 py-1 me-3">
+                  <div className="d-flex align-items-center">
+                    <Mail size={16} className="me-2" />
+                    <span className="small fw-bold text-white">EMAIL REPORTS</span>
+                  </div>
+                </div>
+                <span className="badge bg-info">AUTOMATED</span>
+              </div>
+              <h2 className="display-6 fw-bold mb-4">Comprehensive Email Reports</h2>
+              <p className="lead mb-4">
+                Receive detailed HTML email reports automatically after each build execution. 
+                Get complete test summaries, metrics, and insights delivered directly to your inbox.
+              </p>
+              
+              <div className="row g-3 mb-4">
+                <div className="col-sm-6">
+                  <div className="d-flex align-items-center">
+                    <div className="bg-primary rounded-circle p-2 me-3" style={{ width: '40px', height: '40px' }}>
+                      <BarChart size={20} className="text-white" />
+                    </div>
+                    <div>
+                      <h6 className="mb-1 fw-bold">Test Metrics</h6>
+                      <small className="text-muted">Pass/fail rates, response times</small>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                  <div className="d-flex align-items-center">
+                    <div className="bg-success rounded-circle p-2 me-3" style={{ width: '40px', height: '40px' }}>
+                      <Code size={20} className="text-white" />
+                    </div>
+                    <div>
+                      <h6 className="mb-1 fw-bold">Error Details</h6>
+                      <small className="text-muted">Detailed failure analysis</small>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                  <div className="d-flex align-items-center">
+                    <div className="bg-warning rounded-circle p-2 me-3" style={{ width: '40px', height: '40px' }}>
+                      <Settings size={20} className="text-white" />
+                    </div>
+                    <div>
+                      <h6 className="mb-1 fw-bold">Service Status</h6>
+                      <small className="text-muted">Individual API health</small>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                  <div className="d-flex align-items-center">
+                    <div className="bg-info rounded-circle p-2 me-3" style={{ width: '40px', height: '40px' }}>
+                      <Database size={20} className="text-white" />
+                    </div>
+                    <div>
+                      <h6 className="mb-1 fw-bold">Summary Stats</h6>
+                      <small className="text-muted">Complete test overview</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-lg-6">
+              <div className="card border-0 shadow-lg">
+                <div className="card-header bg-gradient-to-r from-slate-700 to-slate-800 text-white text-center py-3">
+                  <h5 className="mb-0 fw-bold">TestMasterHub</h5>
+                  <small>Microservices Test Report</small>
+                </div>
+                <div className="card-body p-4">
+                  <div className="mb-4">
+                    <h6 className="text-primary fw-bold mb-2">Test Summary</h6>
+                    <div className="row text-center">
+                      <div className="col-4">
+                        <div className="h3 fw-bold text-primary">3</div>
+                        <small className="text-muted">Total Tests</small>
+                      </div>
+                      <div className="col-4">
+                        <div className="h3 fw-bold text-success">2</div>
+                        <small className="text-muted">Passed</small>
+                      </div>
+                      <div className="col-4">
+                        <div className="h3 fw-bold text-danger">1</div>
+                        <small className="text-muted">Failed</small>
+                      </div>
+                    </div>
+                    <div className="text-center mt-3">
+                      <div className="h4 fw-bold text-primary">67%</div>
+                      <small className="text-muted">Success Rate</small>
+                    </div>
+                  </div>
+                  
+                  <div className="table-responsive">
+                    <table className="table table-sm">
+                      <thead>
+                        <tr className="table-light">
+                          <th className="fw-bold">Service</th>
+                          <th className="fw-bold">Status</th>
+                          <th className="fw-bold">Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Get Users</td>
+                          <td><span className="badge bg-danger">Failed</span></td>
+                          <td>756.70 ms</td>
+                        </tr>
+                        <tr>
+                          <td>Post Users</td>
+                          <td><span className="badge bg-success">Passed</span></td>
+                          <td>432.10 ms</td>
+                        </tr>
+                        <tr>
+                          <td>Put Users</td>
+                          <td><span className="badge bg-success">Passed</span></td>
+                          <td>3318.50 ms</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Product Hunt Launch Section */}
-      <section className="py-4 bg-light">
+      {/* <section className="py-4 bg-light">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-7 mb-4 mb-lg-0">
@@ -127,7 +350,7 @@ const Home = () => {
                     </div>
                     <div>
                       <h3 className="h5 mb-1 fw-bold">TestMasterHub</h3>
-                      <p className="mb-0 text-muted">Next Gen Testing Solutions</p>
+                      <p className="mb-0 text-muted">Complete API Testing Platform</p>
                     </div>
                   </div>
                   <div className="text-center mt-3 mb-3">
@@ -140,15 +363,15 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Features Cards */}
+      {/* Core Features Cards */}
       <section className="py-5">
         <div className="container">
           <div className="text-center mb-5">
-            <h2 className="display-6 fw-bold mb-3">Powerful Features</h2>
+            <h2 className="display-6 fw-bold mb-3">Complete API Testing Platform</h2>
             <p className="lead text-muted mx-auto" style={{ maxWidth: '700px' }}>
-              Everything you need to test, monitor, and document your APIs
+              Comprehensive API testing features enhanced with AI-powered auto-assertion generation
             </p>
           </div>
           
@@ -156,11 +379,14 @@ const Home = () => {
             <div className="col-md-4">
               <div className="card h-100 border-0 shadow-sm">
                 <div className="card-body p-4">
-                  <div className="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
+                  <div className="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 p-3 rounded-circle mb-3 position-relative">
                     <Database size={24} className="text-primary" />
+                    <div className="position-absolute top-0 end-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-circle" style={{ width: '16px', height: '16px' }}>
+                      <Sparkles size={10} className="text-white position-absolute top-50 start-50 translate-middle" />
+                    </div>
                   </div>
-                  <h3 className="h5 card-title fw-bold">API Collections</h3>
-                  <p className="card-text text-muted">Organize and manage your API requests in collections for better workflow and reusability.</p>
+                  <h3 className="h5 card-title fw-bold">Smart Collections Management</h3>
+                  <p className="card-text text-muted">Organize your API requests into logical collections with drag-and-drop reordering, import/export capabilities, and AI-generated assertions.</p>
                 </div>
               </div>
             </div>
@@ -172,7 +398,7 @@ const Home = () => {
                     <Settings size={24} className="text-primary" />
                   </div>
                   <h3 className="h5 card-title fw-bold">Environment Management</h3>
-                  <p className="card-text text-muted">Create and switch between different environments with custom variables for seamless testing.</p>
+                  <p className="card-text text-muted">Create and switch between multiple environments (dev, staging, prod) with dynamic variable substitution and secure credential storage.</p>
                 </div>
               </div>
             </div>
@@ -183,8 +409,8 @@ const Home = () => {
                   <div className="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
                     <Zap size={24} className="text-primary" />
                   </div>
-                  <h3 className="h5 card-title fw-bold">Automated Testing</h3>
-                  <p className="card-text text-muted">Schedule and run automated tests to ensure your APIs are always functioning correctly.</p>
+                  <h3 className="h5 card-title fw-bold">Build & Automation</h3>
+                  <p className="card-text text-muted">Automate test execution with scheduled builds, retry logic, data-driven testing, and comprehensive reporting capabilities.</p>
                 </div>
               </div>
             </div>
@@ -195,8 +421,8 @@ const Home = () => {
                   <div className="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
                     <BarChart size={24} className="text-primary" />
                   </div>
-                  <h3 className="h5 card-title fw-bold">Detailed Reports</h3>
-                  <p className="card-text text-muted">Generate comprehensive reports with visualizations to analyze API performance and behavior.</p>
+                  <h3 className="h5 card-title fw-bold">Advanced Monitoring</h3>
+                  <p className="card-text text-muted">Set up cron-based monitors with failure handling, email notifications, and performance graphs to track API health over time.</p>
                 </div>
               </div>
             </div>
@@ -207,8 +433,8 @@ const Home = () => {
                   <div className="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
                     <Code size={24} className="text-primary" />
                   </div>
-                  <h3 className="h5 card-title fw-bold">Request Builder</h3>
-                  <p className="card-text text-muted">Build and customize API requests with our intuitive interface supporting all HTTP methods.</p>
+                  <h3 className="h5 card-title fw-bold">Powerful Request Builder</h3>
+                  <p className="card-text text-muted">Build complex API requests with support for all HTTP methods, authentication, headers, parameters, and various body formats.</p>
                 </div>
               </div>
             </div>
@@ -219,8 +445,8 @@ const Home = () => {
                   <div className="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
                     <Users size={24} className="text-primary" />
                   </div>
-                  <h3 className="h5 card-title fw-bold">Team Collaboration</h3>
-                  <p className="card-text text-muted">Share collections, environments, and test results with your team for better collaboration.</p>
+                  <h3 className="h5 card-title fw-bold">Git Integration</h3>
+                  <p className="card-text text-muted">Version control your API tests with Git integration, branch management, and collaborative workflows for team development.</p>
                 </div>
               </div>
             </div>
@@ -234,46 +460,46 @@ const Home = () => {
           <div className="row align-items-center">
             <div className="col-lg-5 mb-4 mb-lg-0">
               <h2 className="display-6 fw-bold mb-4">How TestMasterHub Works</h2>
-              <p className="lead mb-4">Our platform simplifies the entire API testing workflow in just a few steps.</p>
+              <p className="lead mb-4">Experience comprehensive API testing with intelligent auto-assertion generation that streamlines your testing workflow.</p>
               
               <div className="mb-4">
                 <div className="d-flex mb-3">
-                  <div className="bg-primary rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
+                  <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
                     <span className="text-white fw-bold">1</span>
                   </div>
                   <div>
-                    <h4 className="h5 mb-2 fw-bold">Create Collections</h4>
-                    <p className="text-muted">Organize your API requests into logical groups for better management.</p>
+                    <h4 className="h5 mb-2 fw-bold">Create & Import APIs</h4>
+                    <p className="text-muted">Add your API endpoints manually or import from Postman/OpenAPI formats. Organize them into logical collections.</p>
                   </div>
                 </div>
                 
                 <div className="d-flex mb-3">
-                  <div className="bg-primary rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
+                  <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
                     <span className="text-white fw-bold">2</span>
                   </div>
                   <div>
-                    <h4 className="h5 mb-2 fw-bold">Configure Environments</h4>
-                    <p className="text-muted">Set up variables for different environments like dev, staging, and production.</p>
+                    <h4 className="h5 mb-2 fw-bold">AI Generates Assertions</h4>
+                    <p className="text-muted">Execute your API requests and let AI automatically analyze responses to generate comprehensive test assertions.</p>
                   </div>
                 </div>
                 
                 <div className="d-flex mb-3">
-                  <div className="bg-primary rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
+                  <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
                     <span className="text-white fw-bold">3</span>
                   </div>
                   <div>
-                    <h4 className="h5 mb-2 fw-bold">Run Tests</h4>
-                    <p className="text-muted">Execute your API tests manually or schedule them to run automatically.</p>
+                    <h4 className="h5 mb-2 fw-bold">Automate & Monitor</h4>
+                    <p className="text-muted">Set up automated builds and monitors to continuously validate your APIs with intelligent failure detection.</p>
                   </div>
                 </div>
                 
                 <div className="d-flex">
-                  <div className="bg-primary rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
+                  <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
                     <span className="text-white fw-bold">4</span>
                   </div>
                   <div>
-                    <h4 className="h5 mb-2 fw-bold">Analyze Results</h4>
-                    <p className="text-muted">View comprehensive reports and monitor API performance over time.</p>
+                    <h4 className="h5 mb-2 fw-bold">Analyze & Report</h4>
+                    <p className="text-muted">Get detailed reports with performance metrics, assertion results, and actionable insights for API optimization.</p>
                   </div>
                 </div>
               </div>
@@ -291,18 +517,24 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-5 bg-primary text-white">
+      <section className="py-5 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-8 mb-4 mb-lg-0">
-              <h2 className="display-6 fw-bold mb-3">Ready to simplify your API testing?</h2>
+              <div className="d-flex align-items-center mb-3">
+                <Sparkles size={24} className="me-2" />
+                <span className="fw-bold">COMPLETE API TESTING PLATFORM</span>
+              </div>
+              <h2 className="display-6 fw-bold mb-3">Ready to streamline your API testing?</h2>
               <p className="lead mb-0">
-                Join thousands of developers who trust TestMasterHub for reliable and efficient API testing.
+                Join thousands of developers using TestMasterHub for comprehensive API testing with AI-powered auto-assertions.
               </p>
             </div>
             <div className="col-lg-4 text-lg-end">
-              <a className="btn btn-light btn-lg px-4 me-2" href='/download'>Get Started Free</a>
-              {/* <button className="btn btn-outline-light btn-lg px-4">Contact Sales</button> */}
+              <a className="btn btn-light btn-lg px-4 me-2 d-inline-flex align-items-center" href='/download'>
+                <Brain size={18} className="me-2" />
+                Try TestMasterHub Free
+              </a>
             </div>
           </div>
         </div>
@@ -314,7 +546,7 @@ const Home = () => {
           <div className="text-center mb-5">
             <h2 className="display-6 fw-bold mb-3">Frequently Asked Questions</h2>
             <p className="lead text-muted mx-auto" style={{ maxWidth: '700px' }}>
-              Find answers to common questions about TestMasterHub
+              Learn more about TestMasterHub's comprehensive API testing capabilities
             </p>
           </div>
           
@@ -324,33 +556,33 @@ const Home = () => {
                 {[
                   {
                     id: 'faq1',
-                    question: 'What is TestMasterHub?',
-                    answer: 'TestMasterHub is a powerful and intuitive API testing tool designed for developers and testers to validate API responses efficiently. It provides tools for creating and managing API collections, configuring environments, running automated tests, and analyzing results.'
+                    question: 'What makes TestMasterHub different from other API testing tools?',
+                    answer: 'TestMasterHub combines comprehensive API testing features with AI-powered auto-assertion generation. Our platform offers complete functionality for API testing, monitoring, and automation, enhanced with intelligent assertion creation that saves time and ensures thorough test coverage.'
                   },
                   {
                     id: 'faq2',
-                    question: 'Do I need to be a developer to use TestMasterHub?',
-                    answer: 'While TestMasterHub is designed with developers in mind, it\'s user-friendly enough for QA testers and other team members involved in API testing. Our intuitive interface makes it accessible to users with varying technical backgrounds.'
+                    question: 'How does the AI auto-assertion generation work?',
+                    answer: 'Our AI analyzes your API responses in real-time, understanding the data structure, patterns, and expected values. It then automatically generates comprehensive assertions for status codes, response times, data validation, and content verification - all without manual configuration.'
                   },
                   {
                     id: 'faq3',
-                    question: 'How do I organize my API tests in TestMasterHub?',
-                    answer: 'TestMasterHub allows you to organize your API requests into Collections, making it easier to execute and manage related API tests. Collections help you group multiple API requests into a structured format, which is essential for organizing APIs related to a specific service.'
+                    question: 'What core features does TestMasterHub provide?',
+                    answer: 'TestMasterHub offers complete API testing functionality including collections management, environment variables, build automation, monitoring with cron scheduling, Git integration, detailed reporting, and advanced request building with support for all HTTP methods and authentication types.'
                   },
                   {
                     id: 'faq4',
-                    question: 'Can I automate tests in TestMasterHub?',
-                    answer: 'Yes! The Build feature in TestMasterHub allows you to automate the execution of API test collections with customized settings. You can configure retry attempts and generate detailed reports after execution, reducing the need for manual testing.'
+                    question: 'Do I need AI knowledge to use the auto-assertion feature?',
+                    answer: 'Not at all! The AI auto-assertion feature works seamlessly in the background. You simply execute your API requests as normal, and our AI automatically analyzes the responses and generates appropriate assertions. The AI enhancement is completely transparent to users.'
                   },
                   {
                     id: 'faq5',
-                    question: 'How can I validate my API responses?',
-                    answer: 'TestMasterHub provides built-in assertion functions to verify API responses dynamically. You can validate status codes, response times, JSON properties, content validation, and perform value comparisons. These assertions automate the process of checking API responses against expected values.'
+                    question: 'Can I customize or override AI-generated assertions?',
+                    answer: 'Yes! While our AI generates intelligent assertions automatically, you have full control to review, modify, or add custom assertions. The AI-generated assertions serve as a smart foundation that you can build upon with your own specific validation requirements.'
                   },
                   {
                     id: 'faq6',
-                    question: 'What is Environment Management in TestMasterHub?',
-                    answer: 'Environment management allows you to create and switch between different API environments, such as Development, Staging, and Production. This feature helps manage API variables dynamically and prevents hardcoding values in requests, allowing tests to run across different environments without modification.'
+                    question: 'Does TestMasterHub support team collaboration?',
+                    answer: 'Absolutely! TestMasterHub includes Git integration for version control, collection import/export capabilities, environment sharing, and collaborative workflows. Teams can work together on API tests with full history tracking and branch management.'
                   }
                 ].map((faq, index) => (
                   <div className="accordion-item border-0 mb-3 shadow-sm rounded" key={faq.id}>
