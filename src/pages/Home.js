@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database, Sparkles, Brain,Mail } from 'lucide-react';
+import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database, Sparkles, Brain,Mail, Lock } from 'lucide-react'; // Import Lock icon
 
 import DashboardImage from '../assets/images/Dashboard.png';
 import workflow from "../assets/images/workflow.png"
@@ -107,9 +107,9 @@ const Home = () => {
                   </p>
                   <div className="bg-light rounded p-2 text-start">
                     <small className="text-muted font-monospace">
-                      ✨ Auto-generated: status === 200<br/>
-                      ✨ Auto-generated: response.data.length {'>'} 0<br/>
-                      ✨ Auto-generated: response.user.email.includes('@')
+                      Auto-generated: status === 200<br/>
+                      Auto-generated: response.data.length {'>'} 0<br/>
+                      Auto-generated: response.user.email.includes('@')
                     </small>
                   </div>
                 </div>
@@ -129,9 +129,9 @@ const Home = () => {
                   </p>
                   <div className="bg-light rounded p-2 text-start">
                     <small className="text-muted">
-                      🤖 Validates: Response structure<br/>
-                      🤖 Validates: Data types & formats<br/>
-                      🤖 Validates: Required fields presence
+                      Validates: Response structure<br/>
+                      Validates: Data types & formats<br/>
+                      Validates: Required fields presence
                     </small>
                   </div>
                 </div>
@@ -151,9 +151,9 @@ const Home = () => {
                   </p>
                   <div className="bg-light rounded p-2 text-start">
                     <small className="text-muted">
-                      ⚡ Instant assertion generation<br/>
-                      ⚡ Adaptive to response patterns<br/>
-                      ⚡ Reduces manual testing effort
+                      Instant assertion generation<br/>
+                      Adaptive to response patterns<br/>
+                      Reduces manual testing effort
                     </small>
                   </div>
                 </div>
@@ -439,6 +439,20 @@ const Home = () => {
               </div>
             </div>
             
+            {/* New card for Secure Encryption */}
+            <div className="col-md-4">
+              <div className="card h-100 border-0 shadow-sm">
+                <div className="card-body p-4">
+                  <div className="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
+                    <Lock size={24} className="text-primary" />
+                  </div>
+                  <h3 className="h5 card-title fw-bold">Secure Encryption</h3>
+                  <p className="card-text text-muted">Ensure the highest level of data protection with robust encryption for all sensitive information, including API keys and credentials, both at rest and in transit.</p>
+                </div>
+              </div>
+            </div>
+            {/* End New card for Secure Encryption */}
+
             <div className="col-md-4">
               <div className="card h-100 border-0 shadow-sm">
                 <div className="card-body p-4">
