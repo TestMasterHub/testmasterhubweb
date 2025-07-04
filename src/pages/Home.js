@@ -3,7 +3,6 @@ import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database, Sparkles, B
 
 import DashboardImage from '../assets/images/Dashboard.png';
 import workflow from "../assets/images/workflow.png"
-import masterlogo from "../assets/images/testmasterhub-Icon.svg"
 
 const Home = () => {
   return (
