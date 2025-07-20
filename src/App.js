@@ -15,15 +15,18 @@ import BetaDownloadPage from './pages/BetaDownloadPage';
 // Import custom CSS
 import './styles/custom.css';
 import Resources from './pages/Resources';
+import { usePageTracking } from './hooks/usePageTracking';
 
-function App() {
+// Create a wrapper component that uses the hook inside Router context
+function AppContent() {
+  usePageTracking();
+  
   return (
-    <Router>
-      <div className="d-flex flex-column min-vh-100">
-        <Navbar />
-        <main className="flex-grow-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
+    <div className="d-flex flex-column min-vh-100">
+      <Navbar />
+      <main className="flex-grow-1">
+        <Routes>
+         <Route path="/" element={<Home />} />
             {/* Add other routes here */}
             <Route path="/product" element={<Product />} />
             <Route path="/pricing" element={<Pricing />} />
@@ -38,9 +41,16 @@ function App() {
             <Route path="invite/beta-download" element={<BetaDownloadPage />} />
             {/* Add more routes as needed */}
           </Routes>
-        </main>
-        <Footer />
-      </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
