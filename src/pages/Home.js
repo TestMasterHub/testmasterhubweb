@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div>
       {/* Product Hunt Alert Banner */}
-      {/* <section className="py-3 bg-warning bg-opacity-10">
+      <section className="py-3 bg-warning bg-opacity-10">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8 mb-2 mb-md-0">
@@ -24,7 +24,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* AI-Powered Hero Section */}
       <section className="bg-dark text-white py-5">
@@ -76,7 +76,91 @@ const Home = () => {
           </div>
         </div>
       </section>
+{/* AI Documentation Feature Highlight */}
+      <section className="py-5 bg-white">
+        <div className="container">
+          <div className="text-center mb-5">
+            <div className="d-inline-flex align-items-center bg-light rounded-pill px-4 py-2 shadow-sm mb-3">
+              <Sparkles size={20} className="text-primary me-2" />
+              <span className="fw-bold text-primary">AI DOCUMENTATION</span>
+            </div>
+            <h2 className="display-6 fw-bold mb-3">Generate Clear API Documentation with AI</h2>
+            <p className="lead text-muted mx-auto" style={{ maxWidth: '800px' }}>
+              Automatically create clean, developer-friendly API documentation from your test collections. 
+              Our AI engine generates structured docs with endpoints, request/response samples, and validation details.
+            </p>
+          </div>
 
+          <div className="row g-4">
+            <div className="col-md-6">
+              <div className="card h-100 border-0 shadow-sm">
+                <div className="card-body p-4">
+                  <h3 className="h5 fw-bold mb-3">Instant Documentation</h3>
+                  <p className="text-muted">
+                    With one click, transform your test cases and API definitions into professional documentation 
+                    for developers and stakeholders.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="card h-100 border-0 shadow-sm">
+                <div className="card-body p-4">
+                  <h3 className="h5 fw-bold mb-3">Always Up to Date</h3>
+                  <p className="text-muted">
+                    Documentation stays synchronized with your test collections so your team never has to worry about 
+                    outdated API references.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI TestGen Feature Highlight */}
+      <section className="py-5 bg-gradient-to-r from-blue-50 to-purple-50">
+        <div className="container">
+          <div className="text-center mb-5">
+            <div className="d-inline-flex align-items-center bg-white rounded-pill px-4 py-2 shadow-sm mb-3">
+              <Brain size={20} className="text-primary me-2" />
+              <span className="fw-bold text-primary">AI TESTGEN</span>
+            </div>
+            <h2 className="display-6 fw-bold mb-3">Automatic Test Case Generation</h2>
+            <p className="lead text-muted mx-auto" style={{ maxWidth: '800px' }}>
+              Boost coverage instantly with AI-generated test cases. TestGen learns from your API structure and 
+              produces intelligent tests for positive, negative, and edge cases.
+            </p>
+          </div>
+
+          <div className="row g-4">
+            <div className="col-lg-4">
+              <div className="card h-100 border-0 shadow-lg">
+                <div className="card-body p-4 text-center">
+                  <h3 className="h5 fw-bold mb-3">Positive Scenarios</h3>
+                  <p className="text-muted">AI generates tests to validate expected responses and happy-path flows automatically.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="card h-100 border-0 shadow-lg">
+                <div className="card-body p-4 text-center">
+                  <h3 className="h5 fw-bold mb-3">Negative Scenarios</h3>
+                  <p className="text-muted">Covers invalid payloads, missing parameters, and error handling with no manual setup.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="card h-100 border-0 shadow-lg">
+                <div className="card-body p-4 text-center">
+                  <h3 className="h5 fw-bold mb-3">Edge Case Coverage</h3>
+                  <p className="text-muted">Detects boundary conditions and generates test cases to ensure resilience under all inputs.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* AI Features Highlight */}
       <section className="py-5 bg-gradient-to-r from-purple-50 to-blue-50">
         <div className="container">
@@ -91,7 +175,6 @@ const Home = () => {
               No more manual validation setup - let AI create smart test validations while you focus on building great APIs.
             </p>
           </div>
-          
           <div className="row g-4">
             <div className="col-lg-4">
               <div className="card h-100 border-0 shadow-lg bg-white">

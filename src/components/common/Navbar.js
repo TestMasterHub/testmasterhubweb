@@ -11,8 +11,8 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         {/* Logo */}
-        <Link className="navbar-brand text-primary fw-bold" to="/">
-          TestMasterHub
+        <Link className="navbar-brand fw-bold" to="/">
+          <span className="text-normal">TestMaster</span><span className="--bs-dark-bg-subtle">Hub</span><sup style={{fontSize:10+"px",color:"white"}}> AI Inside</sup>
         </Link>
         
         {/* Hamburger Button */}
