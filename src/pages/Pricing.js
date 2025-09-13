@@ -1,60 +1,70 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CheckCircle } from 'lucide-react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { gsap } from 'gsap';
 
 const Pricing = () => {
+  const pageRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        tl.from('.pricing-header', { opacity: 0, y: 40, duration: 1 })
+          .from('.pricing-card', { opacity: 0, y: 40, duration: 0.8, stagger: 0.2 }, "-=0.6");
+    }, pageRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="container mt-5">
-      {/* Pricing Header */}
-      <header className="text-center mb-5">
-        <h1 className="fw-bold">Choose the Right Plan for You</h1>
-        <p className="text-muted">Simple and transparent pricing to fit your needs.</p>
-      </header>
+    <div className="bg-dark text-white py-5" ref={pageRef}>
+      <div className="container mt-5">
+        <header className="text-center mb-5 pricing-header">
+          <h1 className="display-3 fw-bold hero-title-gradient">Simple, Transparent Pricing</h1>
+          <p className="lead text-white-50">Choose the right plan to fit your needs.</p>
+        </header>
 
-      {/* Pricing Cards */}
-      <div className="row">
-        {/* Free Plan */}
-        <div className="col-md-4">
-          <div className="card shadow-sm p-4 text-center">
-            <h3 className="fw-bold">Free</h3>
-            <p className="text-muted">Perfect for individuals</p>
-            <h2 className="fw-bold">$0<span className="fs-5 text-muted">/mo</span></h2>
-            <ul className="list-unstyled mt-3 mb-4">
-              <li><CheckCircle className="text-success me-2" /> Basic API testing</li>
-              <li><CheckCircle className="text-success me-2" /> Limited requests</li>
-              <li><CheckCircle className="text-success me-2" /> Community support</li>
-            </ul>
-            <button className="btn btn-outline-primary">Get Started</button>
+        <div className="row justify-content-center g-4">
+          <div className="col-lg-4 pricing-card">
+            <div className="card animated-card h-100 p-4 text-center">
+              <h3 className="fw-bold">Free</h3>
+              <p className="text-white-50">Perfect for individuals & hobby projects.</p>
+              <h2 className="display-4 fw-bold my-3">$0</h2>
+              <ul className="list-unstyled text-start mt-3 mb-4">
+                <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> Unlimited Local Collections</li>
+                <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> AI Assertion Suggestions</li>
+                <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> Community Support</li>
+              </ul>
+              <button className="btn btn-outline-light mt-auto">Get Started</button>
+            </div>
           </div>
-        </div>
 
-        {/* Pro Plan */}
-        <div className="col-md-4">
-          <div className="card shadow-lg p-4 text-center border-primary">
-            <h3 className="fw-bold text-primary">Pro</h3>
-            <p className="text-muted">For growing teams</p>
-            <h2 className="fw-bold">$29<span className="fs-5 text-muted">/mo</span></h2>
-            <ul className="list-unstyled mt-3 mb-4">
-              <li><CheckCircle className="text-success me-2" /> Advanced API testing</li>
-              <li><CheckCircle className="text-success me-2" /> Unlimited requests</li>
-              <li><CheckCircle className="text-success me-2" /> Priority support</li>
-            </ul>
-            <button className="btn btn-primary">Upgrade Now</button>
+          <div className="col-lg-4 pricing-card">
+            <div className="card animated-card featured-card h-100 p-4 text-center">
+              <h3 className="fw-bold text-gradient-pink-purple">Pro</h3>
+              <p className="text-white-50">For professionals & growing teams.</p>
+              <h2 className="display-4 fw-bold my-3">$29<span className="fs-5 text-white-50">/mo</span></h2>
+              <ul className="list-unstyled text-start mt-3 mb-4">
+                <li className="d-flex mb-2"><CheckCircle className="icon-gradient me-2 mt-1 flex-shrink-0" /> Everything in Free, plus:</li>
+                <li className="d-flex mb-2"><CheckCircle className="icon-gradient me-2 mt-1 flex-shrink-0" /> AI Test Case Generation</li>
+                <li className="d-flex mb-2"><CheckCircle className="icon-gradient me-2 mt-1 flex-shrink-0" /> Git Sync & Collaboration</li>
+                <li className="d-flex mb-2"><CheckCircle className="icon-gradient me-2 mt-1 flex-shrink-0" /> Priority Email Support</li>
+              </ul>
+              <button className="btn btn-primary-gradient mt-auto">Upgrade Now</button>
+            </div>
           </div>
-        </div>
 
-        {/* Enterprise Plan */}
-        <div className="col-md-4">
-          <div className="card shadow-sm p-4 text-center">
-            <h3 className="fw-bold">Enterprise</h3>
-            <p className="text-muted">Custom solutions</p>
-            <h2 className="fw-bold">Contact Us</h2>
-            <ul className="list-unstyled mt-3 mb-4">
-              <li><CheckCircle className="text-success me-2" /> Tailored API solutions</li>
-              <li><CheckCircle className="text-success me-2" /> Dedicated support</li>
-              <li><CheckCircle className="text-success me-2" /> SLA guarantee</li>
-            </ul>
-            <button className="btn btn-dark">Contact Sales</button>
+          <div className="col-lg-4 pricing-card">
+            <div className="card animated-card h-100 p-4 text-center">
+              <h3 className="fw-bold">Enterprise</h3>
+              <p className="text-white-50">For large-scale organizations.</p>
+              <h2 className="display-4 fw-bold my-3">Custom</h2>
+              <ul className="list-unstyled text-start mt-3 mb-4">
+                <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> Everything in Pro, plus:</li>
+                <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> On-Premise Deployment</li>
+                <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> Dedicated Support & SLAs</li>
+                <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> Custom Integrations</li>
+              </ul>
+              <button className="btn btn-outline-light mt-auto">Contact Sales</button>
+            </div>
           </div>
         </div>
       </div>

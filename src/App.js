@@ -13,16 +13,34 @@ import TermsOfService from './pages/TermsOfService';
 import Sitemap from './pages/Sitemap';
 import BetaDownloadPage from './pages/BetaDownloadPage';
 // Import custom CSS
-import './styles/custom.css';
+import './App.css';
 import Resources from './pages/Resources';
 import { usePageTracking } from './hooks/usePageTracking';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 // Create a wrapper component that uses the hook inside Router context
 function AppContent() {
   usePageTracking();
   
   return (
     <div className="d-flex flex-column min-vh-100">
+            {/* Product Hunt Alert Banner */}
+      <section className="py-1 banner-info">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-md-8 mb-2 mb-md-0">
+              <p className="mb-0 fw-bold">
+                <span className="me-2">🎉</span>
+                We're now live on Product Hunt! Check out our launch and support us.
+              </p>
+            </div>
+            <div className="col-md-4 text-md-end">
+              <a href="https://www.producthunt.com/posts/testmasterhub?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-testmasterhub" target="_blank" rel="noreferrer">
+                <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=939910&theme=dark&t=1742550203552" alt="Product Hunt" style={{width: "250px", height: "54px"}} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
       <Navbar />
       <main className="flex-grow-1">
         <Routes>
