@@ -1,18 +1,17 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import "../../styles/components/common/navbar.css";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
 const Navbar = () => {
   const location = useLocation();
-
-  const isActive = (path) =>
-    location.pathname === path ? "active" : "";
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
       <div className="container">
         {/* Logo */}
         <Link className="navbar-brand fw-bold" to="/">
-          <span className="text-normal">TestMaster</span><span className="--bs-dark-bg-subtle">Hub</span><sup style={{fontSize:10+"px",color:"white"}}> AI Inside</sup>
+          TestMaster<span className="text-gradient-pink-purple">Hub</span>
+          <sup className="ai-badge"> AI Inside</sup>
         </Link>
         
         {/* Hamburger Button */}
@@ -31,54 +30,45 @@ const Navbar = () => {
         {/* Nav Content */}
         <div className="collapse navbar-collapse" id="navbarContent">
           {/* Main Navigation */}
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className={`nav-link ${isActive("/")}`} to="/">
-                Home
+              <Link className={`nav-link ${isActive("/comparison") ? 'active' : ''}`} to="/comparison">
+                TestMasterHub Vs Bruno Vs Postman
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${isActive("/product")}`} to="/product">
+              <Link className={`nav-link ${isActive("/product") ? 'active' : ''}`} to="/product">
                 Product
               </Link>
             </li>
-            <li className="nav-item">
-              {/* <Link className={`nav-link ${isActive("/pricing")}`} to="/pricing">
+             <li className="nav-item">
+              <Link className={`nav-link ${isActive("/pricing") ? 'active' : ''}`} to="/pricing">
                 Pricing
-              </Link> */}
+              </Link>
             </li>
-            <li className="nav-item">
-              {/* <Link className={`nav-link ${isActive("/enterprise")}`} to="/enterprise">
+             <li className="nav-item">
+              <Link className={`nav-link ${isActive("/enterprise") ? 'active' : ''}`} to="/enterprise">
                 Enterprise
-              </Link> */}
-            </li>
-            <li className="nav-item">
-              <Link className={`nav-link ${isActive("/download")}`} to="/download">
-                Download
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${isActive("/resources")}`} to="/resources">
+              <Link className={`nav-link ${isActive("/resources") ? 'active' : ''}`} to="/resources">
                 Resources
               </Link>
+            </li><li className="nav-item">
+              <Link className={`nav-link ${isActive("/contact") ? 'active' : ''}`} to="/contact">
+                Contact Sales
+              </Link>
             </li>
-            <li className="nav-item">
-              {/* <Link className={`nav-link ${isActive("/community")}`} to="/community">
-                Community
-              </Link> */}
-            </li>
+            {/* Other links can be added here */}
           </ul>
           
-          {/* User Account Area */}
-          {/* <div className="d-flex align-items-center">
-            <div className="me-3 text-white cursor-pointer">
-              <Bell className="icon" size={20} />
-            </div>
-            <div className="d-flex align-items-center text-white cursor-pointer">
-              <User className="icon me-2" size={20} />
-              <span>Account</span>
-            </div>
-          </div> */}
+          {/* CTA Button */}
+          <div className="d-flex">
+             <Link to="/download" className="btn btn-primary-gradient btn-sm">
+                Download
+              </Link>
+          </div>
         </div>
       </div>
     </nav>

@@ -1,34 +1,27 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { FaDownload } from 'react-icons/fa';
+import { Download } from 'lucide-react';
 
 const BetaDownloadPage = () => {
   const downloadUrl = 'https://api.intranet.testmasterhub.com/v1/release/download/latest?type=prod-beta';
 
   const handleDownload = () => {
     window.location.href = downloadUrl;
-    console.log(`Initiating download from: ${downloadUrl}`);
   };
 
   return (
-    <div className="container py-5 d-flex justify-content-center align-items-center min-vh-100 bg-light">
-      <div className="card shadow-lg p-4 p-md-5 w-100" style={{ maxWidth: '600px' }}>
-        <div className="text-center mb-4">
-          <FaDownload className="text-success mb-3" size={50} />
-          <h2 className="fw-bold text-success">TestMasterHub Beta Access</h2>
-          <p className="text-muted">
-            You're just one click away from experiencing the future of API testing with our beta build.
+    <div className="bg-dark text-white d-flex justify-content-center align-items-center min-vh-100 p-3">
+      <div className="card w-100" style={{ maxWidth: '500px' }}>
+        <div className="card-body p-4 p-md-5 text-center">
+          <Download className="icon-gradient mb-3" size={48} />
+          <h2 className="fw-bold">TestMasterHub Beta Access</h2>
+          <p className="text-white-50">
+            You're one click away from experiencing the future of API testing. This public beta is open for everyone!
           </p>
-        </div>
-
-        <div className="text-center mt-4">
-          <p className="lead text-primary mb-3">This public beta is open for everyone!</p>
-          <button
-            className="btn btn-success btn-lg d-flex align-items-center justify-content-center mx-auto"
-            onClick={handleDownload}
-          >
-            <FaDownload className="me-2" /> Download Beta Version
-          </button>
+          <div className="text-center mt-4">
+            <button className="btn btn-primary-gradient btn-lg d-flex align-items-center justify-content-center mx-auto" onClick={handleDownload}>
+              <Download className="me-2" /> Download Beta Version
+            </button>
+          </div>
         </div>
       </div>
     </div>

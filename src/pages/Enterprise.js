@@ -1,38 +1,62 @@
-import React from 'react';
-import { CheckCircle } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { CheckCircle, ArrowRight } from 'lucide-react';
+import { gsap } from 'gsap';
+import EnterpriseImage from '../assets/images/enterprise.png';
 
 const Enterprise = () => {
+  const pageRef = useRef(null);
+  
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+        gsap.from('.animated-section', { opacity: 0, y: 50, duration: 1, ease: 'power3.out', stagger: 0.3 });
+    }, pageRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="container my-5">
-      {/* Hero Section */}
-      <div className="text-center py-5 bg-primary text-white rounded">
-        <h1 className="display-4">Enterprise Solutions</h1>
-        <p className="lead">Scalable API testing solutions for your business.</p>
-      </div>
-
-      {/* Features Section */}
-      <div className="row mt-5">
-        <div className="col-md-6">
-          <h2>Why Choose Our Enterprise Plan?</h2>
-          <p>We offer enterprise-grade security, scalability, and support to help your teams perform API testing seamlessly.</p>
-          <ul className="list-unstyled">
-            <li><CheckCircle className="text-success me-2" /> Dedicated support and SLAs</li>
-            <li><CheckCircle className="text-success me-2" /> Custom integrations</li>
-            <li><CheckCircle className="text-success me-2" /> Enhanced security and compliance</li>
-            <li><CheckCircle className="text-success me-2" /> Unlimited API calls</li>
-          </ul>
+    <div className="bg-dark text-white" ref={pageRef}>
+      <section className="text-center py-5 animated-section">
+        <div className="container py-5">
+          <h1 className="display-3 fw-bold hero-title-gradient">Enterprise Grade, Developer First.</h1>
+          <p className="lead text-white-50 mx-auto mt-4" style={{ maxWidth: '800px' }}>
+            Scalable, secure, and fully-supported API testing solutions designed to integrate seamlessly into your business workflows.
+          </p>
         </div>
-        <div className="col-md-6">
-          <img src="/assets/images/enterprise.png" alt="Enterprise" className="img-fluid rounded shadow" />
-        </div>
-      </div>
+      </section>
 
-      {/* Call to Action */}
-      <div className="text-center my-5">
-        <h3>Get in Touch with Us</h3>
-        <p>Contact us today to learn more about our enterprise offerings.</p>
-        <button className="btn btn-primary btn-lg">Contact Sales</button>
-      </div>
+      <section className="container py-5 animated-section">
+        <div className="row align-items-center g-5">
+          <div className="col-lg-6">
+            <h2 className="display-5 fw-bold mb-4">The Platform for Teams That Scale</h2>
+            <p className="text-white-50 mb-4">
+              Our Enterprise plan provides the security, scalability, and dedicated support your organization needs to perform API testing with confidence and control.
+            </p>
+            <ul className="list-unstyled fs-5">
+              <li className="d-flex align-items-center mb-3"><CheckCircle className="icon-gradient me-3 flex-shrink-0" /> Dedicated Support & SLAs</li>
+              <li className="d-flex align-items-center mb-3"><CheckCircle className="icon-gradient me-3 flex-shrink-0" /> Custom Integrations & Onboarding</li>
+              <li className="d-flex align-items-center mb-3"><CheckCircle className="icon-gradient me-3 flex-shrink-0" /> Enhanced Security & Compliance</li>
+              <li className="d-flex align-items-center"><CheckCircle className="icon-gradient me-3 flex-shrink-0" /> On-Premise Deployment Options</li>
+            </ul>
+          </div>
+          <div className="col-lg-6">
+             <div className="p-3 rounded-3" style={{ background: 'linear-gradient(135deg, #333, #111)', border: '1px solid var(--gsap-border)' }}>
+                <img src={EnterpriseImage} alt="Enterprise" className="img-fluid rounded" />
+             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-5 bg-dark-subtle animated-section">
+        <div className="container text-center my-5">
+          <h2 className="display-4 fw-bold mb-3">Let's Build Together</h2>
+          <p className="lead text-white-50 mx-auto" style={{ maxWidth: '600px' }}>
+            Contact our sales team today to learn more about our enterprise offerings and get a personalized demo.
+          </p>
+          <button className="btn btn-primary-gradient btn-lg mt-4">
+            Contact Sales <ArrowRight className="ms-2" />
+          </button>
+        </div>
+      </section>
     </div>
   );
 };

@@ -2,86 +2,48 @@ import React from 'react';
 
 const PrivacyPolicy = () => {
   return (
-    <div className="container py-5">
-      <h1 className="mb-4 fw-bold">Privacy Policy</h1>
-      <p><strong>Last updated:</strong> July 4, 2025</p>
+    <div className="bg-dark text-white py-5">
+        <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-lg-8">
+                    <div className="resource-section">
+                        <h1 className="display-4 fw-bold mb-4 hero-title-gradient">Privacy Policy</h1>
+                        <p className="text-white-50"><strong>Last updated:</strong> September 14, 2025</p>
 
-      <p>TestMasterHub (“we”, “our”, or “us”) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform, including any desktop or web applications.</p>
+                        <p>TestMasterHub (“we”, “our”, or “us”) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our platform.</p>
 
-      <h4>1. Information We Collect</h4>
-      <p>We collect the following types of data:</p>
-      <ul>
-        <li><strong>Account Information:</strong> Email address, name (optional), authentication ID (e.g., Firebase UID).</li>
-        <li><strong>Test Data:</strong> API requests/responses, collections, environments, test cases, and custom scripts.</li>
-        <li><strong>Device & Usage Data:</strong> OS version, browser, device type, and interaction logs.</li>
-      </ul>
+                        <h5>1. Information We Collect</h5>
+                        <ul>
+                            <li><strong>Account Information:</strong> Email address and name (optional).</li>
+                            <li><strong>Test Data:</strong> API requests, collections, environments, and test cases.</li>
+                            <li><strong>Usage Data:</strong> OS version, device type, and interaction logs.</li>
+                        </ul>
 
-      <h4>2. Use of Free Gemini AI API</h4>
-      <p>TestMasterHub uses the free version of Google's Gemini AI API only for generating Auto Assertions. When you use this feature:</p>
-      <ul>
-        <li>A sanitized portion of the API response body may be sent to Gemini's API.</li>
-        <li>No personally identifiable information (PII) or sensitive data is included in the AI payloads.</li>
-        <li>We do not store any data sent to or received from Gemini.</li>
-      </ul>
-      <p>You can opt out of AI-based features by disabling Auto Assertion in your settings.</p>
+                        <h5>2. How We Use Your Information</h5>
+                        <ul>
+                            <li>To provide, maintain, and improve our services.</li>
+                            <li>To personalize your experience.</li>
+                            <li>To send you updates and reports (if enabled).</li>
+                        </ul>
+                        
+                        <h5>3. Data Storage & Security</h5>
+                        <p>We implement a variety of security measures to maintain the safety of your data. Sensitive data like tokens and passwords are encrypted at rest.</p>
 
-      <h4>3. How We Use Your Information</h4>
-      <ul>
-        <li>To provide API testing functionality</li>
-        <li>To save your collections and test data</li>
-        <li>To generate reports and logs</li>
-        <li>To deliver AI-generated assertions (optional)</li>
-        <li>To improve platform performance and user experience</li>
-        <li>To email reports and build results (if enabled)</li>
-      </ul>
+                        <h5>4. Third-Party Services</h5>
+                        <p>We may use third-party services like Firebase for authentication and analytics, and Google's Gemini AI for optional AI features.</p>
+                        
+                        <h5>5. Your Rights</h5>
+                        <p>You have the right to access, update, or delete your personal information at any time. You can also opt out of AI-based features in your settings.</p>
 
-      <h4>4. Data Storage & Security</h4>
-      <ul>
-        <li>Data is stored locally or in the cloud (if synced).</li>
-        <li>Sensitive data (tokens, passwords) are encrypted at rest.</li>
-        <li>Standard security practices are followed to protect data.</li>
-      </ul>
+                        <h5>6. Changes to This Policy</h5>
+                        <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
 
-      <h4>5. Third-Party Services</h4>
-      <p>We integrate with the following services:</p>
-      <ul>
-        <li><strong>Firebase</strong> – Authentication and analytics</li>
-        <li><strong>Gemini AI (Google)</strong> – AI assertion generation</li>
-        <li><strong>Email Services</strong> – For sending reports</li>
-        <li><strong>Git Providers</strong> – If configured for syncing collections</li>
-      </ul>
-
-      <h4>6. Data Sharing</h4>
-      <p>We do not sell or share your data except:</p>
-      <ul>
-        <li>When required by law</li>
-        <li>To protect rights or safety of TestMasterHub or users</li>
-      </ul>
-
-      <h4>7. Cookies & Analytics</h4>
-      <p>We use minimal cookies/localStorage for:</p>
-      <ul>
-        <li>Session tracking</li>
-        <li>Preference storage</li>
-        <li>Non-personal usage statistics</li>
-      </ul>
-
-      <h4>8. Your Rights</h4>
-      <ul>
-        <li>Request data export or deletion</li>
-        <li>Opt out of AI features</li>
-        <li>Modify or delete your account</li>
-      </ul>
-      <p>Email us at <strong>social.testmasterhub@gmail.com</strong> to exercise your rights.</p>
-
-      <h4>9. Children’s Privacy</h4>
-      <p>We do not knowingly collect data from users under 13 years of age.</p>
-
-      <h4>10. Changes to This Policy</h4>
-      <p>We may update this Privacy Policy. The latest version will always be available on our website.</p>
-
-      <h4>11. Contact Us</h4>
-      <p>Have questions? Contact us at <strong>social.testmasterhub@gmail.com</strong></p>
+                        <h5>7. Contact Us</h5>
+                        <p>Have questions? Contact us at <a href="mailto:social.testmasterhub@gmail.com">social.testmasterhub@gmail.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   );
 };
