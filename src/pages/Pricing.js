@@ -63,7 +63,7 @@ const Pricing = () => {
                 <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> Dedicated Support & SLAs</li>
                 <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> Custom Integrations</li>
               </ul>
-              <button className="btn btn-outline-light mt-auto">Contact Sales</button>
+              <button className="btn btn-outline-light mt-auto" onClick={() => window.location.href='/contact'}>Contact Sales</button>
             </div>
           </div>
         </div>

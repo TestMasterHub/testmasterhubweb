@@ -1,165 +1,152 @@
-# TestMasterHub - Complete Resources Page
+TestMasterHub – Project Document
+1. Introduction
 
-TestMasterHub is a powerful and intuitive API testing tool designed for developers and testers to validate API responses efficiently. This page serves as a comprehensive guide covering every feature in **TestMasterHub**, explaining what it does, why it exists, and how to use it in detail.
+TestMasterHub is a modern API testing and automation platform designed to simplify and accelerate the software testing process. Unlike traditional tools, TestMasterHub is offline-first, secure, and tailored for QA teams and developers who require a reliable, scalable, and encrypted testing environment.
 
----
+Currently, TestMasterHub supports REST APIs only, with planned future support for GraphQL, SOAP, and gRPC.
 
-## 📌 **1. API Request & Response Handling**
+2. Problem Statement
 
-### ❓ What is it?
+Most existing API testing tools come with one or more of these drawbacks:
 
-API request and response handling is the core functionality of TestMasterHub, enabling users to send HTTP requests such as GET, POST, PUT, DELETE, and PATCH. Users can also inspect responses, including response status codes, headers, response time, and response size. This feature provides a robust way to interact with APIs, simulate different request scenarios, and validate expected outputs.
+Vendor lock-in and cloud dependency (Postman).
 
-### 🎯 Why use it?
+Lack of offline encryption & local-first security.
 
-- Allows quick testing of API endpoints to ensure they return the expected responses.
-- Helps developers debug API interactions by checking request payloads and responses.
-- Provides insights into API response times and size, helping optimize performance.
-- Supports headers and body customization, enabling complex API calls.
-- Allows users to simulate various HTTP methods and scenarios without writing code.
+Limited support for data-driven testing.
 
-### 🔧 How to use it?
+Missing or expensive test scheduling and automation features.
 
-1. Navigate to the **Request Editor** in TestMasterHub.
-2. Enter the API URL in the provided input field.
-3. Select the request method (GET, POST, PUT, DELETE, PATCH, etc.).
-4. Add request headers if authentication or additional metadata is required.
-5. (Optional) Include a request body for POST, PUT, or PATCH requests.
-6. Click **Send** to execute the API request.
-7. Review the response, which includes the status code, response body, headers, and execution time.
+No smart assertions or AI-driven suggestions to reduce QA effort.
 
-### Example:
+TestMasterHub solves these challenges by offering:
 
-```http
-GET https://api.testmasterhub.com/users/12345
-Headers:
-    Authorization: Bearer <token>
-```
+REST API testing with powerful offline-first capabilities.
 
-#### Response:
+AES-256 encryption for secure data storage.
 
-```json
-{
-    "id": "12345",
-    "name": "John Doe",
-    "email": "john.doe@example.com"
-}
-```
+Data-driven and automated testing features built-in.
 
----
+Smart assertion recommendations to minimize manual effort.
 
-## 📂 **2. Collections - Organizing Requests**
+Test scheduling and chaining for end-to-end validation.
 
-### ❓ What is it?
+3. Core Features
+🔹 3.1 API Testing (REST Only – Current Support)
 
-Collections in TestMasterHub help users group multiple API requests into a structured format, making it easier to execute and manage them. Collections are useful for organizing APIs related to a specific service, testing workflows, and running multiple requests in sequence.
+Full support for REST API requests.
 
-### 🎯 Why use it?
+Organize requests into collections and folders.
 
-- Organizes API requests systematically, preventing clutter and improving productivity.
-- Allows users to execute multiple requests at once instead of testing APIs individually.
-- Helps simulate API workflows, such as user authentication followed by data retrieval.
-- Enables reusability by storing frequently used API requests in a structured format.
-- Supports importing and exporting collections for team collaboration.
+Environment management with variables for Dev, QA, Staging, and Prod.
 
-### 🔧 How to create a collection?
+Support for headers, cookies, query params, and authentication flows.
 
-1. Navigate to the **Collections Page**.
-2. Click the **New Collection** button.
-3. Provide a meaningful name for your collection.
-4. Click **Save** to create an empty collection.
-5. Add API requests to the collection by clicking **Add Request**.
-6. Save and organize requests within the collection.
-7. Execute the entire collection or specific requests as needed.
+Planned Roadmap: Future support for GraphQL, SOAP, and gRPC.
 
----
+🔹 3.2 Smart Assertions
 
-## ✅ **3. Assertions and Validations**
+Automatic assertion generation based on previous responses or OpenAPI specs.
 
-### ❓ What is it?
+Format-aware validations (e.g., email, UUID, non-null, numeric ranges).
 
-Assertions and validations are used to verify API responses dynamically. Assertions help ensure that an API returns the expected status code, response time, and specific data in the response body. TestMasterHub provides built-in functions to define and execute validations automatically.
+Ability to customize assertions and save reusable templates.
 
-### 🎯 Why use it?
+🔹 3.3 Data-Driven Testing
 
-- Automates the process of checking API responses against expected values.
-- Reduces manual effort in debugging APIs by highlighting failures instantly.
-- Helps maintain data integrity by ensuring API responses conform to expected structures.
-- Supports different types of assertions, including status codes, response time, and JSON field validation.
-- Improves API reliability by ensuring that responses remain consistent across versions.
+Execute REST requests with dynamic data from CSV/Excel files.
 
-### 🔧 Supported Assertions:
+Map file columns directly to request body/params.
 
-```javascript
-// Validate Status Code
-TMH.test("Status code should be 200", () => {
-    TMH.expect(TMH.response.status()).toBe(200);
-});
+Run bulk API validation against multiple datasets.
 
-// Ensure Response Time is within limits
-TMH.test("Response time must be below 500ms", () => {
-    TMH.expect(TMH.response.time()).toBeBelow(500);
-});
+🔹 3.4 Request Chaining
 
-// Check if Response Contains Expected Property
-TMH.test("Response should contain 'user_id'", () => {
-    TMH.expect(TMH.response.json().user_id).toBeDefined();
-});
-```
+Use response values from one request as inputs to the next.
 
----
+Built-in variable extraction (JSONPath, Regex).
 
-## 🌍 **4. Environment Management**
+Helps in end-to-end flow validation like login → token → fetch user details.
 
-### ❓ What is it?
+🔹 3.5 Test Scheduling (Monitor)
 
-Environment management in TestMasterHub allows users to create and switch between different API environments, such as Development, Staging, and Production. This feature helps manage API variables dynamically and prevents hardcoding values in requests.
+Run collections at scheduled intervals (daily, weekly, custom cron).
 
-### 🎯 Why use it?
+Email or desktop notifications for failures.
 
-- Simplifies API testing by allowing users to define variables for different environments.
-- Reduces manual effort by eliminating the need to change API URLs and keys manually.
-- Enhances security by storing credentials and tokens securely in environment configurations.
-- Supports variable substitution in requests, headers, and body fields.
-- Enables seamless switching between environments for easy testing.
+Built-in history tracking with execution logs.
 
-### 🔧 How to create and use environments?
+🔹 3.6 Security & Storage
 
-1. Navigate to the **Environment Page**.
-2. Click the **New Environment** button.
-3. Add key-value pairs, such as `BASE_URL`, `API_KEY`, etc.
-4. Save the environment and set it as active.
-5. Use environment variables in API requests by referencing them as `{{variable_name}}`.
-6. Select the desired environment before executing a request.
+AES-256 encryption for all saved collections, environments, and test data.
 
----
+Local-first storage with no vendor lock-in.
 
-## 📊 **5. Build Page - Automate API Testing**
+Optional cloud sync (roadmap) for teams.
 
-### ❓ What is it?
+🔹 3.7 Extensibility
 
-The Build feature in TestMasterHub allows users to automate the execution of API test collections with customized settings. Users can schedule test runs, configure retry attempts, and generate detailed reports after execution.
+Export/import collections in JSON format.
 
-### 🎯 Why use it?
+Roadmap for plugin ecosystem for integrations with CI/CD and custom assertions.
 
-- Automates API testing, reducing the need for manual execution.
-- Allows bulk execution of collections with retry mechanisms for failed requests.
-- Provides execution logs and detailed reports for analysis.
-- Enables teams to run API tests on a scheduled basis.
-- Improves test efficiency by detecting failures early.
+4. Technical Architecture
 
-### 🔧 Configuration Fields:
+Frontend: React.js (Bootstrap for UI).
 
-| Field           | Description                                      |
-|----------------|--------------------------------------------------|
-| Collections    | Select which collections to run in the build    |
-| Environment    | Choose the environment for test execution       |
-| Retry Count    | Specify the number of retry attempts on failure |
-| Generate Report | Enable or disable report generation            |
+Backend: Node.js + Express.js.
 
----
+Storage: AES-256 encrypted local storage (Keytar integration planned).
 
-## 🎯 **Conclusion**
+Scheduler: Node-based job runner for monitors.
 
-TestMasterHub is an advanced yet user-friendly API testing solution designed to streamline API validation processes. By providing robust features such as collections, environment management, assertions, automated test execution, and reporting, TestMasterHub empowers developers and testers to enhance their API testing workflows. Whether you are an experienced tester or a beginner, TestMasterHub's intuitive UI ensures that you can test APIs efficiently with minimal effort.
+Test Runner: Custom-built execution engine with request chaining and data injection.
 
+5. Competitive Advantage
+Feature	Postman (Cloud)	Bruno (Offline)	TestMasterHub (Hybrid)
+API Protocols	REST, GraphQL, SOAP, gRPC	REST Only	REST Only (current)
+Offline Mode	Limited / Cloud-Centric	Full Offline	Offline-First
+Encryption	Cloud-stored, vendor lock	Local plain text	Local + AES-256 Encrypted
+Auto Assertions (AI)	❌ None	❌ None	✅ Yes (REST)
+Data-Driven Testing	✅ Yes	❌ No	✅ Yes (Excel/CSV)
+Request Chaining	✅ Yes	❌ No	✅ Yes (REST)
+Test Scheduling	✅ Paid Only	❌ No	✅ Built-In
+Collaboration	Cloud-only	Git-based	Roadmap: Git + Secure Self-Host
+6. Roadmap
+Q4 2025
+
+Team collaboration with Git integration.
+
+Advanced analytics dashboard for test results.
+
+Export/import to Postman/Bruno formats.
+
+Q1 2026
+
+Plugin ecosystem for custom assertions & integrations.
+
+Enterprise features (SSO, RBAC, audit logs).
+
+Centralized backend for secure, aggregated results (optional, self-hosted).
+
+Future Protocol Support
+
+GraphQL & SOAP (planned for 2026).
+
+gRPC (long-term roadmap).
+
+7. Target Audience
+
+QA Engineers who need secure, automated testing without cloud dependency.
+
+Developers who want lightweight API validation tools.
+
+Small to Medium Enterprises (SMEs) looking for cost-effective alternatives to Postman Enterprise.
+
+Enterprises that require security-first, encrypted API testing.
+
+8. Conclusion
+
+TestMasterHub is built with the philosophy of security, automation, and flexibility. It bridges the gap between cloud-first tools like Postman and purely offline tools like Bruno by providing the best of both worlds.
+
+Currently, TestMasterHub supports REST APIs only, but its roadmap includes GraphQL, SOAP, and gRPC, making it future-ready for complex enterprise needs.

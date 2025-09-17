@@ -95,6 +95,11 @@ const Footer = () => {
                   Terms
                 </Link>
               </li>
+              <li className="list-inline-item">
+              <Link className="footer-link small" to="/sitemap">
+                Sitemap
+              </Link>
+            </li>
             </ul>
           </div>
         </div>

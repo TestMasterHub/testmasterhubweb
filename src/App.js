@@ -12,6 +12,8 @@ import PrivacyPolicy from './pages/privacy';
 import TermsOfService from './pages/TermsOfService';
 import Sitemap from './pages/Sitemap';
 import BetaDownloadPage from './pages/BetaDownloadPage';
+import ComparisonPage from './pages/ComparisonPage';
+import ContactPage from './pages/ContactPage';
 // Import custom CSS
 import './App.css';
 import Resources from './pages/Resources';
@@ -24,7 +26,7 @@ function AppContent() {
   return (
     <div className="d-flex flex-column min-vh-100">
             {/* Product Hunt Alert Banner */}
-      <section className="py-1 banner-info">
+      {/* <section className="py-1 banner-info">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8 mb-2 mb-md-0">
@@ -40,7 +42,7 @@ function AppContent() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <Navbar />
       <main className="flex-grow-1">
         <Routes>
@@ -57,6 +59,8 @@ function AppContent() {
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/sitemap" element={<Sitemap />} />
             <Route path="invite/beta-download" element={<BetaDownloadPage />} />
+            <Route path="/comparison" element={<ComparisonPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             {/* Add more routes as needed */}
           </Routes>
       </main>

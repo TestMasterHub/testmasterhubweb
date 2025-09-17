@@ -99,7 +99,7 @@ const Home = () => {
                 Complete API Testing Platform
               </h1>
               <p className="lead text-white-50 mb-4 hero-lead">
-                TestMasterHub provides comprehensive API testing with intelligent auto-assertion generation. Our AI analyzes responses and automatically creates smart validations, saving you time.
+                Offline-first API testing with AI-powered smart assertions — secure, fast, and fully on-device.
               </p>
               <div className="d-flex flex-wrap gap-3 mb-4 hero-buttons justify-content-center justify-content-lg-start">
                 <a className="btn btn-primary-gradient btn-lg d-flex align-items-center" href='/download'>

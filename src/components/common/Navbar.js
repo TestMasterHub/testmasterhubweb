@@ -32,18 +32,13 @@ const Navbar = () => {
           {/* Main Navigation */}
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className={`nav-link ${isActive("/") ? 'active' : ''}`} to="/">
-                Home
+              <Link className={`nav-link ${isActive("/comparison") ? 'active' : ''}`} to="/comparison">
+                TestMasterHub Vs Bruno Vs Postman
               </Link>
             </li>
             <li className="nav-item">
               <Link className={`nav-link ${isActive("/product") ? 'active' : ''}`} to="/product">
                 Product
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className={`nav-link ${isActive("/resources") ? 'active' : ''}`} to="/resources">
-                Resources
               </Link>
             </li>
              <li className="nav-item">
@@ -56,9 +51,13 @@ const Navbar = () => {
                 Enterprise
               </Link>
             </li>
-             <li className="nav-item">
-              <Link className={`nav-link ${isActive("/sitemap") ? 'active' : ''}`} to="/sitemap">
-                Sitemap
+            <li className="nav-item">
+              <Link className={`nav-link ${isActive("/resources") ? 'active' : ''}`} to="/resources">
+                Resources
+              </Link>
+            </li><li className="nav-item">
+              <Link className={`nav-link ${isActive("/contact") ? 'active' : ''}`} to="/contact">
+                Contact Sales
               </Link>
             </li>
             {/* Other links can be added here */}
