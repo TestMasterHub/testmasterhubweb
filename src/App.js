@@ -11,7 +11,6 @@ import InvitePage from './pages/InvitePage';
 import PrivacyPolicy from './pages/privacy';
 import TermsOfService from './pages/TermsOfService';
 import Sitemap from './pages/Sitemap';
-import BetaDownloadPage from './pages/BetaDownloadPage';
 import ComparisonPage from './pages/ComparisonPage';
 import ContactPage from './pages/ContactPage';
 // Import custom CSS
@@ -58,7 +57,7 @@ function AppContent() {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/sitemap" element={<Sitemap />} />
-            <Route path="invite/beta-download" element={<BetaDownloadPage />} />
+            <Route path="invite/beta-download" element={<DownloadPage />} />
             <Route path="/comparison" element={<ComparisonPage />} />
             <Route path="/contact" element={<ContactPage />} />
             {/* Add more routes as needed */}

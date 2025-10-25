@@ -65,7 +65,7 @@ const Navbar = () => {
           
           {/* CTA Button */}
           <div className="d-flex">
-             <Link to="/download" className="btn btn-primary-gradient btn-sm">
+             <Link to="/invite/beta-download" className="btn btn-primary-gradient btn-sm">
                 Download
               </Link>
           </div>
