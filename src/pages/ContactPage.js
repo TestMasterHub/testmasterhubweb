@@ -46,24 +46,50 @@ const ContactPage = () => {
     setIsSubmitting(true);
     setError('');
 
+    // Create mailto link as fallback
+    const mailtoLink = `mailto:social.testmasterhub@gmail.com?subject=${encodeURIComponent(
+      `[${formData.inquiryType.toUpperCase()}] ${formData.subject}`
+    )}&body=${encodeURIComponent(
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Company: ${formData.company || 'Not provided'}\n` +
+      `Inquiry Type: ${formData.inquiryType}\n\n` +
+      `Message:\n${formData.message}`
+    )}`;
+
     try {
+      // Try Netlify form submission
+      const formDataEncoded = new URLSearchParams();
+      formDataEncoded.append('form-name', 'contact');
+      formDataEncoded.append('name', formData.name);
+      formDataEncoded.append('email', formData.email);
+      formDataEncoded.append('company', formData.company);
+      formDataEncoded.append('subject', formData.subject);
+      formDataEncoded.append('message', formData.message);
+      formDataEncoded.append('inquiryType', formData.inquiryType);
+
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          'form-name': 'contact',
-          ...formData
-        }).toString()
+        body: formDataEncoded.toString()
       });
 
-      if (response.ok) {
+      if (response.ok || response.status === 200) {
         setIsSubmitted(true);
       } else {
-        throw new Error('Form submission failed');
+        // Fallback to mailto
+        window.location.href = mailtoLink;
+        setTimeout(() => {
+          setIsSubmitted(true);
+        }, 500);
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      setError('Unable to send message. Please try again or email us directly.');
+      // Fallback to mailto
+      window.location.href = mailtoLink;
+      setTimeout(() => {
+        setIsSubmitted(true);
+      }, 500);
     } finally {
       setIsSubmitting(false);
     }
@@ -81,6 +107,13 @@ const ContactPage = () => {
       inquiryType: 'general'
     });
   };
+
+  const inquiryTypes = [
+    { value: 'general', label: 'General Inquiry', icon: <MessageSquare size={20} /> },
+    { value: 'sales', label: 'Sales & Pricing', icon: <Building size={20} /> },
+    { value: 'support', label: 'Technical Support', icon: <Zap size={20} /> },
+    { value: 'partnership', label: 'Partnership', icon: <Users size={20} /> }
+  ];
 
   // Success Screen
   if (isSubmitted) {
@@ -109,25 +142,8 @@ const ContactPage = () => {
     );
   }
 
-  const inquiryTypes = [
-    { value: 'general', label: 'General Inquiry', icon: <MessageSquare size={20} /> },
-    { value: 'sales', label: 'Sales & Pricing', icon: <Building size={20} /> },
-    { value: 'support', label: 'Technical Support', icon: <Zap size={20} /> },
-    { value: 'partnership', label: 'Partnership', icon: <Users size={20} /> }
-  ];
-
   return (
     <div className="bg-dark text-white">
-      {/* Hidden form for Netlify */}
-      <form name="contact" netlify="true" netlify-honeypot="bot-field" hidden>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="text" name="company" />
-        <input type="text" name="subject" />
-        <textarea name="message"></textarea>
-        <input type="text" name="inquiryType" />
-      </form>
-
       {/* Hero Section */}
       <section className="py-5">
         <div className="container py-5">
@@ -170,7 +186,7 @@ const ContactPage = () => {
                       {inquiryTypes.map((type) => (
                         <div key={type.value} className="col-sm-6 col-lg-3">
                           <div 
-                            className={`card p-3 cursor-pointer h-100 ${
+                            className={`card p-3 h-100 ${
                               formData.inquiryType === type.value 
                                 ? 'border-primary bg-primary bg-opacity-10' 
                                 : 'border-secondary'
