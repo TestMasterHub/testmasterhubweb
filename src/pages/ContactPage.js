@@ -2,29 +2,23 @@ import React, { useState } from 'react';
 import { 
   Mail, 
   MessageSquare, 
-  Users, 
-  Building, 
   Send, 
   CheckCircle,
   Clock,
   Sparkles,
-  Brain,
-  Shield,
-  Zap
+  Github,
+  Linkedin,
+  Twitter
 } from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    company: '',
-    subject: '',
-    message: '',
-    inquiryType: 'general'
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,39 +28,23 @@ const ContactPage = () => {
     }));
   };
 
-  const handleInquiryTypeChange = (type) => {
-    setFormData(prev => ({
-      ...prev,
-      inquiryType: type
-    }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
 
     // Create mailto link as fallback
-    const mailtoLink = `mailto:social.testmasterhub@gmail.com?subject=${encodeURIComponent(
-      `[${formData.inquiryType.toUpperCase()}] ${formData.subject}`
-    )}&body=${encodeURIComponent(
+    const mailtoLink = `mailto:social.testmasterhub@gmail.com?subject=Contact from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
       `Name: ${formData.name}\n` +
-      `Email: ${formData.email}\n` +
-      `Company: ${formData.company || 'Not provided'}\n` +
-      `Inquiry Type: ${formData.inquiryType}\n\n` +
+      `Email: ${formData.email}\n\n` +
       `Message:\n${formData.message}`
     )}`;
 
     try {
-      // Try Netlify form submission
       const formDataEncoded = new URLSearchParams();
       formDataEncoded.append('form-name', 'contact');
       formDataEncoded.append('name', formData.name);
       formDataEncoded.append('email', formData.email);
-      formDataEncoded.append('company', formData.company);
-      formDataEncoded.append('subject', formData.subject);
       formDataEncoded.append('message', formData.message);
-      formDataEncoded.append('inquiryType', formData.inquiryType);
 
       const response = await fetch('/', {
         method: 'POST',
@@ -77,19 +55,12 @@ const ContactPage = () => {
       if (response.ok || response.status === 200) {
         setIsSubmitted(true);
       } else {
-        // Fallback to mailto
         window.location.href = mailtoLink;
-        setTimeout(() => {
-          setIsSubmitted(true);
-        }, 500);
+        setTimeout(() => setIsSubmitted(true), 500);
       }
     } catch (error) {
-      console.error('Form submission error:', error);
-      // Fallback to mailto
       window.location.href = mailtoLink;
-      setTimeout(() => {
-        setIsSubmitted(true);
-      }, 500);
+      setTimeout(() => setIsSubmitted(true), 500);
     } finally {
       setIsSubmitting(false);
     }
@@ -97,306 +68,223 @@ const ContactPage = () => {
 
   const resetForm = () => {
     setIsSubmitted(false);
-    setError('');
     setFormData({
       name: '',
       email: '',
-      company: '',
-      subject: '',
-      message: '',
-      inquiryType: 'general'
+      message: ''
     });
   };
-
-  const inquiryTypes = [
-    { value: 'general', label: 'General Inquiry', icon: <MessageSquare size={20} /> },
-    { value: 'sales', label: 'Sales & Pricing', icon: <Building size={20} /> },
-    { value: 'support', label: 'Technical Support', icon: <Zap size={20} /> },
-    { value: 'partnership', label: 'Partnership', icon: <Users size={20} /> }
-  ];
 
   // Success Screen
   if (isSubmitted) {
     return (
-      <div className="bg-dark text-white min-vh-100 d-flex align-items-center">
+      <div className="contact-success-wrapper">
         <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-6 text-center">
-              <div className="bg-gradient-pink-purple rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style={{ width: '80px', height: '80px' }}>
-                <CheckCircle size={40} />
-              </div>
-              <h1 className="h2 fw-bold mb-3">Message Sent Successfully!</h1>
-              <p className="lead text-white-50 mb-4">
-                Thank you for contacting TestMasterHub. We'll get back to you within 24 hours.
-              </p>
-              <button 
-                className="btn btn-primary-gradient btn-lg"
-                onClick={resetForm}
-              >
-                Send Another Message
-              </button>
+          <div className="success-content">
+            <div className="success-icon-wrapper">
+              <CheckCircle size={64} strokeWidth={1.5} />
             </div>
+            <h1>Thanks for reaching out!</h1>
+            <p>We've received your message and will get back to you within 24 hours.</p>
+            <button className="btn-reset" onClick={resetForm}>
+              Send Another Message
+            </button>
           </div>
         </div>
+
+        <style jsx>{`
+          .contact-success-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0a;
+            padding: 2rem;
+          }
+
+          .success-content {
+            text-align: center;
+            max-width: 500px;
+          }
+
+          .success-icon-wrapper {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff66c4, #8150FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            color: white;
+            animation: scaleIn 0.5s ease;
+          }
+
+          @keyframes scaleIn {
+            from {
+              transform: scale(0);
+              opacity: 0;
+            }
+            to {
+              transform: scale(1);
+              opacity: 1;
+            }
+          }
+
+          .success-content h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+          }
+
+          .success-content p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+          }
+
+          .btn-reset {
+            background: linear-gradient(135deg, #ff66c4, #8150FF);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+          }
+
+          .btn-reset:hover {
+            transform: translateY(-2px);
+          }
+        `}</style>
       </div>
     );
   }
 
   return (
-    <div className="bg-dark text-white">
+    <div className="modern-contact-page">
       {/* Hero Section */}
-      <section className="py-5">
-        <div className="container py-5">
-          <div className="row justify-content-center text-center">
-            <div className="col-lg-8">
-              <div className="d-inline-flex align-items-center bg-gradient-pink-purple rounded-pill px-4 py-2 mb-4">
-                <MessageSquare size={16} className="me-2" />
-                <span className="fw-bold">GET IN TOUCH</span>
-              </div>
-              <h1 className="display-4 fw-bold mb-4">Contact TestMasterHub</h1>
-              <p className="lead text-white-50 mb-0">
-                Have questions about our AI-powered API testing platform? We're here to help you streamline your testing workflow.
-              </p>
+      <div className="contact-hero">
+        <div className="container">
+          <div className="hero-content">
+            <div className="badge-modern">
+              <MessageSquare size={16} />
+              <span>CONTACT US</span>
             </div>
+            <h1>Let's Talk</h1>
+            <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
           </div>
         </div>
-      </section>
+      </div>
 
-      <div className="container py-5">
-        <div className="row g-5">
-          {/* Contact Form */}
-          <div className="col-lg-8">
-            <div className="card">
-              <div className="card-body p-5">
-                <h2 className="h3 fw-bold mb-4">Send us a Message</h2>
+      {/* Main Content */}
+      <div className="contact-main">
+        <div className="container">
+          <div className="contact-grid">
+            {/* Contact Form */}
+            <div className="form-section">
+              <form onSubmit={handleSubmit} className="contact-form">
+                <div className="form-group">
+                  <label htmlFor="name">Your Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="John Doe"
+                    required
+                  />
+                </div>
 
-                {error && (
-                  <div className="alert alert-danger-dark mb-4" role="alert">
-                    {error}
-                  </div>
-                )}
+                <div className="form-group">
+                  <label htmlFor="email">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="john@example.com"
+                    required
+                  />
+                </div>
 
-                <form onSubmit={handleSubmit} name="contact">
-                  <input type="hidden" name="form-name" value="contact" />
-                  
-                  {/* Inquiry Type Selection */}
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">What can we help you with?</label>
-                    <div className="row g-3">
-                      {inquiryTypes.map((type) => (
-                        <div key={type.value} className="col-sm-6 col-lg-3">
-                          <div 
-                            className={`card p-3 h-100 ${
-                              formData.inquiryType === type.value 
-                                ? 'border-primary bg-primary bg-opacity-10' 
-                                : 'border-secondary'
-                            }`}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => handleInquiryTypeChange(type.value)}
-                          >
-                            <div className="text-center">
-                              <div className={`mb-2 ${
-                                formData.inquiryType === type.value ? 'text-primary' : 'text-white-50'
-                              }`}>
-                                {type.icon}
-                              </div>
-                              <small className="fw-bold">{type.label}</small>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <input type="hidden" name="inquiryType" value={formData.inquiryType} />
-                  </div>
+                <div className="form-group">
+                  <label htmlFor="message">Your Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Tell us what's on your mind..."
+                    required
+                  ></textarea>
+                </div>
 
-                  <div className="row g-3">
-                    {/* Name */}
-                    <div className="col-md-6">
-                      <label htmlFor="name" className="form-label fw-bold">Full Name *</label>
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Enter your full name"
-                      />
-                    </div>
+                <button type="submit" className="btn-submit" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <div className="spinner"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      Send Message
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
 
-                    {/* Email */}
-                    <div className="col-md-6">
-                      <label htmlFor="email" className="form-label fw-bold">Email Address *</label>
-                      <input
-                        type="email"
-                        className="form-control form-control-lg"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Enter your email address"
-                      />
-                    </div>
+            {/* Contact Info Sidebar */}
+            <div className="info-section">
+              <div className="info-card">
+                <div className="info-icon">
+                  <Mail size={24} />
+                </div>
+                <h3>Email Us</h3>
+                <p>Our team is here to help</p>
+                <a href="mailto:social.testmasterhub@gmail.com" className="info-link">
+                  social.testmasterhub@gmail.com
+                </a>
+              </div>
 
-                    {/* Company */}
-                    <div className="col-md-6">
-                      <label htmlFor="company" className="form-label fw-bold">Company</label>
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        placeholder="Your company name"
-                      />
-                    </div>
+              <div className="info-card">
+                <div className="info-icon">
+                  <Clock size={24} />
+                </div>
+                <h3>Response Time</h3>
+                <p>We typically respond within</p>
+                <span className="info-highlight">24 hours</span>
+              </div>
 
-                    {/* Subject */}
-                    <div className="col-md-6">
-                      <label htmlFor="subject" className="form-label fw-bold">Subject *</label>
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Brief subject line"
-                      />
-                    </div>
+              <div className="info-card">
+                <div className="info-icon">
+                  <Sparkles size={24} />
+                </div>
+                <h3>Get Started</h3>
+                <p>Ready to try TestMasterHub?</p>
+                <a href="/invite/beta-download" className="info-link">Download Now →</a>
+              </div>
 
-                    {/* Message */}
-                    <div className="col-12">
-                      <label htmlFor="message" className="form-label fw-bold">Message *</label>
-                      <textarea
-                        className="form-control"
-                        id="message"
-                        name="message"
-                        rows="6"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Tell us more about your inquiry..."
-                      ></textarea>
-                    </div>
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="mt-4">
-                    <button
-                      type="submit"
-                      className="btn btn-primary-gradient btn-lg px-4 d-inline-flex align-items-center"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <div className="spinner-border spinner-border-sm me-2" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send size={18} className="me-2" />
-                          Send Message
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </form>
-
-                {/* Alternative: Manual Email Link */}
-                <div className="mt-4 pt-4 border-top border-secondary">
-                  <p className="text-white-50 small mb-2">Or email us directly:</p>
-                  <a href="mailto:social.testmasterhub@gmail.com?subject=Contact from Website" className="btn btn-outline-light">
-                    <Mail size={16} className="me-2" />
-                    social.testmasterhub@gmail.com
+              {/* Social Links */}
+              <div className="social-section">
+                <p className="social-label">Follow Us</p>
+                <div className="social-links">
+                  <a href="https://github.com/TestMasterHub/testmasterhub-app-support" className="social-icon" aria-label="GitHub">
+                    <Github size={20} />
                   </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Information & Why Choose Us */}
-          <div className="col-lg-4">
-            {/* Contact Info */}
-            <div className="card mb-4">
-              <div className="card-body p-4">
-                <h4 className="fw-bold mb-4">Get in Touch</h4>
-                
-                <div className="d-flex align-items-start mb-3">
-                  <div className="bg-gradient-pink-purple rounded-circle p-2 me-3 flex-shrink-0">
-                    <Mail size={16} />
-                  </div>
-                  <div>
-                    <h6 className="fw-bold mb-1">Email</h6>
-                    <a href="mailto:social.testmasterhub@gmail.com" className="text-white-50 text-decoration-none small">
-                      social.testmasterhub@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="d-flex align-items-start mb-3">
-                  <div className="bg-gradient-pink-purple rounded-circle p-2 me-3 flex-shrink-0">
-                    <Clock size={16} />
-                  </div>
-                  <div>
-                    <h6 className="fw-bold mb-1">Response Time</h6>
-                    <p className="mb-0 text-white-50 small">Within 24 hours</p>
-                  </div>
-                </div>
-
-                <div className="d-flex align-items-start">
-                  <div className="bg-gradient-pink-purple rounded-circle p-2 me-3 flex-shrink-0">
-                    <Users size={16} />
-                  </div>
-                  <div>
-                    <h6 className="fw-bold mb-1">Support</h6>
-                    <p className="mb-0 text-white-50 small">Community & Enterprise</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Why Choose TestMasterHub */}
-            <div className="card">
-              <div className="card-body p-4">
-                <h4 className="fw-bold mb-4">Why TestMasterHub?</h4>
-                
-                <div className="d-flex align-items-start mb-3">
-                  <Brain size={20} className="text-primary me-3 flex-shrink-0 mt-1" />
-                  <div>
-                    <h6 className="fw-bold mb-1">AI-Powered</h6>
-                    <p className="mb-0 text-white-50 small">Automatic assertion generation saves hours of manual work</p>
-                  </div>
-                </div>
-
-                <div className="d-flex align-items-start mb-3">
-                  <Shield size={20} className="text-success me-3 flex-shrink-0 mt-1" />
-                  <div>
-                    <h6 className="fw-bold mb-1">Secure & Private</h6>
-                    <p className="mb-0 text-white-50 small">Local-first design with encrypted storage</p>
-                  </div>
-                </div>
-
-                <div className="d-flex align-items-start mb-3">
-                  <Zap size={20} className="text-warning me-3 flex-shrink-0 mt-1" />
-                  <div>
-                    <h6 className="fw-bold mb-1">Full Automation</h6>
-                    <p className="mb-0 text-white-50 small">Built-in scheduling and monitoring at no extra cost</p>
-                  </div>
-                </div>
-
-                <div className="d-flex align-items-start">
-                  <Sparkles size={20} className="text-info me-3 flex-shrink-0 mt-1" />
-                  <div>
-                    <h6 className="fw-bold mb-1">Modern Experience</h6>
-                    <p className="mb-0 text-white-50 small">Intuitive interface designed for developer productivity</p>
-                  </div>
+                  <a href="https://www.linkedin.com/company/testmasterhub/" className="social-icon" aria-label="LinkedIn">
+                    <Linkedin size={20} />
+                  </a>
+                  <a href="https://x.com/TestmasterHub" className="social-icon" aria-label="Twitter">
+                    <Twitter size={20} />
+                  </a>
                 </div>
               </div>
             </div>
@@ -404,79 +292,286 @@ const ContactPage = () => {
         </div>
       </div>
 
-      {/* FAQ Section */}
-      <section className="py-5 bg-dark-subtle">
-        <div className="container">
-          <div className="text-center mb-5">
-            <h2 className="h3 fw-bold mb-3">Frequently Asked Questions</h2>
-            <p className="text-white-50">Quick answers to common questions</p>
-          </div>
-          
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="accordion accordion-flush" id="contactFaqAccordion">
-                {[
-                  {
-                    q: 'How quickly do you respond to inquiries?',
-                    a: 'We typically respond to all inquiries within 24 hours during business days. For urgent technical support issues, enterprise customers receive priority response times.'
-                  },
-                  {
-                    q: 'Do you offer demos or trials?',
-                    a: 'Yes! TestMasterHub offers a free trial with full access to all features. We also provide personalized demos for teams and enterprises.'
-                  },
-                  {
-                    q: 'Can you help migrate from Postman?',
-                    a: 'Absolutely! TestMasterHub includes built-in Postman collection import, and our team provides migration guidance to ensure a smooth transition.'
-                  },
-                  {
-                    q: 'What kind of support do you provide?',
-                    a: 'We offer community support for all users, comprehensive documentation, video tutorials, and dedicated enterprise support for business customers.'
-                  }
-                ].map((faq, index) => (
-                  <div className="accordion-item" key={index}>
-                    <h3 className="accordion-header" id={`contactFaqH${index}`}>
-                      <button 
-                        className="accordion-button collapsed" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        data-bs-target={`#contactFaqC${index}`}
-                        aria-expanded="false"
-                        aria-controls={`contactFaqC${index}`}
-                      >
-                        {faq.q}
-                      </button>
-                    </h3>
-                    <div 
-                      id={`contactFaqC${index}`} 
-                      className="accordion-collapse collapse" 
-                      aria-labelledby={`contactFaqH${index}`}
-                      data-bs-parent="#contactFaqAccordion"
-                    >
-                      <div className="accordion-body">{faq.a}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <style jsx>{`
+        .modern-contact-page {
+          background: #0a0a0a;
+          min-height: 100vh;
+          color: #ffffff;
+        }
 
-      {/* CTA Section */}
-      <section className="py-5 bg-gradient-pink-purple">
-        <div className="container">
-          <div className="text-center">
-            <h2 className="h3 fw-bold mb-3">Ready to try TestMasterHub?</h2>
-            <p className="mb-4 opacity-90">
-              Start your free trial today and experience AI-powered API testing.
-            </p>
-            <a className="btn btn-light btn-lg px-5" href='/download'>
-              <Brain size={18} className="me-2 text-dark" />
-              <span className="text-dark fw-bold">Start Free Trial</span>
-            </a>
-          </div>
-        </div>
-      </section>
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+        }
+
+        /* Hero Section */
+        .contact-hero {
+          padding: 6rem 0 4rem;
+          text-align: center;
+          background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+        }
+
+        .badge-modern {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(129, 80, 255, 0.1);
+          border: 1px solid rgba(129, 80, 255, 0.3);
+          padding: 0.5rem 1rem;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: #c8b3ff;
+          margin-bottom: 2rem;
+        }
+
+        .hero-content h1 {
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          font-weight: 800;
+          margin-bottom: 1rem;
+          background: linear-gradient(135deg, #ffffff, #c8b3ff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .hero-content p {
+          font-size: 1.15rem;
+          color: rgba(255, 255, 255, 0.6);
+          max-width: 600px;
+          margin: 0 auto;
+          line-height: 1.6;
+        }
+
+        /* Main Content */
+        .contact-main {
+          padding: 4rem 0 6rem;
+        }
+
+        .contact-grid {
+          display: grid;
+          grid-template-columns: 1.5fr 1fr;
+          gap: 4rem;
+          align-items: start;
+        }
+
+        @media (max-width: 991px) {
+          .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+          }
+        }
+
+        /* Form Section */
+        .form-section {
+          background: #111;
+          border: 1px solid #222;
+          border-radius: 1.5rem;
+          padding: 3rem;
+        }
+
+        .contact-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .form-group label {
+          font-weight: 600;
+          font-size: 0.95rem;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input,
+        .form-group textarea {
+          background: #0a0a0a;
+          border: 1px solid #333;
+          border-radius: 0.75rem;
+          padding: 1rem;
+          font-size: 1rem;
+          color: #ffffff;
+          transition: all 0.2s ease;
+          font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+          outline: none;
+          border-color: #8150FF;
+          box-shadow: 0 0 0 3px rgba(129, 80, 255, 0.1);
+        }
+
+        .form-group textarea {
+          resize: vertical;
+          min-height: 150px;
+        }
+
+        .btn-submit {
+          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          color: white;
+          border: none;
+          padding: 1rem 2rem;
+          border-radius: 999px;
+          font-weight: 600;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: 0.5rem;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(129, 80, 255, 0.3);
+        }
+
+        .btn-submit:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        .spinner {
+          width: 16px;
+          height: 16px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-top-color: white;
+          border-radius: 50%;
+          animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        /* Info Section */
+        .info-section {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .info-card {
+          background: #111;
+          border: 1px solid #222;
+          border-radius: 1rem;
+          padding: 2rem;
+          transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+          border-color: #333;
+          transform: translateY(-2px);
+        }
+
+        .info-icon {
+          width: 48px;
+          height: 48px;
+          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          border-radius: 0.75rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+          font-size: 1.1rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+          color: #ffffff;
+        }
+
+        .info-card p {
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.5);
+          margin-bottom: 0.75rem;
+        }
+
+        .info-link {
+          color: #ff66c4;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 0.95rem;
+          transition: color 0.2s ease;
+        }
+
+        .info-link:hover {
+          color: #8150FF;
+        }
+
+        .info-highlight {
+          color: #ffffff;
+          font-weight: 700;
+          font-size: 1.1rem;
+        }
+
+        /* Social Section */
+        .social-section {
+          background: #111;
+          border: 1px solid #222;
+          border-radius: 1rem;
+          padding: 2rem;
+        }
+
+        .social-label {
+          font-size: 0.85rem;
+          color: rgba(255, 255, 255, 0.5);
+          margin-bottom: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .social-links {
+          display: flex;
+          gap: 1rem;
+        }
+
+        .social-icon {
+          width: 44px;
+          height: 44px;
+          background: #0a0a0a;
+          border: 1px solid #333;
+          border-radius: 0.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: rgba(255, 255, 255, 0.6);
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+
+        .social-icon:hover {
+          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          color: white;
+          border-color: transparent;
+          transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+          .contact-hero {
+            padding: 4rem 0 3rem;
+          }
+
+          .form-section {
+            padding: 2rem;
+          }
+
+          .contact-main {
+            padding: 3rem 0 4rem;
+          }
+        }
+      `}</style>
     </div>
   );
 };

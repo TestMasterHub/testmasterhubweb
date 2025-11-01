@@ -66,7 +66,7 @@ const Product = () => {
                     <p className="lead text-white-50 mx-auto my-4 hero-lead-product" style={{ maxWidth: '800px' }}>
                         TestMasterHub is the AI-native platform for developers who demand speed, intelligence, and confidence. Automate assertions, generate tests, and collaborate seamlessly in one unified workspace.
                     </p>
-                    <a href="/download" className="btn btn-primary-gradient btn-lg mt-3 hero-button-product">
+                    <a href="/invite/beta-download" className="btn btn-primary-gradient btn-lg mt-3 hero-button-product">
                         Download for Free
                     </a>
                 </div>
@@ -218,7 +218,7 @@ const Product = () => {
                     <p className="lead text-white-50 mx-auto" style={{ maxWidth: '600px' }}>
                         Stop guessing. Start testing with the power of AI. Download TestMasterHub and transform your workflow today.
                     </p>
-                    <a href="/download" className="btn btn-primary-gradient btn-lg mt-4">
+                    <a href="/invite/beta-download" className="btn btn-primary-gradient btn-lg mt-4">
                         Start Your Free Trial
                     </a>
                 </div>

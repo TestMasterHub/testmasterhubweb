@@ -52,9 +52,7 @@ const Enterprise = () => {
           <p className="lead text-white-50 mx-auto" style={{ maxWidth: '600px' }}>
             Contact our sales team today to learn more about our enterprise offerings and get a personalized demo.
           </p>
-          <button className="btn btn-primary-gradient btn-lg mt-4">
-            Contact Sales <ArrowRight className="ms-2" />
-          </button>
+          <a className="btn btn-primary-gradient btn-lg mt-4" href='/contact'> Contact Sales <ArrowRight className="ms-2" /></a>
         </div>
       </section>
     </div>

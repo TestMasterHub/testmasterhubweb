@@ -45,7 +45,7 @@ const Home = () => {
               </p>
               
               <div className="hero-cta-group">
-                <a href="/download" className="btn-gradient-large">
+                <a href="/invite/beta-download" className="btn-gradient-large">
                   Try Free <ArrowRight size={20} />
                 </a>
                 <button className="btn-outline-large">

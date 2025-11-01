@@ -33,7 +33,7 @@ const Pricing = () => {
                 <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> AI Assertion Suggestions</li>
                 <li className="d-flex mb-2"><CheckCircle className="text-success me-2 mt-1 flex-shrink-0" /> Community Support</li>
               </ul>
-              <button className="btn btn-outline-light mt-auto">Get Started</button>
+              <a  className="btn btn-outline-light mt-auto" href='/invite/beta-download'>Get Started</a>
             </div>
           </div>
 

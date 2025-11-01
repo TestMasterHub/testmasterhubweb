@@ -410,7 +410,7 @@ const ComparisonPage = () => {
             <p className="mb-4 opacity-90">
               Get AI-powered assertions, enterprise security, and seamless Postman migration.
             </p>
-            <a className="btn btn-light btn-lg px-5" href='/download'>
+            <a className="btn btn-light btn-lg px-5" href='/invite/beta-download'>
               <Brain size={18} className="me-2 text-dark" />
               <span className="text-dark fw-bold">Try TestMasterHub Free</span>
             </a>
