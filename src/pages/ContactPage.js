@@ -24,6 +24,7 @@ const ContactPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,19 +44,16 @@ const ContactPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError('');
 
     try {
-      // For Netlify Forms, create a FormData object
-      const submitData = new URLSearchParams();
-      submitData.append('form-name', 'contact');
-      Object.keys(formData).forEach(key => {
-        submitData.append(key, formData[key]);
-      });
-
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: submitData.toString(),
+        body: new URLSearchParams({
+          'form-name': 'contact',
+          ...formData
+        }).toString()
       });
 
       if (response.ok) {
@@ -65,7 +63,7 @@ const ContactPage = () => {
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      alert('There was an error submitting your message. Please try again.');
+      setError('Unable to send message. Please try again or email us directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -73,6 +71,7 @@ const ContactPage = () => {
 
   const resetForm = () => {
     setIsSubmitted(false);
+    setError('');
     setFormData({
       name: '',
       email: '',
@@ -119,6 +118,16 @@ const ContactPage = () => {
 
   return (
     <div className="bg-dark text-white">
+      {/* Hidden form for Netlify */}
+      <form name="contact" netlify="true" netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="company" />
+        <input type="text" name="subject" />
+        <textarea name="message"></textarea>
+        <input type="text" name="inquiryType" />
+      </form>
+
       {/* Hero Section */}
       <section className="py-5">
         <div className="container py-5">
@@ -145,7 +154,15 @@ const ContactPage = () => {
               <div className="card-body p-5">
                 <h2 className="h3 fw-bold mb-4">Send us a Message</h2>
 
-                <div onSubmit={handleSubmit}>
+                {error && (
+                  <div className="alert alert-danger-dark mb-4" role="alert">
+                    {error}
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} name="contact">
+                  <input type="hidden" name="form-name" value="contact" />
+                  
                   {/* Inquiry Type Selection */}
                   <div className="mb-4">
                     <label className="form-label fw-bold">What can we help you with?</label>
@@ -173,6 +190,7 @@ const ContactPage = () => {
                         </div>
                       ))}
                     </div>
+                    <input type="hidden" name="inquiryType" value={formData.inquiryType} />
                   </div>
 
                   <div className="row g-3">
@@ -254,10 +272,9 @@ const ContactPage = () => {
                   {/* Submit Button */}
                   <div className="mt-4">
                     <button
-                      type="button"
+                      type="submit"
                       className="btn btn-primary-gradient btn-lg px-4 d-inline-flex align-items-center"
                       disabled={isSubmitting}
-                      onClick={handleSubmit}
                     >
                       {isSubmitting ? (
                         <>
@@ -274,7 +291,7 @@ const ContactPage = () => {
                       )}
                     </button>
                   </div>
-                </div>
+                </form>
 
                 {/* Alternative: Manual Email Link */}
                 <div className="mt-4 pt-4 border-top border-secondary">
@@ -346,7 +363,7 @@ const ContactPage = () => {
                   <Shield size={20} className="text-success me-3 flex-shrink-0 mt-1" />
                   <div>
                     <h6 className="fw-bold mb-1">Secure & Private</h6>
-                    <p className="mb-0 text-white-50 small">AES-256 encryption with offline-first design</p>
+                    <p className="mb-0 text-white-50 small">Local-first design with encrypted storage</p>
                   </div>
                 </div>
 

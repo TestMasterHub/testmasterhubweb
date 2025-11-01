@@ -1,341 +1,890 @@
 import React, { useEffect } from 'react';
-import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database, Sparkles, Brain, Mail, Lock } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database, Sparkles, Brain, Mail, Lock, Check } from 'lucide-react';
 
+// Mock images - replace with your actual imports
 import DashboardImage from '../assets/images/Dashboard.png';
-import workflow from "../assets/images/workflow.png";
-
-gsap.registerPlugin(ScrollTrigger);
+import workflow from '../assets/images/workflow.png';
 
 const Home = () => {
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // --- Hero Animation ---
-      const heroTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-      heroTimeline
-        .from(".hero-title", { opacity: 0, y: 30, duration: 0.8 })
-        .from(".hero-lead", { opacity: 0, y: 20, duration: 0.8 }, "-=0.6")
-        .from(".hero-buttons > *", { opacity: 0, y: 20, duration: 0.8, stagger: 0.1 }, "-=0.6")
-        .from(".hero-image", { opacity: 0, scale: 0.95, duration: 1 }, "-=0.6");
-
-      // --- Hero Gradient Scroll Effect ---
-      gsap.to(".hero-title-gradient", {
-        '--gradient-angle': '270deg',
-        scrollTrigger: {
-          trigger: ".hero-section",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
+    // Simplified scroll animations
+    const handleScroll = () => {
+      const elements = document.querySelectorAll('.fade-in-up');
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.85) {
+          el.classList.add('visible');
         }
       });
-
-      // --- General Section Fade-in ---
-      const sections = gsap.utils.toArray('section:not(.hero-section)');
-      sections.forEach((section) => {
-        gsap.from(section, {
-          opacity: 0,
-          y: 50,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-        });
-      });
-
-      // --- Staggered Card Animation ---
-      const cardSections = gsap.utils.toArray('.card-section');
-      cardSections.forEach(section => {
-        const cards = section.querySelectorAll('.animated-card');
-        gsap.from(cards, {
-          opacity: 0,
-          y: 40,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 75%',
-          }
-        });
-      });
-      
-      // --- How It Works Steps Animation ---
-      const steps = gsap.utils.toArray('.how-it-works-step');
-      gsap.from(steps, {
-        opacity: 0,
-        x: -40,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.how-it-works-container',
-          start: 'top 70%',
-        }
-      });
-      
-    });
-
-    return () => ctx.revert();
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <div className="bg-dark text-white">
-      {/* AI-Powered Hero Section */}
-      <section className="hero-section py-5 overflow-hidden">
-        <div className="container py-5">
-          <div className="row align-items-center">
-            <div className="col-lg-6 text-center text-lg-start">
-              <div className="mb-3 hero-buttons">
-                <div className="d-inline-flex align-items-center bg-gradient-pink-purple rounded-pill px-3 py-1 me-3">
-                  <Sparkles size={16} className="me-2" />
-                  <span className="small fw-bold">AI-POWERED ASSERTIONS</span>
-                </div>
+    <div className="modern-homepage">
+      {/* Hero Section - Simplified & Centered */}
+      <section className="hero-modern">
+        <div className="container">
+          <div className="row justify-content-center text-center">
+            <div className="col-lg-10 col-xl-9">
+              <div className="badge-pill mb-4">
+                <Sparkles size={16} />
+                <span>AI-POWERED API TESTING</span>
               </div>
-              <h1 className="display-3 fw-bold mb-4 hero-title hero-title-gradient">
-                Complete API Testing Platform
+              
+              <h1 className="hero-headline mb-4">
+                API Testing Made <span className="gradient-text">Intelligent</span>
               </h1>
-              <p className="lead text-white-50 mb-4 hero-lead">
-                Offline-first API testing with AI-powered smart assertions — secure, fast, and fully on-device.
+              
+              <p className="hero-subtext mb-5">
+                Local-first API testing platform with AI-powered assertions. Store data locally, test offline, sync when online.
               </p>
-              <div className="d-flex flex-wrap gap-3 mb-4 hero-buttons justify-content-center justify-content-lg-start">
-                <a className="btn btn-primary-gradient btn-lg d-flex align-items-center" href='/download'>
-                  Try TestMasterHub Free <ArrowRight size={18} className="ms-2" />
+              
+              <div className="hero-cta-group">
+                <a href="/download" className="btn-gradient-large">
+                  Try Free <ArrowRight size={20} />
                 </a>
-                <button className="btn btn-outline-light btn-lg">
+                <button className="btn-outline-large">
                   Watch Demo
                 </button>
               </div>
             </div>
-            <div className="col-lg-6 mt-5 mt-lg-0">
-              <div className="hero-image position-relative">
-                <img 
-                  src={DashboardImage}
-                  alt="TestMasterHub Dashboard" 
-                  className="img-fluid rounded-3 shadow-lg"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* AI Features Highlight Sections */}
-      {[
-        { 
-          icon: <Sparkles size={20} className="icon-gradient" />, 
-          tag: "AI DOCUMENTATION", 
-          title: "Generate Clear API Documentation with AI",
-          description: "Automatically create clean, developer-friendly API documentation from your test collections.",
-          cards: [
-            { title: "Instant Documentation", text: "Transform your test cases into professional docs with one click." },
-            { title: "Always Up to Date", text: "Documentation stays synchronized with your test collections." }
-          ],
-        },
-        { 
-          icon: <Brain size={20} className="icon-gradient" />, 
-          tag: "AI TESTGEN", 
-          title: "Automatic Test Case Generation",
-          description: "Boost coverage instantly with AI-generated test cases for positive, negative, and edge cases.",
-          cards: [
-            { title: "Positive Scenarios", text: "Validates expected responses and happy-path flows automatically." },
-            { title: "Negative Scenarios", text: "Covers invalid payloads and error handling with no manual setup." },
-            { title: "Edge Case Coverage", text: "Detects boundary conditions to ensure resilience under all inputs." }
-          ],
-        }
-      ].map((section, index) => (
-        <section key={index} className={`py-5 card-section ${index % 2 === 1 ? 'bg-dark-subtle' : ''}`}>
-          <div className="container">
-            <div className="text-center mb-5">
-              <div className="d-inline-flex align-items-center bg-dark-light rounded-pill px-4 py-2 shadow-sm mb-3">
-                {section.icon}
-                <span className="fw-bold ms-2 text-gradient-pink-purple">{section.tag}</span>
-              </div>
-              <h2 className="display-6 fw-bold mb-3">{section.title}</h2>
-              <p className="lead text-white-50 mx-auto" style={{ maxWidth: '800px' }}>{section.description}</p>
-            </div>
-            <div className={`row g-4 ${section.cards.length === 2 ? 'justify-content-center' : ''}`}>
-              {section.cards.map((card, cardIndex) => (
-                <div key={cardIndex} className={section.cards.length === 2 ? 'col-md-6' : 'col-lg-4'}>
-                  <div className="card h-100 animated-card">
-                    <div className="card-body p-4 text-center">
-                      <h3 className="h5 fw-bold mb-3">{card.title}</h3>
-                      <p className="card-text mb-0">{card.text}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      ))}
-
-      {/* Email Reports Feature Highlight */}
-      <section className="py-5">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-6 mb-4 mb-lg-0">
-              <h2 className="display-6 fw-bold mb-4">Comprehensive Email Reports</h2>
-              <p className="lead text-white-50 mb-4">
-                Receive detailed HTML email reports automatically after each build. Get complete test summaries and insights delivered directly to your inbox.
-              </p>
-              
-              <div className="row g-4">
-                {[
-                  { icon: <BarChart size={20} />, title: 'Test Metrics' },
-                  { icon: <Code size={20} />, title: 'Error Details' },
-                  { icon: <Settings size={20} />, title: 'Service Status' },
-                  { icon: <Database size={20} />, title: 'Summary Stats' }
-                ].map((item, i) => (
-                  <div className="col-sm-6" key={i}>
-                    <div className="d-flex align-items-center">
-                      <div className="icon-circle bg-gradient-pink-purple rounded-circle me-3 d-flex align-items-center justify-content-center">
-                        {item.icon}
-                      </div>
-                      <h6 className="mb-0 fw-bold">{item.title}</h6>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div className="col-lg-6">
-                <div className="card-report-preview rounded-3 overflow-hidden">
-                    <div className="card-header bg-white text-dark text-center py-3">
-                      <h5 className="mb-0 fw-bold text-dark">TestMasterHub</h5>
-                      <small>Microservices Test Report</small>
-                    </div>
-                    <div className="card-body bg-light text-dark p-4">
-                      <div className="row text-center mb-4">
-                        <div className="col-4 border-end"><div className="h2 fw-bold text-primary">3</div><small>Total</small></div>
-                        <div className="col-4 border-end"><div className="h2 fw-bold text-success">2</div><small>Passed</small></div>
-                        <div className="col-4"><div className="h2 fw-bold text-danger">1</div><small>Failed</small></div>
-                      </div>
-                      <ul className="list-group list-group-flush">
-                        <li className="list-group-item d-flex justify-content-between align-items-center">Get Users <span className="badge bg-danger">Failed</span></li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">Post Users <span className="badge bg-success">Passed</span></li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">Put Users <span className="badge bg-success">Passed</span></li>
-                      </ul>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Features Cards */}
-      <section className="py-5 bg-dark-subtle card-section">
-        <div className="container">
-          <div className="text-center mb-5">
-            <h2 className="display-6 fw-bold mb-3">A Complete API Testing Platform</h2>
-            <p className="lead text-white-50 mx-auto" style={{ maxWidth: '700px' }}>
-              Comprehensive features enhanced with AI-powered auto-assertion generation.
-            </p>
           </div>
           
-          <div className="row g-4">
-            {[
-                { icon: <Database size={24} />, title: 'Smart Collections' }, { icon: <Settings size={24} />, title: 'Environments' },
-                { icon: <Zap size={24} />, title: 'Automation' }, { icon: <BarChart size={24} />, title: 'Monitoring' },
-                { icon: <Code size={24} />, title: 'Request Builder' }, { icon: <Lock size={24} />, title: 'Encryption' },
-                { icon: <Users size={24} />, title: 'Git Integration' }
-            ].map((feature, i) => (
-              <div className="col-md-6 col-lg-4" key={i}>
-                <div className="card h-100 text-center animated-card">
-                  <div className="card-body p-4">
-                    <div className="d-inline-flex align-items-center justify-content-center p-3 rounded-circle mb-3 icon-gradient-fill">
-                      {feature.icon}
+          <div className="row justify-content-center mt-5 pt-4">
+            <div className="col-lg-10">
+              <div className="hero-image-wrapper fade-in-up">
+                <img src={DashboardImage} alt="TestMasterHub Dashboard" className="hero-image" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Features - Two Column Layout */}
+      <section className="section-ai-features">
+        <div className="container">
+          {/* AI Documentation */}
+          <div className="feature-row fade-in-up">
+            <div className="feature-content">
+              <div className="feature-tag">
+                <Sparkles size={18} />
+                <span>AI DOCUMENTATION</span>
+              </div>
+              <h2 className="feature-title">Generate Documentation Instantly</h2>
+              <p className="feature-description">
+                Transform test collections into professional, developer-friendly API documentation automatically. Always synchronized and up-to-date with one-click generation.
+              </p>
+              <div className="feature-benefits">
+                <div className="benefit-item">
+                  <Check size={20} className="check-icon" />
+                  <span>One-click professional docs</span>
+                </div>
+                <div className="benefit-item">
+                  <Check size={20} className="check-icon" />
+                  <span>Auto-sync with collections</span>
+                </div>
+              </div>
+            </div>
+            <div className="feature-visual">
+              <div className="feature-card-grid">
+                <div className="mini-card">
+                  <Code size={24} className="mini-card-icon" />
+                  <h4>Instant Docs</h4>
+                  <p>Professional documentation in seconds</p>
+                </div>
+                <div className="mini-card">
+                  <Database size={24} className="mini-card-icon" />
+                  <h4>Always Current</h4>
+                  <p>Stays in sync with your tests</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* AI TestGen */}
+          <div className="feature-row feature-row-reverse fade-in-up">
+            <div className="feature-content">
+              <div className="feature-tag">
+                <Brain size={18} />
+                <span>AI TESTGEN</span>
+              </div>
+              <h2 className="feature-title">Auto-Generate Test Cases</h2>
+              <p className="feature-description">
+                Boost coverage instantly with AI-generated tests for positive flows, error handling, and edge cases. AI features require internet connection for processing.
+              </p>
+              <div className="feature-benefits">
+                <div className="benefit-item">
+                  <Check size={20} className="check-icon" />
+                  <span>Positive scenario validation</span>
+                </div>
+                <div className="benefit-item">
+                  <Check size={20} className="check-icon" />
+                  <span>Negative case coverage</span>
+                </div>
+                <div className="benefit-item">
+                  <Check size={20} className="check-icon" />
+                  <span>Edge case detection</span>
+                </div>
+              </div>
+            </div>
+            <div className="feature-visual">
+              <div className="feature-card-grid">
+                <div className="mini-card">
+                  <Check size={24} className="mini-card-icon" />
+                  <h4>Happy Path</h4>
+                  <p>Validates expected responses</p>
+                </div>
+                <div className="mini-card">
+                  <Zap size={24} className="mini-card-icon" />
+                  <h4>Error Cases</h4>
+                  <p>Covers invalid inputs automatically</p>
+                </div>
+                <div className="mini-card">
+                  <BarChart size={24} className="mini-card-icon" />
+                  <h4>Edge Cases</h4>
+                  <p>Detects boundary conditions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Email Reports */}
+          <div className="feature-row fade-in-up">
+            <div className="feature-content">
+              <div className="feature-tag">
+                <Mail size={18} />
+                <span>EMAIL REPORTS</span>
+              </div>
+              <h2 className="feature-title">Comprehensive Test Reports</h2>
+              <p className="feature-description">
+                Receive detailed HTML reports after each build. Complete test summaries, metrics, and insights delivered to your inbox automatically.
+              </p>
+              <div className="report-features">
+                <div className="report-badge"><BarChart size={16} /> Test Metrics</div>
+                <div className="report-badge"><Code size={16} /> Error Details</div>
+                <div className="report-badge"><Settings size={16} /> Service Status</div>
+                <div className="report-badge"><Database size={16} /> Summary Stats</div>
+              </div>
+            </div>
+            <div className="feature-visual">
+              <div className="email-report-preview">
+                <div className="report-header">
+                  <h5>TestMasterHub</h5>
+                  <small>Microservices Test Report</small>
+                </div>
+                <div className="report-body">
+                  <div className="report-stats">
+                    <div className="stat-box">
+                      <div className="stat-number">3</div>
+                      <div className="stat-label">Total</div>
                     </div>
-                    <h3 className="h5 card-title fw-bold">{feature.title}</h3>
+                    <div className="stat-box stat-success">
+                      <div className="stat-number">2</div>
+                      <div className="stat-label">Passed</div>
+                    </div>
+                    <div className="stat-box stat-error">
+                      <div className="stat-number">1</div>
+                      <div className="stat-label">Failed</div>
+                    </div>
+                  </div>
+                  <div className="report-tests">
+                    <div className="test-item">
+                      <span>Get Users</span>
+                      <span className="badge-error">Failed</span>
+                    </div>
+                    <div className="test-item">
+                      <span>Post Users</span>
+                      <span className="badge-success">Passed</span>
+                    </div>
+                    <div className="test-item">
+                      <span>Put Users</span>
+                      <span className="badge-success">Passed</span>
+                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Platform Features - Grid */}
+      <section className="section-platform-features">
+        <div className="container">
+          <div className="section-header fade-in-up">
+            <h2>Complete Testing Platform</h2>
+            <p>Everything you need for comprehensive API testing, enhanced with AI</p>
+          </div>
+          
+          <div className="platform-grid fade-in-up">
+            {[
+              { icon: Database, title: 'Smart Collections', desc: 'Organize APIs locally' },
+              { icon: Settings, title: 'Environments', desc: 'Stored on your device' },
+              { icon: Zap, title: 'Automation', desc: 'Run tests offline' },
+              { icon: BarChart, title: 'Monitoring', desc: 'Track API health locally' },
+              { icon: Code, title: 'Request Builder', desc: 'Build requests offline' },
+              { icon: Lock, title: 'Local Encryption', desc: 'Data encrypted locally' },
+              { icon: Users, title: 'Git Integration', desc: 'Sync when online' },
+              { icon: Brain, title: 'AI Assertions', desc: 'Requires internet' }
+            ].map((feature, i) => (
+              <div key={i} className="platform-card">
+                <div className="platform-icon">
+                  <feature.icon size={28} />
+                </div>
+                <h4>{feature.title}</h4>
+                <p>{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-5">
-        <div className="container how-it-works-container">
-          <div className="row align-items-center">
-            <div className="col-lg-5 mb-4 mb-lg-0">
-              <h2 className="display-6 fw-bold mb-4">How It Works</h2>
-              <p className="lead text-white-50 mb-4">A streamlined workflow with intelligent automation.</p>
-              
-              {[
-                { title: '1. Create & Import APIs' }, { title: '2. AI Generates Assertions' },
-                { title: '3. Automate & Monitor' }, { title: '4. Analyze & Report' }
-              ].map((step, i) => (
-                <div className="d-flex mb-4 how-it-works-step" key={i}>
-                  <div className="bg-gradient-pink-purple rounded-circle me-3 d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: '40px', height: '40px' }}>
-                    <span className="fw-bold">{i+1}</span>
-                  </div>
-                  <h4 className="h5 mb-0 fw-bold d-flex align-items-center">{step.title}</h4>
+      {/* How It Works - Horizontal Flow */}
+      <section className="section-how-it-works">
+        <div className="container">
+          <div className="section-header fade-in-up">
+            <h2>How It Works</h2>
+            <p>Streamlined workflow with intelligent automation</p>
+          </div>
+          
+          <div className="workflow-steps fade-in-up">
+            {[
+              { num: 1, title: 'Create & Import', desc: 'Set up your APIs' },
+              { num: 2, title: 'AI Generates', desc: 'Auto assertions' },
+              { num: 3, title: 'Automate', desc: 'Run & monitor' },
+              { num: 4, title: 'Analyze', desc: 'Get insights' }
+            ].map((step, i) => (
+              <React.Fragment key={i}>
+                <div className="workflow-step">
+                  <div className="step-number">{step.num}</div>
+                  <h4>{step.title}</h4>
+                  <p>{step.desc}</p>
                 </div>
-              ))}
-            </div>
-            
-            <div className="col-lg-7">
-              <img src={workflow} alt="Workflow" className="img-fluid rounded-3 shadow-lg" />
-            </div>
+                {i < 3 && <div className="workflow-arrow">→</div>}
+              </React.Fragment>
+            ))}
+          </div>
+          
+          <div className="workflow-image fade-in-up">
+            <img src={workflow} alt="Workflow Visualization" />
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-5 my-5 bg-gradient-pink-purple text-white">
+      {/* FAQ - Minimal */}
+      <section className="section-faq">
         <div className="container">
-          <div className="row align-items-center text-center">
-            <div className="col-lg-8 mx-auto">
-              <h2 className="display-6 fw-bold mb-3">Ready to streamline your API testing?</h2>
-              <p className="lead mb-4 opacity-75">
-                Join thousands of developers using TestMasterHub with AI-powered auto-assertions.
-              </p>
-              <a className="btn btn-light btn-lg px-4 d-inline-flex align-items-center" href='/download'>
-                <Brain size={18} className="me-2 text-dark" />
-                <span className="text-dark">Try TestMasterHub Free</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* FAQ Section */}
-      <section className="py-5">
-        <div className="container">
-          <div className="text-center mb-5">
-            <h2 className="display-6 fw-bold mb-3">Frequently Asked Questions</h2>
+          <div className="section-header fade-in-up">
+            <h2>Common Questions</h2>
           </div>
           
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="accordion accordion-flush" id="faqAccordion">
-                {[
-                  { q: 'What makes TestMasterHub different?', a: 'TestMasterHub combines comprehensive API testing features with AI-powered auto-assertion generation, saving time and ensuring thorough coverage.' },
-                  { q: 'How does the AI work?', a: 'Our AI analyzes API responses in real-time to automatically generate comprehensive assertions for status codes, response times, data validation, and content verification.' },
-                  { q: 'Can I customize AI-generated assertions?', a: 'Yes! You have full control to review, modify, or add custom assertions. The AI provides a smart foundation that you can build upon.' },
-                  { q: 'Does TestMasterHub support team collaboration?', a: 'Absolutely! TestMasterHub includes Git integration for version control, collection import/export, and collaborative workflows.' }
-                ].map((faq, index) => (
-                  <div className="accordion-item" key={index}>
-                    <h3 className="accordion-header" id={`h${index}`}>
-                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#c${index}`}>
-                        {faq.q}
-                      </button>
-                    </h3>
-                    <div id={`c${index}`} className="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                      <div className="accordion-body">{faq.a}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="faq-list fade-in-up">
+            {[
+              { q: 'What makes TestMasterHub different?', a: 'We combine comprehensive API testing with AI-powered auto-assertion generation, saving time while ensuring thorough coverage.' },
+              { q: 'How does the AI work?', a: 'Our AI analyzes API responses in real-time to automatically generate assertions for status codes, response times, data validation, and content verification.' },
+              { q: 'Can I customize AI assertions?', a: 'Absolutely! You have full control to review, modify, or add custom assertions. AI provides a smart foundation you can build upon.' },
+              { q: 'Does it support team collaboration?', a: 'Yes! Includes Git integration for version control, collection import/export, and collaborative workflows.' }
+            ].map((faq, i) => (
+              <details key={i} className="faq-item">
+                <summary>{faq.q}</summary>
+                <p>{faq.a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* CTA - Clean */}
+      <section className="section-cta">
+        <div className="container">
+          <div className="cta-content fade-in-up">
+            <h2>Ready to test smarter?</h2>
+            <p>Join thousands of developers using AI-powered API testing</p>
+            <a href="/download" className="btn-gradient-large">
+              <Brain size={20} />
+              Try TestMasterHub Free
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <style jsx>{`
+        .modern-homepage {
+          background: #111111;
+          color: #f0f0f0;
+        }
+
+        /* Hero Section */
+        .hero-modern {
+          padding: 8rem 0 6rem;
+          background: linear-gradient(180deg, #111111 0%, #1a1a1a 100%);
+        }
+
+        .badge-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(129, 80, 255, 0.1);
+          border: 1px solid rgba(129, 80, 255, 0.2);
+          padding: 0.5rem 1.25rem;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: #c8b3ff;
+          letter-spacing: 0.5px;
+        }
+
+        .hero-headline {
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          font-weight: 800;
+          line-height: 1.1;
+          margin-bottom: 1.5rem;
+          color: #ffffff;
+        }
+
+        .gradient-text {
+          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .hero-subtext {
+          font-size: 1.25rem;
+          color: rgba(240, 240, 240, 0.7);
+          max-width: 700px;
+          margin: 0 auto;
+          line-height: 1.6;
+        }
+
+        .hero-cta-group {
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .btn-gradient-large, .btn-outline-large {
+          padding: 1rem 2rem;
+          border-radius: 999px;
+          font-weight: 600;
+          font-size: 1.05rem;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          text-decoration: none;
+        }
+
+        .btn-gradient-large {
+          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          color: white;
+        }
+
+        .btn-gradient-large:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(129, 80, 255, 0.3);
+        }
+
+        .btn-outline-large {
+          background: transparent;
+          border: 2px solid #333;
+          color: #f0f0f0;
+        }
+
+        .btn-outline-large:hover {
+          border-color: #8150FF;
+          background: rgba(129, 80, 255, 0.1);
+        }
+
+        .hero-image-wrapper {
+          position: relative;
+          border-radius: 1rem;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-image {
+          width: 100%;
+          display: block;
+          border-radius: 1rem;
+        }
+
+        /* AI Features Section */
+        .section-ai-features {
+          padding: 8rem 0;
+        }
+
+        .feature-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          align-items: center;
+          margin-bottom: 8rem;
+        }
+
+        .feature-row-reverse {
+          direction: rtl;
+        }
+
+        .feature-row-reverse > * {
+          direction: ltr;
+        }
+
+        @media (max-width: 991px) {
+          .feature-row {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 5rem;
+          }
+        }
+
+        .feature-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: #2a2a2a;
+          padding: 0.5rem 1rem;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: #ff66c4;
+          margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+          font-size: 2.5rem;
+          font-weight: 700;
+          margin-bottom: 1.5rem;
+          color: #ffffff;
+        }
+
+        .feature-description {
+          font-size: 1.15rem;
+          color: rgba(240, 240, 240, 0.7);
+          line-height: 1.7;
+          margin-bottom: 2rem;
+        }
+
+        .feature-benefits {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .benefit-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          font-size: 1.05rem;
+          color: rgba(240, 240, 240, 0.9);
+        }
+
+        .check-icon {
+          color: #4ade80;
+          flex-shrink: 0;
+        }
+
+        .feature-card-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .mini-card {
+          background: #1a1a1a;
+          border: 1px solid #333;
+          border-radius: 1rem;
+          padding: 2rem;
+          transition: all 0.3s ease;
+        }
+
+        .mini-card:hover {
+          transform: translateY(-5px);
+          border-color: #8150FF;
+        }
+
+        .mini-card-icon {
+          color: #ff66c4;
+          margin-bottom: 1rem;
+        }
+
+        .mini-card h4 {
+          font-size: 1.1rem;
+          margin-bottom: 0.5rem;
+          color: #ffffff;
+        }
+
+        .mini-card p {
+          font-size: 0.9rem;
+          color: rgba(240, 240, 240, 0.6);
+          margin: 0;
+        }
+
+        .report-features {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+        }
+
+        .report-badge {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: #2a2a2a;
+          padding: 0.5rem 1rem;
+          border-radius: 999px;
+          font-size: 0.9rem;
+          color: rgba(240, 240, 240, 0.9);
+        }
+
+        .email-report-preview {
+          background: #ffffff;
+          border-radius: 1rem;
+          overflow: hidden;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .report-header {
+          background: #f8f9fa;
+          padding: 1.5rem;
+          text-align: center;
+          border-bottom: 1px solid #e0e0e0;
+        }
+
+        .report-header h5 {
+          margin: 0;
+          color: #111;
+          font-weight: 700;
+        }
+
+        .report-header small {
+          color: #666;
+        }
+
+        .report-body {
+          padding: 2rem;
+        }
+
+        .report-stats {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1rem;
+          margin-bottom: 2rem;
+        }
+
+        .stat-box {
+          text-align: center;
+          padding: 1rem;
+          background: #f8f9fa;
+          border-radius: 0.5rem;
+        }
+
+        .stat-number {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #333;
+        }
+
+        .stat-success .stat-number {
+          color: #22c55e;
+        }
+
+        .stat-error .stat-number {
+          color: #ef4444;
+        }
+
+        .stat-label {
+          font-size: 0.85rem;
+          color: #666;
+        }
+
+        .report-tests {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .test-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.75rem;
+          background: #f8f9fa;
+          border-radius: 0.5rem;
+          color: #333;
+        }
+
+        .badge-success, .badge-error {
+          padding: 0.25rem 0.75rem;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: 600;
+        }
+
+        .badge-success {
+          background: #22c55e;
+          color: white;
+        }
+
+        .badge-error {
+          background: #ef4444;
+          color: white;
+        }
+
+        /* Platform Features */
+        .section-platform-features {
+          padding: 6rem 0;
+          background: #1a1a1a;
+        }
+
+        .section-header {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+          font-size: 2.5rem;
+          font-weight: 700;
+          margin-bottom: 1rem;
+          color: #ffffff;
+        }
+
+        .section-header p {
+          font-size: 1.15rem;
+          color: rgba(240, 240, 240, 0.6);
+        }
+
+        .platform-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .platform-card {
+          background: #111111;
+          border: 1px solid #333;
+          border-radius: 1rem;
+          padding: 2rem;
+          text-align: center;
+          transition: all 0.3s ease;
+        }
+
+        .platform-card:hover {
+          transform: translateY(-5px);
+          border-color: #8150FF;
+        }
+
+        .platform-icon {
+          width: 64px;
+          height: 64px;
+          margin: 0 auto 1.5rem;
+          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          border-radius: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+
+        .platform-card h4 {
+          font-size: 1.15rem;
+          margin-bottom: 0.5rem;
+          color: #ffffff;
+        }
+
+        .platform-card p {
+          font-size: 0.9rem;
+          color: rgba(240, 240, 240, 0.6);
+          margin: 0;
+        }
+
+        /* How It Works */
+        .section-how-it-works {
+          padding: 6rem 0;
+        }
+
+        .workflow-steps {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 2rem;
+          margin-bottom: 4rem;
+          flex-wrap: wrap;
+        }
+
+        .workflow-step {
+          text-align: center;
+          max-width: 200px;
+        }
+
+        .step-number {
+          width: 56px;
+          height: 56px;
+          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: white;
+          margin: 0 auto 1rem;
+        }
+
+        .workflow-step h4 {
+          font-size: 1.1rem;
+          margin-bottom: 0.5rem;
+          color: #ffffff;
+        }
+
+        .workflow-step p {
+          font-size: 0.9rem;
+          color: rgba(240, 240, 240, 0.6);
+          margin: 0;
+        }
+
+        .workflow-arrow {
+          font-size: 2rem;
+          color: #8150FF;
+        }
+
+        .workflow-image {
+          max-width: 900px;
+          margin: 0 auto;
+          border-radius: 1rem;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .workflow-image img {
+          width: 100%;
+          display: block;
+        }
+
+        /* FAQ */
+        .section-faq {
+          padding: 6rem 0;
+          background: #1a1a1a;
+        }
+
+        .faq-list {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .faq-item {
+          border-bottom: 1px solid #333;
+          padding: 1.5rem 0;
+        }
+
+        .faq-item summary {
+          font-size: 1.15rem;
+          font-weight: 600;
+          color: #ffffff;
+          cursor: pointer;
+          list-style: none;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+          display: none;
+        }
+
+        .faq-item summary::after {
+          content: '+';
+          font-size: 1.5rem;
+          color: #8150FF;
+        }
+
+        .faq-item[open] summary::after {
+          content: '−';
+        }
+
+        .faq-item p {
+          margin-top: 1rem;
+          color: rgba(240, 240, 240, 0.7);
+          line-height: 1.7;
+        }
+
+        /* CTA */
+        .section-cta {
+          padding: 6rem 0;
+          background: linear-gradient(135deg, #ff66c4, #8150FF);
+        }
+
+        .cta-content {
+          text-align: center;
+          max-width: 700px;
+          margin: 0 auto;
+        }
+
+        .cta-content h2 {
+          font-size: 2.5rem;
+          font-weight: 700;
+          margin-bottom: 1rem;
+          color: white;
+        }
+
+        .cta-content p {
+          font-size: 1.15rem;
+          margin-bottom: 2rem;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-content .btn-gradient-large {
+          background: white;
+          color: #8150FF;
+        }
+
+        .cta-content .btn-gradient-large:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        .fade-in-up {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+          .hero-modern {
+            padding: 5rem 0 3rem;
+          }
+
+          .hero-headline {
+            font-size: 2rem;
+          }
+
+          .feature-title {
+            font-size: 1.75rem;
+          }
+
+          .section-header h2 {
+            font-size: 1.75rem;
+          }
+
+          .workflow-arrow {
+            display: none;
+          }
+        }
+      `}</style>
     </div>
   );
 };
