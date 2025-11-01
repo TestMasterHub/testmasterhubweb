@@ -331,7 +331,7 @@ const ResourcesPage = () => {
             ease: 'power2.in',
             onComplete: () => {
                 setSelectedSection(section);
-                window.scrollTo(0, 0); // Scroll to top on section change
+                window.scrollTo(0, 0);
                 if (isMobileMenuOpen) setIsMobileMenuOpen(false);
             }
         });
@@ -351,80 +351,363 @@ const ResourcesPage = () => {
     const nextSection = currentIndex < sectionKeys.length - 1 ? sectionKeys[currentIndex + 1] : null;
     
     return (
-    <div className="bg-dark text-white resources-page">
-      <div className="container-fluid">
-        <div className="row">
-          {/* Sidebar Navigation */}
-          <div className={`col-lg-3 resources-sidebar-wrapper ${isMobileMenuOpen ? 'open' : ''}`}>
-            <div className="resources-sidebar">
-                <h4 className="mb-4 fw-bold">Documentation</h4>
-                <nav className="nav flex-column">
-                {sectionKeys.map(section => (
-                    <a
-                    key={section} 
-                    href="#!"
-                    className={`nav-link d-flex align-items-center ${selectedSection === section ? 'active' : ''}`}
-                    onClick={(e) => {
-                        e.preventDefault();
-                        handleSectionSelect(section);
-                    }}
-                    >
-                    <span className="me-3">{sections[section].icon}</span>
-                    {section}
-                    </a>
-                ))}
-                </nav>
-            </div>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <div className="d-lg-none resources-mobile-toggle">
-            <button 
-              className="btn" 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+    <div className="modern-resources-page">
+      <style>{`
+        .modern-resources-page {
+          background: #1a1d24;
+          min-height: 100vh;
+          color: #e4e6eb;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .modern-sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 280px;
+          height: 100vh;
+          background: #23272f;
+          border-right: 1px solid #2d3139;
+          padding: 2rem 1.5rem;
+          overflow-y: auto;
+          z-index: 100;
+        }
+        
+        .modern-sidebar::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .modern-sidebar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        
+        .modern-sidebar::-webkit-scrollbar-thumb {
+          background: #3a3f4b;
+          border-radius: 3px;
+        }
+        
+        .sidebar-title {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #fff;
+          margin-bottom: 1.5rem;
+          letter-spacing: -0.01em;
+        }
+        
+        .sidebar-nav-link {
+          display: flex;
+          align-items: center;
+          padding: 0.65rem 1rem;
+          color: #b4b9c5;
+          text-decoration: none;
+          border-radius: 8px;
+          margin-bottom: 0.35rem;
+          transition: all 0.2s ease;
+          font-size: 0.95rem;
+          font-weight: 500;
+        }
+        
+        .sidebar-nav-link:hover {
+          background: #2d3139;
+          color: #fff;
+        }
+        
+        .sidebar-nav-link.active {
+          background: #3b82f6;
+          color: #fff;
+        }
+        
+        .sidebar-icon {
+          margin-right: 0.75rem;
+          font-size: 1rem;
+          opacity: 0.9;
+        }
+        
+        .mobile-menu-btn {
+          position: fixed;
+          top: 1rem;
+          left: 1rem;
+          z-index: 200;
+          background: #3b82f6;
+          color: white;
+          border: none;
+          padding: 0.65rem 1.2rem;
+          border-radius: 8px;
+          font-weight: 500;
+          display: none;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .modern-content {
+          margin-left: 280px;
+          padding: 3rem 4rem;
+          max-width: 1200px;
+        }
+        
+        .content-header {
+          margin-bottom: 2.5rem;
+        }
+        
+        .content-title {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: #fff;
+          margin-bottom: 0.5rem;
+          letter-spacing: -0.02em;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+        
+        .title-icon {
+          color: #3b82f6;
+          font-size: 2.25rem;
+        }
+        
+        .resource-section h5 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #fff;
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+        }
+        
+        .resource-section h6 {
+          font-size: 1.05rem;
+          font-weight: 600;
+          color: #e4e6eb;
+          margin-top: 1.5rem;
+          margin-bottom: 0.75rem;
+        }
+        
+        .resource-section p {
+          font-size: 1rem;
+          line-height: 1.7;
+          color: #b4b9c5;
+          margin-bottom: 1.25rem;
+        }
+        
+        .resource-section ul, .resource-section ol {
+          color: #b4b9c5;
+          line-height: 1.7;
+          margin-bottom: 1.5rem;
+        }
+        
+        .resource-section li {
+          margin-bottom: 0.75rem;
+        }
+        
+        .resource-section strong {
+          color: #fff;
+          font-weight: 600;
+        }
+        
+        .resource-section code:not(pre code) {
+          background: #2d3139;
+          color: #3b82f6;
+          padding: 0.2rem 0.5rem;
+          border-radius: 4px;
+          font-size: 0.9em;
+          font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+        }
+        
+        .resource-section pre {
+          background: #1e2129;
+          border: 1px solid #2d3139;
+          border-radius: 8px;
+          padding: 1.5rem;
+          overflow-x: auto;
+          margin: 1.5rem 0;
+        }
+        
+        .resource-section pre code {
+          color: #e4e6eb;
+          font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+          font-size: 0.9rem;
+          line-height: 1.6;
+        }
+        
+        .resource-section a {
+          color: #3b82f6;
+          text-decoration: none;
+          border-bottom: 1px solid transparent;
+          transition: border-color 0.2s;
+        }
+        
+        .resource-section a:hover {
+          border-bottom-color: #3b82f6;
+        }
+        
+        .nav-buttons {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 4rem;
+          padding-top: 2rem;
+          border-top: 1px solid #2d3139;
+          gap: 1rem;
+        }
+        
+        .nav-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 1rem 1.5rem;
+          background: #23272f;
+          border: 1px solid #2d3139;
+          border-radius: 8px;
+          color: #b4b9c5;
+          text-decoration: none;
+          transition: all 0.2s;
+          flex: 1;
+          max-width: 300px;
+        }
+        
+        .nav-btn:hover {
+          background: #2d3139;
+          border-color: #3b82f6;
+          color: #fff;
+          transform: translateY(-2px);
+        }
+        
+        .nav-btn-content small {
+          display: block;
+          font-size: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          opacity: 0.7;
+          margin-bottom: 0.25rem;
+        }
+        
+        .nav-btn-content span {
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+        
+        .nav-btn.next {
+          margin-left: auto;
+          text-align: right;
+        }
+        
+        @media (max-width: 991px) {
+          .modern-sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+          }
+          
+          .modern-sidebar.open {
+            transform: translateX(0);
+          }
+          
+          .mobile-menu-btn {
+            display: flex;
+          }
+          
+          .modern-content {
+            margin-left: 0;
+            padding: 5rem 1.5rem 2rem;
+          }
+          
+          .content-title {
+            font-size: 2rem;
+          }
+          
+          .nav-buttons {
+            flex-direction: column;
+          }
+          
+          .nav-btn {
+            max-width: 100%;
+            width: 100%;
+          }
+          
+          .nav-btn.next {
+            margin-left: 0;
+          }
+        }
+      `}</style>
+      
+      {/* Mobile Menu Button */}
+      <button 
+        className="mobile-menu-btn"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      >
+        <FaBars />
+        Menu
+      </button>
+      
+      {/* Sidebar */}
+      <aside className={`modern-sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
+        <h4 className="sidebar-title">Documentation</h4>
+        <nav>
+          {sectionKeys.map(section => (
+            <a
+              key={section}
+              href="#!"
+              className={`sidebar-nav-link ${selectedSection === section ? 'active' : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleSectionSelect(section);
+              }}
             >
-              <FaBars className="me-2" />
-              Menu
-            </button>
+              <span className="sidebar-icon">{sections[section].icon}</span>
+              {section}
+            </a>
+          ))}
+        </nav>
+      </aside>
+      
+      {/* Main Content */}
+      <main className="modern-content">
+        <div ref={contentRef}>
+          <div className="content-header">
+            <h1 className="content-title">
+              <span className="title-icon">{sections[selectedSection].icon}</span>
+              {sections[selectedSection].title}
+            </h1>
           </div>
-
-          {/* Content Section */}
-          <main className="col-lg-9 ms-lg-auto resources-content">
-            <div ref={contentRef} className="content-inner">
-                <div className="p-4 p-lg-5">
-                    <h1 className="display-5 mb-4 fw-bold d-flex align-items-center">
-                        <span className="me-3">{sections[selectedSection].icon}</span>
-                        {sections[selectedSection].title}
-                    </h1>
-                    <div className="content" dangerouslySetInnerHTML={{ __html: sections[selectedSection].content }} />
+          
+          <div dangerouslySetInnerHTML={{ __html: sections[selectedSection].content }} />
+          
+          {/* Navigation Buttons */}
+          <div className="nav-buttons">
+            {prevSection ? (
+              <a
+                href="#!"
+                className="nav-btn prev"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSectionSelect(prevSection);
+                }}
+              >
+                <FaArrowLeft />
+                <div className="nav-btn-content">
+                  <small>Previous</small>
+                  <span>{prevSection}</span>
                 </div>
+              </a>
+            ) : <div />}
             
-                {/* Next/Previous Navigation */}
-                <div className="d-flex justify-content-between mt-5 p-4 p-lg-5 border-top-custom">
-                    {prevSection ? (
-                        <a href="#!" className="nav-link-card" onClick={(e) => { e.preventDefault(); handleSectionSelect(prevSection); }}>
-                            <FaArrowLeft className="me-2" />
-                            <div>
-                                <small>Previous</small>
-                                <span className="d-block fw-bold">{prevSection}</span>
-                            </div>
-                        </a>
-                    ) : <div />}
-                
-                    {nextSection && (
-                        <a href="#!" className="nav-link-card text-end" onClick={(e) => { e.preventDefault(); handleSectionSelect(nextSection); }}>
-                            <div>
-                                <small>Next</small>
-                                <span className="d-block fw-bold">{nextSection}</span>
-                            </div>
-                            <FaArrowRight className="ms-2" />
-                        </a>
-                    )}
+            {nextSection && (
+              <a
+                href="#!"
+                className="nav-btn next"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSectionSelect(nextSection);
+                }}
+              >
+                <div className="nav-btn-content">
+                  <small>Next</small>
+                  <span>{nextSection}</span>
                 </div>
-            </div>
-          </main>
+                <FaArrowRight />
+              </a>
+            )}
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
