@@ -1,0 +1,115 @@
+/* These styles will ONLY apply when the <body> tag has the class "questkit-active",
+  which the QuestKit.js component will add/remove on mount/unmount.
+*/
+
+.questkit-active body {
+  background: #f8f9fa !important; /* Force light background */
+}
+
+.questkit-active .sidebar {
+  width: 250px;
+  background: white;
+  border-right: 1px solid #dee2e6;
+  transition: transform 0.3s ease;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.questkit-active .main-content {
+  margin-left: 250px;
+  padding: 20px;
+  flex: 1;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+@media (max-width: 991.98px) {
+  .questkit-active .sidebar {
+    transform: translateX(-100%);
+  }
+  .questkit-active .sidebar.show {
+    transform: translateX(0);
+  }
+  .questkit-active .main-content {
+    margin-left: 0;
+  }
+}
+
+.questkit-active .tool-card {
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  border-left: 4px solid transparent;
+  padding: 12px 16px;
+  color: #333; /* Dark text for light theme */
+}
+
+.questkit-active .tool-card:hover {
+  background-color: #f8f9fa;
+}
+
+.questkit-active .tool-card.active {
+  background-color: #0d6efd;
+  color: white; /* White text on blue bg */
+  border-left-color: #0a58ca;
+  font-weight: 500;
+}
+
+.questkit-active .tool-card.active .text-muted {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* --- CRITICAL OVERRIDES ---
+  These styles force Bootstrap components to be light-themed,
+  overriding the TestMasterHub dark theme from App.css.
+*/
+
+.questkit-active .card {
+  background-color: #fff !important; /* This is the white card fix */
+  color: #212529 !important;
+  border: 1px solid #dee2e6;
+}
+
+.questkit-active .card-body {
+  color: #212529 !important;
+}
+
+.questkit-active .card-header {
+  background-color: #f8f9fa;
+  color: #212529 !important;
+}
+
+.questkit-active h1,
+.questkit-active h2,
+.questkit-active h3,
+.questkit-active h4,
+.questkit-active h5,
+.questkit-active h6,
+.questkit-active .text-dark {
+  color: #212529 !important; /* Force dark text */
+}
+
+.questkit-active .text-muted {
+  color: #6c757d !important; /* Bootstrap's default muted text */
+}
+
+.questkit-active .form-control,
+.questkit-active .form-select {
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+}
+
+.questkit-active .alert-success {
+  color: #0a3622;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
+
+.questkit-active .alert-info {
+    color: #055160;
+    background-color: #cff4fc;
+    border-color: #b6effb;
+}
