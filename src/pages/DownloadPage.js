@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+// Import useNavigate
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Download, Sparkles, Bug, Zap } from 'lucide-react';
 import { FaWindows } from "react-icons/fa";
 
 const DownloadPage = () => {
   const location = useLocation();
+  // Initialize useNavigate
+  const navigate = useNavigate(); 
+  
   const [stableRelease, setStableRelease] = useState(null);
   const [betaRelease, setBetaRelease] = useState(null);
   
-  // Determine initial tab based on URL
   const isBetaPage = location.pathname.includes('beta-download');
   const [activeTab, setActiveTab] = useState(isBetaPage ? 'beta' : 'stable');
-
+ const BaseURL = process.env.REACT_APP_API_URL;
   useEffect(() => {
-    // Update active tab when URL changes
     setActiveTab(isBetaPage ? 'beta' : 'stable');
   }, [isBetaPage]);
 
   useEffect(() => {
-    // Fetch stable release
-    fetch("https://api.intranet.testmasterhub.com/v1/release/latest")
+    fetch(`${BaseURL}/v1/release/latest`)
       .then(response => response.json())
       .then(data => setStableRelease(data))
       .catch(error => console.error("Error fetching stable release:", error));
 
-    // Fetch beta release
-    fetch("https://api.intranet.testmasterhub.com/v1/release/latest?type=prod-beta")
+    fetch(`${BaseURL}/v1/release/latest?type=prod-beta`)
       .then(response => response.json())
       .then(data => setBetaRelease(data))
       .catch(error => console.error("Error fetching beta release:", error));
@@ -34,11 +34,23 @@ const DownloadPage = () => {
   const currentRelease = activeTab === 'stable' ? stableRelease : betaRelease;
   const downloadUrl = activeTab === 'stable' 
     ? stableRelease?.downloadUrl 
-    : 'https://api.intranet.testmasterhub.com/v1/release/download/latest?type=prod-beta';
+    : `${BaseURL}/v1/release/download/latest?type=prod-beta`;
 
   const handleDownload = () => {
+    // This handler is now used for the beta button
     if (activeTab === 'beta') {
       window.location.href = downloadUrl;
+      // Navigate to the guide
+      navigate('/installation-guide'); 
+    }
+  };
+
+  const handleStableDownload = () => {
+    // New handler for the stable button
+    if (downloadUrl) {
+      window.location.href = downloadUrl;
+      // Navigate to the guide
+      navigate('/installation-guide');
     }
   };
 
@@ -79,14 +91,17 @@ const DownloadPage = () => {
                   <>
                     <p className="text-white-50 mb-4 mt-3">Version {currentRelease.version}</p>
                     {activeTab === 'stable' ? (
-                      <a href={downloadUrl}
+                      // Changed from <a> to <button> and use handleStableDownload
+                      <button
+                         onClick={handleStableDownload}
                          className="btn btn-primary-gradient btn-lg w-100"
-                         target="_blank"
-                         rel="noopener noreferrer">
+                         disabled={!downloadUrl}
+                      >
                         <Download className="me-2" size={20} />
                         Download for Windows x64
-                      </a>
+                      </button>
                     ) : (
+                      // This button already uses handleDownload
                       <button
                         onClick={handleDownload}
                         className="btn btn-primary-gradient btn-lg w-100">
@@ -109,7 +124,7 @@ const DownloadPage = () => {
         </div>
       </section>
 
-      {/* Release Notes Section */}
+      {/* Release Notes Section (no changes here) */}
       <section className="py-5">
         <div className="container">
           <div className="row justify-content-center">

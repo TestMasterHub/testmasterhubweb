@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Mail, Github, Twitter, Linkedin, Youtube } from "lucide-react";
-
+import packageJson from "../../../package.json";
 const Footer = () => {
   return (
     <footer className="footer bg-dark-subtle text-white pt-5 pb-4">
@@ -80,7 +80,7 @@ const Footer = () => {
         <div className="row align-items-center">
           <div className="col-md-7 col-lg-8">
             <p className="small text-white-50 mb-md-0">
-              © {new Date().getFullYear()} TestMasterHub. All rights reserved.
+              © {new Date().getFullYear()} TestMasterHub. All rights reserved. v{packageJson.version}
             </p>
           </div>
           <div className="col-md-5 col-lg-4">

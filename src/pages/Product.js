@@ -169,7 +169,7 @@ const Product = () => {
             </section>
 
             {/* Testimonials Section */}
-            <section className="py-5 bg-dark-subtle animated-section">
+            {/* <section className="py-5 bg-dark-subtle animated-section">
                 <div className="container">
                     <div className="text-center mb-5 section-header">
                         <h2 className="display-5 fw-bold">Loved by High-Performance Teams</h2>
@@ -209,7 +209,7 @@ const Product = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Final CTA Section */}
             <section className="py-5 text-center">

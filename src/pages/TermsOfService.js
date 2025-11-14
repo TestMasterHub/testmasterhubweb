@@ -37,7 +37,7 @@ const TermsOfService = () => {
                         <p>We reserve the right to modify these Terms at any time. Continued use of the service after updates constitutes acceptance.</p>
 
                         <h5>8. Contact Information</h5>
-                        <p>If you have any questions about these Terms, contact us at <a href="mailto:social.testmasterhub@gmail.com">social.testmasterhub@gmail.com</a></p>
+                        <p>If you have any questions about these Terms, contact us at <a href="mailto:contact.testmasterhub@gmail.com">contact.testmasterhub@gmail.com</a></p>
                     </div>
                 </div>
             </div>

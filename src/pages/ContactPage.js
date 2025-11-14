@@ -33,7 +33,7 @@ const ContactPage = () => {
     setIsSubmitting(true);
 
     // Create mailto link as fallback
-    const mailtoLink = `mailto:social.testmasterhub@gmail.com?subject=Contact from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
+    const mailtoLink = `mailto:contact.testmasterhub@gmail.com?subject=Contact from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
       `Name: ${formData.name}\n` +
       `Email: ${formData.email}\n\n` +
       `Message:\n${formData.message}`
@@ -249,8 +249,8 @@ const ContactPage = () => {
                 </div>
                 <h3>Email Us</h3>
                 <p>Our team is here to help</p>
-                <a href="mailto:social.testmasterhub@gmail.com" className="info-link">
-                  social.testmasterhub@gmail.com
+                <a href="mailto:contact.testmasterhub@gmail.com" className="info-link">
+                  contact.testmasterhub@gmail.com
                 </a>
               </div>
 

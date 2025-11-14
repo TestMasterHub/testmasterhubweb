@@ -305,7 +305,7 @@ const Home = () => {
           <div className="cta-content fade-in-up">
             <h2>Ready to test smarter?</h2>
             <p>Join thousands of developers using AI-powered API testing</p>
-            <a href="/download" className="btn-gradient-large">
+            <a href="/invite/beta-download" className="btn-gradient-large">
               <Brain size={20} />
               Try TestMasterHub Free
             </a>

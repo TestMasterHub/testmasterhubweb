@@ -1,7 +1,26 @@
 const API_BASE_URL = process.env.REACT_APP_API_URL;
+const ENVIRONMENT = process.env.REACT_APP_Environment || 'production';
 
 class PageTrackingService {
+
+  constructor() {
+    // Log initialization status
+    if (ENVIRONMENT !== 'production') {
+      console.log(`PageTrackingService initialized in ${ENVIRONMENT} environment. Tracking is disabled.`);
+    } else {
+      console.log("PageTrackingService initialized in production environment.");
+    }
+  }
+
+  /**
+   * Tracks a page visit. Does nothing if not in 'production' environment.
+   */
   async trackPageVisit(pagePath) {
+    // Guard clause: Only run in production
+    if (ENVIRONMENT !== 'production') {
+      return Promise.resolve(null);
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/v1/tracking/visit`, {
         method: 'POST',
@@ -26,7 +45,15 @@ class PageTrackingService {
     }
   }
 
+  /**
+   * Gets recent visits. Returns an empty array if not in 'production' environment.
+   */
   async getRecentVisits(limit = 50, hours = 24) {
+    // Guard clause: Only run in production
+    if (ENVIRONMENT !== 'production') {
+      return Promise.resolve([]); // Return an empty array as expected
+    }
+
     try {
       const response = await fetch(
         `${API_BASE_URL}/v1/tracking/visits/recent?limit=${limit}&hours=${hours}`
@@ -43,7 +70,15 @@ class PageTrackingService {
     }
   }
 
+  /**
+   * Gets visit stats. Returns an empty object if not in 'production' environment.
+   */
   async getVisitStats(hours = 24) {
+    // Guard clause: Only run in production
+    if (ENVIRONMENT !== 'production') {
+      return Promise.resolve({}); // Return an empty object as expected
+    }
+
     try {
       const response = await fetch(
         `${API_BASE_URL}/v1/tracking/visits/stats?hours=${hours}`

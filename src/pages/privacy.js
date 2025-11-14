@@ -39,7 +39,7 @@ const PrivacyPolicy = () => {
                         <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
 
                         <h5>7. Contact Us</h5>
-                        <p>Have questions? Contact us at <a href="mailto:social.testmasterhub@gmail.com">social.testmasterhub@gmail.com</a></p>
+                        <p>Have questions? Contact us at <a href="mailto:contact.testmasterhub@gmail.com">contact.testmasterhub@gmail.com</a></p>
                     </div>
                 </div>
             </div>
