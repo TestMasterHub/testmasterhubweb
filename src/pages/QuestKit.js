@@ -1,0 +1,893 @@
+import React, { useState, useEffect, useRef } from 'react';
+
+const QuestKit = () => {
+  const [activeTab, setActiveTab] = useState('home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // Test Data Generator
+  const [dataType, setDataType] = useState('email');
+  const [dataCount, setDataCount] = useState(10);
+  const [generatedData, setGeneratedData] = useState([]);
+  
+  // Bug Report
+  const [bugReport, setBugReport] = useState({
+    title: '', severity: 'medium', environment: '', steps: '', expected: '', actual: ''
+  });
+  
+  // Regex
+  const [regexPattern, setRegexPattern] = useState('');
+  const [regexTest, setRegexTest] = useState('');
+  
+  // JSON Diff
+  const [jsonLeft, setJsonLeft] = useState('');
+  const [jsonRight, setJsonRight] = useState('');
+  
+  // Status Search
+  const [statusSearch, setStatusSearch] = useState('');
+  
+  // Password
+  const [passwordConfig, setPasswordConfig] = useState({
+    length: 16, upper: true, lower: true, numbers: true, special: true
+  });
+  const [generatedPassword, setGeneratedPassword] = useState('');
+  
+  // Timezone
+  const [selectedTime, setSelectedTime] = useState('12:00');
+  
+  // Base64
+  const [base64Input, setBase64Input] = useState('');
+  const [base64Output, setBase64Output] = useState('');
+  
+  // Screenshot Annotator
+  const [screenshot, setScreenshot] = useState(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [drawMode, setDrawMode] = useState('arrow');
+  const [annotations, setAnnotations] = useState([]);
+  const [currentAnnotation, setCurrentAnnotation] = useState(null);
+  const canvasRef = useRef(null);
+  
+  // SQL
+  const [sqlInput, setSqlInput] = useState('');
+  const [sqlOutput, setSqlOutput] = useState('');
+  
+  // Copy to clipboard
+  const [copySuccess, setCopySuccess] = useState('');
+
+  // --- THIS IS THE CRITICAL FIX ---
+  // This hook adds 'questkit-active' to the <body> tag when this component
+  // mounts and, most importantly, *removes it* when the component unmounts.
+  useEffect(() => {
+    document.body.classList.add('questkit-active');
+
+    // Return a cleanup function
+    return () => {
+      document.body.classList.remove('questkit-active');
+    };
+  }, []); // The empty array [] ensures this runs only once on mount/unmount
+
+  const copyToClipboard = (text, label) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopySuccess(label);
+      setTimeout(() => setCopySuccess(''), 2000);
+    });
+  };
+
+  const tools = [
+    { id: 'data-gen', name: 'Test Data Generator', icon: '📊', color: 'primary' },
+    { id: 'bug-report', name: 'Bug Report Template', icon: '🐛', color: 'danger' },
+    { id: 'regex', name: 'Regex Tester', icon: '💻', color: 'success' },
+    { id: 'json-diff', name: 'JSON Diff', icon: '📄', color: 'warning' },
+    { id: 'screenshot', name: 'Screenshot Annotator', icon: '🖼️', color: 'info' },
+    { id: 'status-codes', name: 'HTTP Status Codes', icon: '📚', color: 'secondary' },
+    { id: 'password', name: 'Password Generator', icon: '🔑', color: 'dark' },
+    { id: 'timezone', name: 'Timezone Converter', icon: '🕐', color: 'primary' },
+    { id: 'base64', name: 'Base64 Encoder/Decoder', icon: '🔒', color: 'success' },
+    { id: 'sql', name: 'SQL Formatter', icon: '🗄️', color: 'info' }
+  ];
+
+  const statusCodes = {
+    // 1xx Informational
+    '100': 'Continue - Client should continue with request',
+    '101': 'Switching Protocols - Server is switching protocols',
+    '102': 'Processing - Server has received and is processing the request',
+    '103': 'Early Hints - Used to return some response headers before final response',
+    
+    // 2xx Success
+    '200': 'OK - Request succeeded',
+    '201': 'Created - Resource successfully created',
+    '202': 'Accepted - Request accepted for processing',
+    '203': 'Non-Authoritative Information - Returned meta-information is not from origin server',
+    '204': 'No Content - Success but no content to return',
+    '205': 'Reset Content - Client should reset the document view',
+    '206': 'Partial Content - Partial GET has been successful',
+    '207': 'Multi-Status - Multiple status codes for multiple operations',
+    '208': 'Already Reported - Members already enumerated in previous reply',
+    '226': 'IM Used - Response is a representation of the result of one or more instance-manipulations',
+    
+    // 3xx Redirection
+    '300': 'Multiple Choices - Multiple options for the resource',
+    '301': 'Moved Permanently - Resource permanently moved to new URL',
+    '302': 'Found - Resource temporarily moved to different URI',
+    '303': 'See Other - Response to the request can be found under another URI',
+    '304': 'Not Modified - Resource has not been modified since last request',
+    '305': 'Use Proxy - Requested resource must be accessed through proxy',
+    '307': 'Temporary Redirect - Resource temporarily moved, use same HTTP method',
+    '308': 'Permanent Redirect - Resource permanently moved, use same HTTP method',
+    
+    // 4xx Client Errors
+    '400': 'Bad Request - Invalid syntax',
+    '401': 'Unauthorized - Authentication required',
+    '402': 'Payment Required - Reserved for future use',
+    '403': 'Forbidden - Server refuses request',
+    '404': 'Not Found - Resource not found',
+    '405': 'Method Not Allowed - HTTP method not allowed for resource',
+    '406': 'Not Acceptable - Content characteristics not acceptable',
+    '407': 'Proxy Authentication Required - Client must authenticate with proxy',
+    '408': 'Request Timeout - Server timed out waiting for request',
+    '409': 'Conflict - Request conflicts with current state of server',
+    '410': 'Gone - Resource no longer available and will not be available again',
+    '411': 'Length Required - Content-Length header field is required',
+    '412': 'Precondition Failed - Precondition in headers evaluated to false',
+    '413': 'Payload Too Large - Request entity is larger than server limits',
+    '414': 'URI Too Long - URI provided was too long for server to process',
+    '415': 'Unsupported Media Type - Media type not supported by server',
+    '416': 'Range Not Satisfiable - Range specified by Range header cannot be fulfilled',
+    '417': 'Expectation Failed - Expectation in Expect header cannot be met',
+    '418': "I'm a teapot - Server refuses to brew coffee because it's a teapot",
+    '421': 'Misdirected Request - Request directed at server unable to produce response',
+    '422': 'Unprocessable Entity - Request well-formed but unable to process',
+    '423': 'Locked - Resource being accessed is locked',
+    '424': 'Failed Dependency - Request failed due to failure of previous request',
+    '425': 'Too Early - Server unwilling to risk processing replayed request',
+    '426': 'Upgrade Required - Client should switch to different protocol',
+    '428': 'Precondition Required - Origin server requires request to be conditional',
+    '429': 'Too Many Requests - User has sent too many requests',
+    '431': 'Request Header Fields Too Large - Header fields are too large',
+    '451': 'Unavailable For Legal Reasons - Resource unavailable due to legal reasons',
+    
+    // 5xx Server Errors
+    '500': 'Internal Server Error - Server error',
+    '501': 'Not Implemented - Server does not support functionality required',
+    '502': 'Bad Gateway - Invalid response from upstream server',
+    '503': 'Service Unavailable - Server temporarily unavailable',
+    '504': 'Gateway Timeout - Upstream server failed to send request in time',
+    '505': 'HTTP Version Not Supported - HTTP version not supported by server',
+    '506': 'Variant Also Negotiates - Transparent content negotiation error',
+    '507': 'Insufficient Storage - Server unable to store representation',
+    '508': 'Loop Detected - Server detected infinite loop while processing request',
+    '510': 'Not Extended - Further extensions to request are required',
+    '511': 'Network Authentication Required - Client needs to authenticate to gain network access'
+  };
+
+  const generateData = () => {
+    const data = [];
+    for (let i = 0; i < dataCount; i++) {
+      if (dataType === 'email') {
+        const domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'test.com'];
+        data.push(`user${Math.floor(Math.random() * 10000)}@${domains[Math.floor(Math.random() * domains.length)]}`);
+      } else if (dataType === 'name') {
+        const first = ['John', 'Jane', 'Mike', 'Sarah', 'David', 'Emily', 'Chris', 'Anna'];
+        const last = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis'];
+        data.push(`${first[Math.floor(Math.random() * first.length)]} ${last[Math.floor(Math.random() * last.length)]}`);
+      } else if (dataType === 'phone') {
+        data.push(`+1-${Math.floor(Math.random() * 900 + 100)}-${Math.floor(Math.random() * 900 + 100)}-${Math.floor(Math.random() * 9000 + 1000)}`);
+      } else if (dataType === 'address') {
+        data.push(`${Math.floor(Math.random() * 9999 + 1)} ${['Main', 'Oak', 'Pine', 'Maple', 'Cedar'][Math.floor(Math.random() * 5)]} St`);
+      }
+    }
+    setGeneratedData(data);
+  };
+
+  const generateBugReport = () => {
+    return `# Bug Report
+
+## Title
+${bugReport.title || '[Bug Title]'}
+
+## Severity
+${bugReport.severity.toUpperCase()}
+
+## Environment
+${bugReport.environment || '[Browser/OS/Version]'}
+
+## Steps to Reproduce
+${bugReport.steps || '[Step 1]'}
+
+## Expected Behavior
+${bugReport.expected || '[What should happen]'}
+
+## Actual Behavior
+${bugReport.actual || '[What actually happens]'}`;
+  };
+
+  const testRegex = () => {
+    try {
+      const regex = new RegExp(regexPattern, 'g');
+      const matches = regexTest.match(regex);
+      return matches ? matches.join(', ') : 'No matches';
+    } catch (e) {
+      return 'Invalid regex pattern';
+    }
+  };
+
+  const compareJSON = () => {
+    try {
+      const left = JSON.parse(jsonLeft);
+      const right = JSON.parse(jsonRight);
+      
+      const differences = [];
+      const allKeys = new Set([...Object.keys(left), ...Object.keys(right)]);
+      
+      allKeys.forEach(key => {
+        const leftValue = JSON.stringify(left[key]);
+        const rightValue = JSON.stringify(right[key]);
+        
+        if (leftValue !== rightValue) {
+          differences.push({
+            key,
+            leftValue: left[key] !== undefined ? leftValue : 'missing',
+            rightValue: right[key] !== undefined ? rightValue : 'missing'
+          });
+        }
+      });
+      
+      return differences;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const generatePassword = () => {
+    const { length, upper, lower, numbers, special } = passwordConfig;
+    let chars = '';
+    if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (lower) chars += 'abcdefghijklmnopqrstuvwxyz';
+    if (numbers) chars += '0123456789';
+    if (special) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+    
+    let pwd = '';
+    for (let i = 0; i < length; i++) {
+      pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setGeneratedPassword(pwd);
+  };
+
+  const convertTimezones = (time) => {
+    const [hours, minutes] = time.split(':');
+    const date = new Date();
+    date.setHours(parseInt(hours), parseInt(minutes), 0);
+    
+    const timezones = [
+      { name: 'UTC', zone: 'UTC' },
+      { name: 'EST (US Eastern)', zone: 'America/New_York' },
+      { name: 'CST (US Central)', zone: 'America/Chicago' },
+      { name: 'MST (US Mountain)', zone: 'America/Denver' },
+      { name: 'PST (US Pacific)', zone: 'America/Los_Angeles' },
+      { name: 'GMT', zone: 'GMT' },
+      { name: 'IST (India)', zone: 'Asia/Kolkata' },
+      { name: 'JST (Japan)', zone: 'Asia/Tokyo' },
+      { name: 'AEST (Australia)', zone: 'Australia/Sydney' }
+    ];
+    
+    return timezones.map(tz => {
+      const timeStr = date.toLocaleTimeString('en-US', { 
+        timeZone: tz.zone, 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true
+      });
+      return `${tz.name}: ${timeStr}`;
+    });
+  };
+
+  const encodeBase64 = () => {
+    setBase64Output(btoa(base64Input));
+  };
+
+  const decodeBase64 = () => {
+    try {
+      setBase64Output(atob(base64Input));
+    } catch (e) {
+      setBase64Output('Invalid Base64');
+    }
+  };
+
+  const formatSQL = () => {
+    const formatted = sqlInput
+      .replace(/\s+/g, ' ')
+      .replace(/SELECT/gi, '\nSELECT\n  ')
+      .replace(/FROM/gi, '\nFROM\n  ')
+      .replace(/WHERE/gi, '\nWHERE\n  ')
+      .replace(/AND/gi, '\n  AND')
+      .replace(/OR/gi, '\n  OR')
+      .replace(/JOIN/gi, '\nJOIN\n  ')
+      .replace(/,/g, ',\n  ');
+    setSqlOutput(formatted);
+  };
+
+  // Screenshot Annotator Functions
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setScreenshot(event.target.result);
+        setAnnotations([]);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handlePaste = (e) => {
+    const items = e.clipboardData?.items;
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          const blob = items[i].getAsFile();
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            setScreenshot(event.target.result);
+            setAnnotations([]);
+          };
+          reader.readAsDataURL(blob);
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (screenshot && canvasRef.current) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        
+        // Redraw annotations
+        annotations.forEach(ann => {
+          ctx.strokeStyle = '#FF0000';
+          ctx.lineWidth = 3;
+          ctx.fillStyle = '#FF0000';
+          
+          if (ann.type === 'arrow') {
+            drawArrow(ctx, ann.startX, ann.startY, ann.endX, ann.endY);
+          } else if (ann.type === 'rectangle') {
+            ctx.strokeRect(ann.startX, ann.startY, ann.endX - ann.startX, ann.endY - ann.startY);
+          } else if (ann.type === 'text') {
+            ctx.font = '20px Arial';
+            ctx.fillText(ann.text, ann.x, ann.y);
+          }
+        });
+
+        // Draw current annotation while dragging
+        if (currentAnnotation && currentAnnotation.endX !== undefined) {
+          ctx.strokeStyle = '#FF0000';
+          ctx.lineWidth = 3;
+          ctx.fillStyle = '#FF0000';
+          
+          if (drawMode === 'arrow') {
+            drawArrow(ctx, currentAnnotation.startX, currentAnnotation.startY, currentAnnotation.endX, currentAnnotation.endY);
+          } else if (drawMode === 'rectangle') {
+            ctx.strokeRect(
+              currentAnnotation.startX, 
+              currentAnnotation.startY, 
+              currentAnnotation.endX - currentAnnotation.startX, 
+              currentAnnotation.endY - currentAnnotation.startY
+            );
+          }
+        }
+      };
+      img.src = screenshot;
+    }
+  }, [screenshot, annotations, currentAnnotation, drawMode]);
+
+  const drawArrow = (ctx, fromX, fromY, toX, toY) => {
+    const headLength = 15;
+    const angle = Math.atan2(toY - fromY, toX - fromX);
+    
+    ctx.beginPath();
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(toX, toY);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(toX, toY);
+    ctx.lineTo(toX - headLength * Math.cos(angle - Math.PI / 6), toY - headLength * Math.sin(angle - Math.PI / 6));
+    ctx.moveTo(toX, toY);
+    ctx.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6), toY - headLength * Math.sin(angle + Math.PI / 6));
+    ctx.stroke();
+  };
+
+  const handleCanvasMouseDown = (e) => {
+    if (!screenshot) return;
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    
+    if (drawMode === 'text') {
+      const text = prompt('Enter text:');
+      if (text) {
+        setAnnotations([...annotations, { type: 'text', text, x, y }]);
+      }
+    } else {
+      setIsDrawing(true);
+      setCurrentAnnotation({ startX: x, startY: y, endX: x, endY: y, type: drawMode });
+    }
+  };
+
+  const handleCanvasMouseMove = (e) => {
+    if (!isDrawing || !screenshot) return;
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    
+    setCurrentAnnotation(prev => ({ ...prev, endX: x, endY: y }));
+  };
+
+  const handleCanvasMouseUp = (e) => {
+    if (!isDrawing) return;
+    setIsDrawing(false);
+    
+    if (currentAnnotation && (currentAnnotation.endX !== currentAnnotation.startX || currentAnnotation.endY !== currentAnnotation.startY)) {
+      setAnnotations([...annotations, currentAnnotation]);
+    }
+    setCurrentAnnotation(null);
+  };
+
+  const downloadAnnotatedImage = () => {
+    const canvas = canvasRef.current;
+    const link = document.createElement('a');
+    link.download = 'annotated-screenshot.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  };
+
+  const clearScreenshot = () => {
+    setScreenshot(null);
+    setAnnotations([]);
+  };
+
+  const renderTool = () => {
+    switch(activeTab) {
+      case 'data-gen':
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">Test Data Generator</h2>
+            <div className="row g-3 mb-3">
+              <div className="col-md-4">
+                <select className="form-select" value={dataType} onChange={(e) => setDataType(e.target.value)}>
+                  <option value="email">Email</option>
+                  <option value="name">Name</option>
+                  <option value="phone">Phone</option>
+                  <option value="address">Address</option>
+                </select>
+              </div>
+              <div className="col-md-3">
+                <input type="number" className="form-control" value={dataCount} onChange={(e) => setDataCount(parseInt(e.target.value))} />
+              </div>
+              <div className="col-md-3">
+                <button className="btn btn-primary w-100" onClick={generateData}>Generate</button>
+              </div>
+            </div>
+            <div className="position-relative">
+              <textarea className="form-control font-monospace" value={generatedData.join('\n')} readOnly rows="12" />
+              {generatedData.length > 0 && (
+                <button 
+                  className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
+                  onClick={() => copyToClipboard(generatedData.join('\n'), 'Data copied!')}
+                >
+                  📋 Copy
+                </button>
+              )}
+            </div>
+            {copySuccess === 'Data copied!' && <div className="alert alert-success mt-2">✓ {copySuccess}</div>}
+          </div>
+        );
+      
+      case 'bug-report':
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">Bug Report Template</h2>
+            <div className="mb-3">
+              <input type="text" className="form-control" placeholder="Bug Title" value={bugReport.title} onChange={(e) => setBugReport({...bugReport, title: e.target.value})} />
+            </div>
+            <div className="mb-3">
+              <select className="form-select" value={bugReport.severity} onChange={(e) => setBugReport({...bugReport, severity: e.target.value})}>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
+            </div>
+            <div className="mb-3">
+              <input type="text" className="form-control" placeholder="Environment" value={bugReport.environment} onChange={(e) => setBugReport({...bugReport, environment: e.target.value})} />
+            </div>
+            <div className="mb-3">
+              <textarea className="form-control" placeholder="Steps to Reproduce" value={bugReport.steps} onChange={(e) => setBugReport({...bugReport, steps: e.target.value})} rows="3" />
+            </div>
+            <div className="mb-3">
+              <textarea className="form-control" placeholder="Expected Behavior" value={bugReport.expected} onChange={(e) => setBugReport({...bugReport, expected: e.target.value})} rows="3" />
+            </div>
+            <div className="mb-3">
+              <textarea className="form-control" placeholder="Actual Behavior" value={bugReport.actual} onChange={(e) => setBugReport({...bugReport, actual: e.target.value})} rows="3" />
+            </div>
+            <div className="card bg-light">
+              <div className="card-body position-relative">
+                <h5>Generated Report:</h5>
+                <pre className="mb-0">{generateBugReport()}</pre>
+                <button 
+                  className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
+                  onClick={() => copyToClipboard(generateBugReport(), 'Report copied!')}
+                >
+                  📋 Copy
+                </button>
+              </div>
+            </div>
+            {copySuccess === 'Report copied!' && <div className="alert alert-success mt-2">✓ {copySuccess}</div>}
+          </div>
+        );
+      
+      case 'regex':
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">Regex Tester</h2>
+            <div className="mb-3">
+              <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => setRegexPattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')}>Email</button>
+              <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => setRegexPattern('\\d{3}-\\d{3}-\\d{4}')}>Phone</button>
+              <button className="btn btn-sm btn-outline-secondary" onClick={() => setRegexPattern('https?://[^\\s]+')}>URL</button>
+            </div>
+            <div className="mb-3">
+              <input type="text" className="form-control font-monospace" placeholder="Regex Pattern" value={regexPattern} onChange={(e) => setRegexPattern(e.target.value)} />
+            </div>
+            <div className="mb-3">
+              <textarea className="form-control" placeholder="Test String" value={regexTest} onChange={(e) => setRegexTest(e.target.value)} rows="5" />
+            </div>
+            <div className="alert alert-success">
+              <strong>Matches:</strong> {testRegex()}
+            </div>
+          </div>
+        );
+      
+      case 'json-diff':
+        const diffResult = compareJSON();
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">JSON Diff</h2>
+            <div className="row g-3 mb-3">
+              <div className="col-lg-6">
+                <label className="form-label fw-bold">JSON 1</label>
+                <textarea className="form-control font-monospace" placeholder='{"name": "John", "age": 30}' value={jsonLeft} onChange={(e) => setJsonLeft(e.target.value)} rows="12" />
+              </div>
+              <div className="col-lg-6">
+                <label className="form-label fw-bold">JSON 2</label>
+                <textarea className="form-control font-monospace" placeholder='{"name": "Jane", "age": 25}' value={jsonRight} onChange={(e) => setJsonRight(e.target.value)} rows="12" />
+              </div>
+            </div>
+            
+            {diffResult === null ? (
+              <div className="alert alert-danger">
+                <strong>Error:</strong> Invalid JSON format. Please check your input.
+              </div>
+            ) : diffResult.length === 0 ? (
+              <div className="alert alert-success">
+                <strong>✓ Identical:</strong> Both JSON objects are exactly the same.
+              </div>
+            ) : (
+              <div>
+                <div className="alert alert-warning">
+                  <strong>✗ Differences Found:</strong> {diffResult.length} field(s) differ
+                </div>
+                <div className="card">
+                  <div className="card-header bg-light">
+                    <strong>Detailed Comparison</strong>
+                  </div>
+                  <div className="card-body p-0">
+                    <table className="table table-bordered mb-0">
+                      <thead>
+                        <tr>
+                          <th style={{width: '20%'}}>Field</th>
+                          <th style={{width: '40%'}} className="bg-light">JSON 1 Value</th>
+                          <th style={{width: '40%'}} className="bg-light">JSON 2 Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {diffResult.map((diff, index) => (
+                          <tr key={index}>
+                            <td className="fw-bold">{diff.key}</td>
+                            <td className={diff.leftValue === 'missing' ? 'bg-danger bg-opacity-25' : 'bg-warning bg-opacity-25'}>
+                              <code>{diff.leftValue}</code>
+                            </td>
+                            <td className={diff.rightValue === 'missing' ? 'bg-danger bg-opacity-25' : 'bg-warning bg-opacity-25'}>
+                              <code>{diff.rightValue}</code>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      
+      case 'screenshot':
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">Screenshot Annotator</h2>
+            
+            {!screenshot ? (
+              <div 
+                className="card bg-light text-center" 
+                style={{minHeight: '400px', cursor: 'pointer'}}
+                onPaste={handlePaste}
+                tabIndex="0"
+              >
+                <div className="card-body d-flex flex-column align-items-center justify-content-center">
+                  <div className="mb-3" style={{fontSize: '3rem'}}>🖼️</div>
+                  <h5>Upload or Paste Screenshot</h5>
+                  <p className="text-muted mb-3">Click to upload, or press Ctrl+V to paste from clipboard</p>
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleImageUpload}
+                    className="form-control w-50"
+                    id="imageUpload"
+                  />
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="btn-toolbar mb-3 gap-2">
+                  <div className="btn-group">
+                    <button 
+                      className={`btn btn-sm ${drawMode === 'arrow' ? 'btn-primary' : 'btn-outline-primary'}`}
+                      onClick={() => setDrawMode('arrow')}
+                    >
+                      ➡️ Arrow
+                    </button>
+                    <button 
+                      className={`btn btn-sm ${drawMode === 'rectangle' ? 'btn-primary' : 'btn-outline-primary'}`}
+                      onClick={() => setDrawMode('rectangle')}
+                    >
+                      ⬜ Rectangle
+                    </button>
+                    <button 
+                      className={`btn btn-sm ${drawMode === 'text' ? 'btn-primary' : 'btn-outline-primary'}`}
+                      onClick={() => setDrawMode('text')}
+                    >
+                      📝 Text
+                    </button>
+                  </div>
+                  <button className="btn btn-sm btn-success" onClick={downloadAnnotatedImage}>
+                    💾 Download
+                  </button>
+                  <button className="btn btn-sm btn-danger" onClick={clearScreenshot}>
+                    🗑️ Clear
+                  </button>
+                </div>
+                
+                <div className="border rounded p-2 bg-white" style={{overflow: 'auto', maxHeight: '600px'}}>
+                  <canvas 
+                    ref={canvasRef}
+                    onMouseDown={handleCanvasMouseDown}
+                    onMouseMove={handleCanvasMouseMove}
+                    onMouseUp={handleCanvasMouseUp}
+                    style={{cursor: 'crosshair', maxWidth: '100%'}}
+                  />
+                </div>
+                
+                <div className="alert alert-info mt-3">
+                  <strong>Instructions:</strong> Select a tool (Arrow, Rectangle, or Text) and draw on the image. Click Download to save your annotated screenshot.
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      
+      case 'status-codes':
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">HTTP Status Codes</h2>
+            <div className="mb-3">
+              <input type="text" className="form-control" placeholder="Search status code..." value={statusSearch} onChange={(e) => setStatusSearch(e.target.value)} />
+            </div>
+            <div>
+              {Object.entries(statusCodes).filter(([code, desc]) => 
+                code.includes(statusSearch) || desc.toLowerCase().includes(statusSearch.toLowerCase())
+              ).map(([code, desc]) => (
+                <div key={code} className="card mb-2">
+                  <div className="card-body">
+                    <strong>{code}</strong> - {desc}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      
+      case 'password':
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">Password Generator</h2>
+            <div className="mb-3">
+              <label className="form-label">Length: {passwordConfig.length}</label>
+              <input type="range" className="form-range" min="8" max="32" value={passwordConfig.length} onChange={(e) => setPasswordConfig({...passwordConfig, length: parseInt(e.target.value)})} />
+            </div>
+            <div className="form-check mb-2">
+              <input className="form-check-input" type="checkbox" checked={passwordConfig.upper} onChange={(e) => setPasswordConfig({...passwordConfig, upper: e.target.checked})} id="upper" />
+              <label className="form-check-label" htmlFor="upper">Uppercase</label>
+            </div>
+            <div className="form-check mb-2">
+              <input className="form-check-input" type="checkbox" checked={passwordConfig.lower} onChange={(e) => setPasswordConfig({...passwordConfig, lower: e.target.checked})} id="lower" />
+              <label className="form-check-label" htmlFor="lower">Lowercase</label>
+            </div>
+            <div className="form-check mb-2">
+              <input className="form-check-input" type="checkbox" checked={passwordConfig.numbers} onChange={(e) => setPasswordConfig({...passwordConfig, numbers: e.target.checked})} id="numbers" />
+              <label className="form-check-label" htmlFor="numbers">Numbers</label>
+            </div>
+            <div className="form-check mb-3">
+              <input className="form-check-input" type="checkbox" checked={passwordConfig.special} onChange={(e) => setPasswordConfig({...passwordConfig, special: e.target.checked})} id="special" />
+              <label className="form-check-label" htmlFor="special">Special Characters</label>
+            </div>
+            <button className="btn btn-dark mb-3" onClick={generatePassword}>Generate Password</button>
+            {generatedPassword && (
+              <div className="card bg-light position-relative">
+                <div className="card-body">
+                  <h5 className="font-monospace">{generatedPassword}</h5>
+                  <button 
+                    className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
+                    onClick={() => copyToClipboard(generatedPassword, 'Password copied!')}
+                  >
+                    📋 Copy
+                  </button>
+                </div>
+              </div>
+            )}
+            {copySuccess === 'Password copied!' && <div className="alert alert-success mt-2">✓ {copySuccess}</div>}
+          </div>
+        );
+      
+      case 'timezone':
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">Timezone Converter</h2>
+            <div className="mb-3">
+              <input type="time" className="form-control" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} />
+            </div>
+            <div>
+              {convertTimezones(selectedTime).map((tz, i) => (
+                <div key={i} className="card mb-2">
+                  <div className="card-body">{tz}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      
+      case 'base64':
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">Base64 Encoder/Decoder</h2>
+            <div className="mb-3">
+              <textarea className="form-control font-monospace" placeholder="Input text or Base64" value={base64Input} onChange={(e) => setBase64Input(e.target.value)} rows="5" />
+            </div>
+            <div className="d-flex gap-2 mb-3">
+              <button className="btn btn-success flex-fill" onClick={encodeBase64}>Encode</button>
+              <button className="btn btn-primary flex-fill" onClick={decodeBase64}>Decode</button>
+            </div>
+            <div className="position-relative">
+              <textarea className="form-control font-monospace bg-light" value={base64Output} readOnly rows="5" />
+              {base64Output && (
+                <button 
+                  className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
+                  onClick={() => copyToClipboard(base64Output, 'Base64 copied!')}
+                >
+                  📋 Copy
+                </button>
+              )}
+            </div>
+            {copySuccess === 'Base64 copied!' && <div className="alert alert-success mt-2">✓ {copySuccess}</div>}
+          </div>
+        );
+      
+      case 'sql':
+        return (
+          <div>
+            <h2 className="mb-4 text-dark">SQL Formatter</h2>
+            <div className="mb-3">
+              <textarea className="form-control font-monospace" placeholder="Paste SQL query here..." value={sqlInput} onChange={(e) => setSqlInput(e.target.value)} rows="6" />
+            </div>
+            <button className="btn btn-info mb-3" onClick={formatSQL}>Format SQL</button>
+            <div className="position-relative">
+              <pre className="card card-body bg-light font-monospace">{sqlOutput}</pre>
+              {sqlOutput && (
+                <button 
+                  className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
+                  onClick={() => copyToClipboard(sqlOutput, 'SQL copied!')}
+                >
+                  📋 Copy
+                </button>
+              )}
+            </div>
+            {copySuccess === 'SQL copied!' && <div className="alert alert-success mt-2">✓ {copySuccess}</div>}
+          </div>
+        );
+      
+      default:
+        return (
+          <div className="text-center py-5">
+            <div style={{fontSize: '5rem'}}>🔧</div>
+            <h1 className="display-4 fw-bold text-primary mt-3">QuestKit</h1>
+            <p className="lead">10 Essential Tools for Software Testers</p>
+            <p className="text-muted">Select a tool from the sidebar to get started</p>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="d-flex" style={{minHeight: '100vh'}}>
+      {/* ALL INLINE <STYLE> TAGS HAVE BEEN REMOVED.
+        The styles are now in `src/pages/QuestKit.css`
+        and are *scoped* with the `.questkit-active` class
+        which is added/removed by the `useEffect` hook above.
+      */}
+
+      <button 
+        className="btn btn-light d-lg-none position-fixed shadow"
+        style={{top: '15px', left: '15px', zIndex: 1001}}
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      >
+        {mobileMenuOpen ? '✕' : '☰'}
+      </button>
+
+      {mobileMenuOpen && (
+        <div 
+          className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-lg-none"
+          style={{zIndex: 999}}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      <div className={`sidebar ${mobileMenuOpen ? 'show' : ''}`}>
+        <div className="p-3 border-bottom">
+          <h4 className="mb-0 text-primary fw-bold">QuestKit</h4>
+        </div>
+        
+        <div className="list-group list-group-flush">
+          <div 
+            className={`tool-card list-group-item list-group-item-action ${activeTab === 'home' ? 'active' : ''}`}
+            onClick={() => { setActiveTab('home'); setMobileMenuOpen(false); }}
+          >
+            <span className="me-2">🏠</span> Home
+          </div>
+          {tools.map(tool => (
+            <div 
+              key={tool.id}
+              className={`tool-card list-group-item list-group-item-action d-flex align-items-center ${activeTab === tool.id ? 'active' : ''}`}
+              onClick={() => { setActiveTab(tool.id); setMobileMenuOpen(false); }}
+            >
+              <span className="me-2" style={{fontSize: '1.2rem'}}>{tool.icon}</span>
+              <span style={{fontSize: '0.9rem'}}>{tool.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="main-content">
+        {renderTool()}
+      </div>
+    </div>
+  );
+};
+
+export default QuestKit;
