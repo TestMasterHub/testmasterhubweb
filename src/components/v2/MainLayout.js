@@ -4,9 +4,6 @@ import Navbar from '../common/Navbar';
 import Footer from '../common/footer';
 import { usePageTracking } from '../../hooks/usePageTracking';
 
-// Import your main app's dark theme styles HERE
-// This is the key to stopping them from applying to QuestKit
-import '../../App.css';
 
 const MainLayout = () => {
   // Run page tracking ONLY for the main app
