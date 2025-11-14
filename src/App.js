@@ -22,7 +22,7 @@ import Resources from './pages/Resources';
 
 // Import Bootstrap (QuestKit needs this, so it stays global)
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import './styles/QuestKit.css';
+import './styles/QuestKit.css';
 // Create a wrapper component
 function AppContent() {
   // REMOVE usePageTracking(); from here
