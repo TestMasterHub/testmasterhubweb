@@ -17,7 +17,7 @@ import Sitemap from './pages/Sitemap';
 import ComparisonPage from './pages/ComparisonPage';
 import ContactPage from './pages/ContactPage';
 import InstallationGuide from './pages/InstallationGuide';
-import QuestKit from './pages/QuestKit';
+// import QuestKit from './pages/QuestKit';
 import Resources from './pages/Resources';
 
 // Import Bootstrap (QuestKit needs this, so it stays global)
@@ -33,7 +33,7 @@ function AppContent() {
         This route is NOT inside MainLayout. It renders QuestKit as a
         standalone page with no Navbar, Footer, tracking, or App.css styles.
       */}
-      <Route path="/questkit/Home" element={<QuestKit />} />
+      {/* <Route path="/questkit/Home" element={<QuestKit />} /> */}
 
       {/* ROUTE 2: ALL YOUR OTHER APP ROUTES
         These routes are nested inside the 'MainLayout' element.
