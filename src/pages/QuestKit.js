@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 
 const QuestKit = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -44,7 +44,7 @@ const QuestKit = () => {
   const [drawMode, setDrawMode] = useState('arrow');
   const [annotations, setAnnotations] = useState([]);
   const [currentAnnotation, setCurrentAnnotation] = useState(null);
-  const canvasRef = useRef(null);
+  const canvasRef = React.useRef(null);
   
   // SQL
   const [sqlInput, setSqlInput] = useState('');
@@ -52,18 +52,6 @@ const QuestKit = () => {
   
   // Copy to clipboard
   const [copySuccess, setCopySuccess] = useState('');
-
-  // --- THIS IS THE CRITICAL FIX ---
-  // This hook adds 'questkit-active' to the <body> tag when this component
-  // mounts and, most importantly, *removes it* when the component unmounts.
-  useEffect(() => {
-    document.body.classList.add('questkit-active');
-
-    // Return a cleanup function
-    return () => {
-      document.body.classList.remove('questkit-active');
-    };
-  }, []); // The empty array [] ensures this runs only once on mount/unmount
 
   const copyToClipboard = (text, label) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -335,7 +323,7 @@ ${bugReport.actual || '[What actually happens]'}`;
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (screenshot && canvasRef.current) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
@@ -719,30 +707,30 @@ ${bugReport.actual || '[What actually happens]'}`;
           <div>
             <h2 className="mb-4 text-dark">Password Generator</h2>
             <div className="mb-3">
-              <label className="form-label">Length: {passwordConfig.length}</label>
+              <label className="form-label text-dark fw-bold">Length: {passwordConfig.length}</label>
               <input type="range" className="form-range" min="8" max="32" value={passwordConfig.length} onChange={(e) => setPasswordConfig({...passwordConfig, length: parseInt(e.target.value)})} />
             </div>
             <div className="form-check mb-2">
               <input className="form-check-input" type="checkbox" checked={passwordConfig.upper} onChange={(e) => setPasswordConfig({...passwordConfig, upper: e.target.checked})} id="upper" />
-              <label className="form-check-label" htmlFor="upper">Uppercase</label>
+              <label className="form-check-label text-dark" htmlFor="upper">Uppercase (A-Z)</label>
             </div>
             <div className="form-check mb-2">
               <input className="form-check-input" type="checkbox" checked={passwordConfig.lower} onChange={(e) => setPasswordConfig({...passwordConfig, lower: e.target.checked})} id="lower" />
-              <label className="form-check-label" htmlFor="lower">Lowercase</label>
+              <label className="form-check-label text-dark" htmlFor="lower">Lowercase (a-z)</label>
             </div>
             <div className="form-check mb-2">
               <input className="form-check-input" type="checkbox" checked={passwordConfig.numbers} onChange={(e) => setPasswordConfig({...passwordConfig, numbers: e.target.checked})} id="numbers" />
-              <label className="form-check-label" htmlFor="numbers">Numbers</label>
+              <label className="form-check-label text-dark" htmlFor="numbers">Numbers (0-9)</label>
             </div>
             <div className="form-check mb-3">
               <input className="form-check-input" type="checkbox" checked={passwordConfig.special} onChange={(e) => setPasswordConfig({...passwordConfig, special: e.target.checked})} id="special" />
-              <label className="form-check-label" htmlFor="special">Special Characters</label>
+              <label className="form-check-label text-dark" htmlFor="special">Special Characters (!@#$%)</label>
             </div>
             <button className="btn btn-dark mb-3" onClick={generatePassword}>Generate Password</button>
             {generatedPassword && (
               <div className="card bg-light position-relative">
                 <div className="card-body">
-                  <h5 className="font-monospace">{generatedPassword}</h5>
+                  <h5 className="font-monospace text-dark">{generatedPassword}</h5>
                   <button 
                     className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
                     onClick={() => copyToClipboard(generatedPassword, 'Password copied!')}
@@ -836,18 +824,82 @@ ${bugReport.actual || '[What actually happens]'}`;
 
   return (
     <div className="d-flex" style={{minHeight: '100vh'}}>
-      {/* ALL INLINE <STYLE> TAGS HAVE BEEN REMOVED.
-        The styles are now in `src/pages/QuestKit.css`
-        and are *scoped* with the `.questkit-active` class
-        which is added/removed by the `useEffect` hook above.
-      */}
+      <style>{`
+        body {
+          background: #f8f9fa;
+        }
+        .sidebar {
+          width: 250px;
+          background: white;
+          border-right: 1px solid #dee2e6;
+          transition: transform 0.3s ease;
+          position: fixed;
+          height: 100vh;
+          overflow-y: auto;
+          z-index: 1000;
+          top: 0;
+          left: 0;
+        }
+        .main-content {
+          margin-left: 250px;
+          padding: 20px;
+          flex: 1;
+          background: #f8f9fa;
+          min-height: 100vh;
+        }
+        .mobile-menu-btn {
+          position: fixed;
+          top: 15px;
+          left: 15px;
+          z-index: 1050;
+          background: white;
+          border: 1px solid #dee2e6;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 991.98px) {
+          .sidebar {
+            transform: translateX(-100%);
+          }
+          .sidebar.show {
+            transform: translateX(0);
+          }
+          .main-content {
+            margin-left: 0;
+            padding-top: 70px;
+          }
+        }
+        @media (min-width: 992px) {
+          .mobile-menu-btn {
+            display: none;
+          }
+        }
+        .tool-card {
+          cursor: pointer;
+          transition: all 0.2s;
+          border: none;
+          border-left: 4px solid transparent;
+          padding: 12px 16px;
+          color: #333;
+        }
+        .tool-card:hover {
+          background-color: #f8f9fa;
+        }
+        .tool-card.active {
+          background-color: #0d6efd;
+          color: white;
+          border-left-color: #0a58ca;
+          font-weight: 500;
+        }
+        .tool-card.active .text-muted {
+          color: rgba(255, 255, 255, 0.8) !important;
+        }
+      `}</style>
 
       <button 
-        className="btn btn-light d-lg-none position-fixed shadow"
-        style={{top: '15px', left: '15px', zIndex: 1001}}
+        className={`btn btn-light mobile-menu-btn ${mobileMenuOpen ? 'd-none' : ''}`}
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
       >
-        {mobileMenuOpen ? '✕' : '☰'}
+        ☰
       </button>
 
       {mobileMenuOpen && (
@@ -859,8 +911,17 @@ ${bugReport.actual || '[What actually happens]'}`;
       )}
 
       <div className={`sidebar ${mobileMenuOpen ? 'show' : ''}`}>
-        <div className="p-3 border-bottom">
-          <h4 className="mb-0 text-primary fw-bold">QuestKit</h4>
+        <div className="p-3 border-bottom d-flex justify-content-between align-items-center">
+          <div>
+            <h4 className="mb-0 text-primary fw-bold">QuestKit</h4>
+          </div>
+          <button 
+            className="btn btn-sm btn-light d-lg-none"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
         </div>
         
         <div className="list-group list-group-flush">
