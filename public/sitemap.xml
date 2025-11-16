@@ -98,5 +98,16 @@
     <priority>0.6</priority>
     <changefreq>yearly</changefreq>
   </url>
+  <!-- Contact Us Page -->
+  <url>
+    <loc>https://www.testmasterhub.com/questkit/Home</loc>
+    <priority>0.6</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.testmasterhub.com/installation-guide</loc>
+    <priority>0.6</priority>
+    <changefreq>yearly</changefreq>
+  </url>
 
 </urlset>
