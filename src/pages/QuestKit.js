@@ -509,8 +509,8 @@ ${bugReport.actual || '[What actually happens]'}`;
             </div>
             <div className="card bg-light">
               <div className="card-body position-relative">
-                <h5>Generated Report:</h5>
-                <pre className="mb-0">{generateBugReport()}</pre>
+                <h5 className="text-dark">Generated Report:</h5>
+                <pre className="mb-0 text-dark">{generateBugReport()}</pre>
                 <button 
                   className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
                   onClick={() => copyToClipboard(generateBugReport(), 'Report copied!')}
