@@ -1,113 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- Home Page -->
+  <!-- =======================
+       CORE WEBSITE PAGES
+  ======================== -->
+
   <url>
     <loc>https://www.testmasterhub.com/</loc>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
+    <lastmod>2025-01-01</lastmod>
   </url>
 
-  <!-- Product Page -->
   <url>
     <loc>https://www.testmasterhub.com/product</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
 
-  <!-- Pricing Page -->
   <url>
     <loc>https://www.testmasterhub.com/pricing</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
 
-  <!-- Enterprise Page -->
   <url>
     <loc>https://www.testmasterhub.com/enterprise</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
 
-  <!-- Download Page -->
   <url>
     <loc>https://www.testmasterhub.com/download</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
 
-  <!-- Resources Section -->
+  <url>
+    <loc>https://www.testmasterhub.com/installation-guide</loc>
+    <priority>0.6</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.testmasterhub.com/contact</loc>
+    <priority>0.6</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+
+
+  <!-- =======================
+       RESOURCES (Documentation)
+  ======================== -->
+
   <url>
     <loc>https://www.testmasterhub.com/resources</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
-  <url>
-    <loc>https://www.testmasterhub.com/resources/getting-started</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.testmasterhub.com/resources/collections-assertions</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.testmasterhub.com/resources/environment</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.testmasterhub.com/resources/build</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.testmasterhub.com/resources/monitors</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.testmasterhub.com/resources/reports</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
 
-  <!-- Community Page -->
+  <!-- =======================
+       COMPANY / COMMUNITY
+  ======================== -->
+
   <url>
     <loc>https://www.testmasterhub.com/community</loc>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>
 
-  <!-- About Us Page -->
   <url>
     <loc>https://www.testmasterhub.com/about</loc>
     <priority>0.6</priority>
     <changefreq>yearly</changefreq>
   </url>
 
-  <!-- Contact Us Page -->
-  <url>
-    <loc>https://www.testmasterhub.com/contact</loc>
-    <priority>0.6</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-  <!-- Contact Us Page -->
+
+  <!-- =======================
+       TESTERTOOLS (SEO BOOST)
+       Each tool gets high indexing priority 
+       for keywords like "json diff", "regex tester", etc.
+  ======================== -->
+
   <url>
     <loc>https://www.testmasterhub.com/testertools</loc>
     <priority>1.0</priority>
-    <changefreq>yearly</changefreq>
+    <changefreq>weekly</changefreq>
   </url>
-  <url>
-    <loc>https://www.testmasterhub.com/installation-guide</loc>
-    <priority>0.6</priority>
-    <changefreq>yearly</changefreq>
-  </url>
+
+  
 
 </urlset>
