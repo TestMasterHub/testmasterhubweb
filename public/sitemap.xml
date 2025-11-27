@@ -101,7 +101,7 @@
   <!-- Contact Us Page -->
   <url>
     <loc>https://www.testmasterhub.com/questkit/Home</loc>
-    <priority>0.6</priority>
+    <priority>1.0</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>

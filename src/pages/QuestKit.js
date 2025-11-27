@@ -5,11 +5,10 @@ const QuestKit = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Test Data Generator
-  const [dataType, setDataType] = useState('email');
+  const [dataType, setDataType] = useState("email");
   const [dataCount, setDataCount] = useState(10);
   const [generatedData, setGeneratedData] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('US');
-  
+  const [selectedCountry, setSelectedCountry] = useState("US");
 
   // Bug Report
   const [bugReport, setBugReport] = useState({
@@ -190,92 +189,324 @@ const QuestKit = () => {
 
   const generateData = () => {
     const data = [];
-    const first = ['John', 'Jane', 'Mike', 'Sarah', 'David', 'Emily', 'Chris', 'Anna', 'Michael', 'Jessica', 'James', 'Linda', 'Robert', 'Patricia', 'William', 'Jennifer'];
-    const last = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Wilson', 'Anderson', 'Thomas', 'Taylor'];
-    const domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'test.com', 'email.com', 'mail.com'];
-    
+    const first = [
+      "John",
+      "Jane",
+      "Mike",
+      "Sarah",
+      "David",
+      "Emily",
+      "Chris",
+      "Anna",
+      "Michael",
+      "Jessica",
+      "James",
+      "Linda",
+      "Robert",
+      "Patricia",
+      "William",
+      "Jennifer",
+    ];
+    const last = [
+      "Smith",
+      "Johnson",
+      "Williams",
+      "Brown",
+      "Jones",
+      "Garcia",
+      "Miller",
+      "Davis",
+      "Rodriguez",
+      "Martinez",
+      "Hernandez",
+      "Lopez",
+      "Wilson",
+      "Anderson",
+      "Thomas",
+      "Taylor",
+    ];
+    const domains = [
+      "gmail.com",
+      "yahoo.com",
+      "outlook.com",
+      "test.com",
+      "email.com",
+      "mail.com",
+    ];
+
     // Country-specific data
     const addressData = {
       US: {
-        streets: ['Main', 'Oak', 'Pine', 'Maple', 'Cedar', 'Elm', 'Washington', 'Lake', 'Hill', 'Park'],
-        cities: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'Austin'],
-        states: ['NY', 'CA', 'TX', 'FL', 'IL', 'PA', 'OH', 'GA', 'NC', 'MI']
+        streets: [
+          "Main",
+          "Oak",
+          "Pine",
+          "Maple",
+          "Cedar",
+          "Elm",
+          "Washington",
+          "Lake",
+          "Hill",
+          "Park",
+        ],
+        cities: [
+          "New York",
+          "Los Angeles",
+          "Chicago",
+          "Houston",
+          "Phoenix",
+          "Philadelphia",
+          "San Antonio",
+          "San Diego",
+          "Dallas",
+          "Austin",
+        ],
+        states: ["NY", "CA", "TX", "FL", "IL", "PA", "OH", "GA", "NC", "MI"],
       },
       IN: {
-        streets: ['MG Road', 'Park Street', 'Brigade Road', 'Anna Salai', 'Link Road', 'Station Road', 'Market Road', 'Church Street', 'Gandhi Road', 'Nehru Place'],
-        cities: ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune', 'Ahmedabad', 'Jaipur', 'Lucknow'],
-        states: ['MH', 'DL', 'KA', 'TN', 'WB', 'GJ', 'RJ', 'UP', 'TG', 'KL']
+        streets: [
+          "MG Road",
+          "Park Street",
+          "Brigade Road",
+          "Anna Salai",
+          "Link Road",
+          "Station Road",
+          "Market Road",
+          "Church Street",
+          "Gandhi Road",
+          "Nehru Place",
+        ],
+        cities: [
+          "Mumbai",
+          "Delhi",
+          "Bangalore",
+          "Hyderabad",
+          "Chennai",
+          "Kolkata",
+          "Pune",
+          "Ahmedabad",
+          "Jaipur",
+          "Lucknow",
+        ],
+        states: ["MH", "DL", "KA", "TN", "WB", "GJ", "RJ", "UP", "TG", "KL"],
       },
       Canada: {
-        streets: ['King', 'Queen', 'Yonge', 'Bay', 'Bloor', 'Dundas', 'College', 'Richmond', 'Wellington', 'Adelaide'],
-        cities: ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Edmonton', 'Ottawa', 'Winnipeg', 'Quebec City', 'Hamilton', 'Kitchener'],
-        provinces: ['ON', 'BC', 'QC', 'AB', 'MB', 'SK', 'NS', 'NB', 'NL', 'PE']
+        streets: [
+          "King",
+          "Queen",
+          "Yonge",
+          "Bay",
+          "Bloor",
+          "Dundas",
+          "College",
+          "Richmond",
+          "Wellington",
+          "Adelaide",
+        ],
+        cities: [
+          "Toronto",
+          "Vancouver",
+          "Montreal",
+          "Calgary",
+          "Edmonton",
+          "Ottawa",
+          "Winnipeg",
+          "Quebec City",
+          "Hamilton",
+          "Kitchener",
+        ],
+        provinces: ["ON", "BC", "QC", "AB", "MB", "SK", "NS", "NB", "NL", "PE"],
       },
       Japan: {
-        streets: ['Sakura', 'Aoyama', 'Shibuya', 'Shinjuku', 'Ginza', 'Roppongi', 'Akihabara', 'Harajuku', 'Ikebukuro', 'Ueno'],
-        cities: ['Tokyo', 'Osaka', 'Kyoto', 'Yokohama', 'Nagoya', 'Sapporo', 'Fukuoka', 'Kobe', 'Kawasaki', 'Hiroshima'],
-        prefectures: ['Tokyo', 'Osaka', 'Kyoto', 'Kanagawa', 'Aichi', 'Hokkaido', 'Fukuoka', 'Hyogo', 'Chiba', 'Saitama']
-      }
+        streets: [
+          "Sakura",
+          "Aoyama",
+          "Shibuya",
+          "Shinjuku",
+          "Ginza",
+          "Roppongi",
+          "Akihabara",
+          "Harajuku",
+          "Ikebukuro",
+          "Ueno",
+        ],
+        cities: [
+          "Tokyo",
+          "Osaka",
+          "Kyoto",
+          "Yokohama",
+          "Nagoya",
+          "Sapporo",
+          "Fukuoka",
+          "Kobe",
+          "Kawasaki",
+          "Hiroshima",
+        ],
+        prefectures: [
+          "Tokyo",
+          "Osaka",
+          "Kyoto",
+          "Kanagawa",
+          "Aichi",
+          "Hokkaido",
+          "Fukuoka",
+          "Hyogo",
+          "Chiba",
+          "Saitama",
+        ],
+      },
     };
-    
+
     for (let i = 0; i < dataCount; i++) {
-      if (dataType === 'email') {
-        const firstName = first[Math.floor(Math.random() * first.length)].toLowerCase();
-        const lastName = last[Math.floor(Math.random() * last.length)].toLowerCase();
-        const domain = domains[Math.floor(Math.random() * domains.length)];
-        data.push(`${firstName}.${lastName}${Math.floor(Math.random() * 100)}@${domain}`);
-      } else if (dataType === 'name') {
-        data.push(`${first[Math.floor(Math.random() * first.length)]} ${last[Math.floor(Math.random() * last.length)]}`);
-      } else if (dataType === 'phone') {
-        data.push(`+1-${Math.floor(Math.random() * 900 + 100)}-${Math.floor(Math.random() * 900 + 100)}-${Math.floor(Math.random() * 9000 + 1000)}`);
-      } else if (dataType === 'address') {
+      if (dataType === "email") {
+        const firstName =
+          first[Math.floor(Math.random() * first.length)].toLowerCase();
+        const lastName =
+          last[Math.floor(Math.random() * last.length)].toLowerCase();
+        const domain =
+          domains[Math.floor(Math.random() * domains.length)];
+        data.push(
+          `${firstName}.${lastName}${Math.floor(
+            Math.random() * 100
+          )}@${domain}`
+        );
+      } else if (dataType === "name") {
+        data.push(
+          `${first[Math.floor(Math.random() * first.length)]} ${
+            last[Math.floor(Math.random() * last.length)]
+          }`
+        );
+      } else if (dataType === "phone") {
+        data.push(
+          `+1-${Math.floor(Math.random() * 900 + 100)}-${Math.floor(
+            Math.random() * 900 + 100
+          )}-${Math.floor(Math.random() * 9000 + 1000)}`
+        );
+      } else if (dataType === "address") {
         const countryData = addressData[selectedCountry];
         const streetNum = Math.floor(Math.random() * 9999 + 1);
-        const street = countryData.streets[Math.floor(Math.random() * countryData.streets.length)];
-        const city = countryData.cities[Math.floor(Math.random() * countryData.cities.length)];
-        const region = countryData.states || countryData.provinces || countryData.prefectures;
-        const regionCode = region[Math.floor(Math.random() * region.length)];
-        
+        const street =
+          countryData.streets[
+            Math.floor(Math.random() * countryData.streets.length)
+          ];
+        const city =
+          countryData.cities[
+            Math.floor(Math.random() * countryData.cities.length)
+          ];
+        const region =
+          countryData.states ||
+          countryData.provinces ||
+          countryData.prefectures;
+        const regionCode =
+          region[Math.floor(Math.random() * region.length)];
+
         let zipcode;
-        if (selectedCountry === 'US') {
+        if (selectedCountry === "US") {
           zipcode = Math.floor(Math.random() * 90000 + 10000);
-        } else if (selectedCountry === 'IN') {
+        } else if (selectedCountry === "IN") {
           zipcode = Math.floor(Math.random() * 900000 + 100000);
-        } else if (selectedCountry === 'Canada') {
-          const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-          const digits = '0123456789';
-          zipcode = `${letters[Math.floor(Math.random() * letters.length)]}${digits[Math.floor(Math.random() * 10)]}${letters[Math.floor(Math.random() * letters.length)]} ${digits[Math.floor(Math.random() * 10)]}${letters[Math.floor(Math.random() * letters.length)]}${digits[Math.floor(Math.random() * 10)]}`;
-        } else if (selectedCountry === 'Japan') {
-          zipcode = `${Math.floor(Math.random() * 900 + 100)}-${Math.floor(Math.random() * 9000 + 1000)}`;
+        } else if (selectedCountry === "Canada") {
+          const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+          const digits = "0123456789";
+          zipcode = `${letters[Math.floor(Math.random() * letters.length)]}${
+            digits[Math.floor(Math.random() * 10)]
+          }${letters[Math.floor(Math.random() * letters.length)]} ${
+            digits[Math.floor(Math.random() * 10)]
+          }${letters[Math.floor(Math.random() * letters.length)]}${
+            digits[Math.floor(Math.random() * 10)]
+          }`;
+        } else if (selectedCountry === "Japan") {
+          zipcode = `${Math.floor(Math.random() * 900 + 100)}-${Math.floor(
+            Math.random() * 9000 + 1000
+          )}`;
         }
-        
-        data.push(`${streetNum} ${street}, ${city}, ${regionCode}, ${selectedCountry} ${zipcode}`);
-      } else if (dataType === 'username') {
-        const firstName = first[Math.floor(Math.random() * first.length)].toLowerCase();
-        const lastName = last[Math.floor(Math.random() * last.length)].toLowerCase();
-        data.push(`${firstName}_${lastName}${Math.floor(Math.random() * 1000)}`);
-      } else if (dataType === 'company') {
-        const prefixes = ['Tech', 'Global', 'Dynamic', 'Smart', 'Digital', 'Innovative', 'Premier', 'Elite'];
-        const suffixes = ['Solutions', 'Systems', 'Technologies', 'Corp', 'Industries', 'Enterprises', 'Group', 'Labs'];
-        data.push(`${prefixes[Math.floor(Math.random() * prefixes.length)]} ${suffixes[Math.floor(Math.random() * suffixes.length)]}`);
-      } else if (dataType === 'url') {
-        const protocols = ['https://www.', 'https://'];
-        const names = ['example', 'test', 'demo', 'sample', 'mysite', 'website', 'app', 'platform'];
-        const tlds = ['.com', '.net', '.org', '.io', '.co', '.app'];
-        data.push(`${protocols[Math.floor(Math.random() * protocols.length)]}${names[Math.floor(Math.random() * names.length)]}${tlds[Math.floor(Math.random() * tlds.length)]}`);
-      } else if (dataType === 'date') {
+
+        data.push(
+          `${streetNum} ${street}, ${city}, ${regionCode}, ${selectedCountry} ${zipcode}`
+        );
+      } else if (dataType === "username") {
+        const firstName =
+          first[Math.floor(Math.random() * first.length)].toLowerCase();
+        const lastName =
+          last[Math.floor(Math.random() * last.length)].toLowerCase();
+        data.push(
+          `${firstName}_${lastName}${Math.floor(Math.random() * 1000)}`
+        );
+      } else if (dataType === "company") {
+        const prefixes = [
+          "Tech",
+          "Global",
+          "Dynamic",
+          "Smart",
+          "Digital",
+          "Innovative",
+          "Premier",
+          "Elite",
+        ];
+        const suffixes = [
+          "Solutions",
+          "Systems",
+          "Technologies",
+          "Corp",
+          "Industries",
+          "Enterprises",
+          "Group",
+          "Labs",
+        ];
+        data.push(
+          `${
+            prefixes[Math.floor(Math.random() * prefixes.length)]
+          } ${suffixes[Math.floor(Math.random() * suffixes.length)]}`
+        );
+      } else if (dataType === "url") {
+        const protocols = ["https://www.", "https://"];
+        const names = [
+          "example",
+          "test",
+          "demo",
+          "sample",
+          "mysite",
+          "website",
+          "app",
+          "platform",
+        ];
+        const tlds = [".com", ".net", ".org", ".io", ".co", ".app"];
+        data.push(
+          `${protocols[Math.floor(Math.random() * protocols.length)]}${
+            names[Math.floor(Math.random() * names.length)]
+          }${tlds[Math.floor(Math.random() * tlds.length)]}`
+        );
+      } else if (dataType === "date") {
         const year = Math.floor(Math.random() * 5 + 2020);
-        const month = String(Math.floor(Math.random() * 12 + 1)).padStart(2, '0');
-        const day = String(Math.floor(Math.random() * 28 + 1)).padStart(2, '0');
+        const month = String(
+          Math.floor(Math.random() * 12 + 1)
+        ).padStart(2, "0");
+        const day = String(
+          Math.floor(Math.random() * 28 + 1)
+        ).padStart(2, "0");
         data.push(`${year}-${month}-${day}`);
-      } else if (dataType === 'creditcard') {
-        const cardNum = `${Math.floor(Math.random() * 9000 + 1000)}-${Math.floor(Math.random() * 9000 + 1000)}-${Math.floor(Math.random() * 9000 + 1000)}-${Math.floor(Math.random() * 9000 + 1000)}`;
-        const month = String(Math.floor(Math.random() * 12 + 1)).padStart(2, '0');
-        const year = String(Math.floor(Math.random() * 10 + 25)).padStart(2, '0');
+      } else if (dataType === "creditcard") {
+        const cardNum = `${Math.floor(Math.random() * 9000 + 1000)}-${Math.floor(
+          Math.random() * 9000 + 1000
+        )}-${Math.floor(Math.random() * 9000 + 1000)}-${Math.floor(
+          Math.random() * 9000 + 1000
+        )}`;
+        const month = String(
+          Math.floor(Math.random() * 12 + 1)
+        ).padStart(2, "0");
+        const year = String(
+          Math.floor(Math.random() * 10 + 25)
+        ).padStart(2, "0");
         const cvv = Math.floor(Math.random() * 900 + 100);
-        data.push(`Card: ${cardNum} | Expiry: ${month}/${year} | CVV: ${cvv}`);
-      } else if (dataType === 'ipaddress') {
-        const ip = `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
+        data.push(
+          `Card: ${cardNum} | Expiry: ${month}/${year} | CVV: ${cvv}`
+        );
+      } else if (dataType === "ipaddress") {
+        const ip = `${Math.floor(Math.random() * 256)}.${Math.floor(
+          Math.random() * 256
+        )}.${Math.floor(Math.random() * 256)}.${Math.floor(
+          Math.random() * 256
+        )}`;
         data.push(ip);
       }
     }
@@ -314,30 +545,136 @@ ${bugReport.actual || "[What actually happens]"}`;
     }
   };
 
+  // ---- JSON DIFF HELPERS & CORE LOGIC ----
+
+  const getJsonType = (value) => {
+    if (Array.isArray(value)) return "array";
+    if (value === null) return "null";
+    return typeof value; // object, string, number, boolean, undefined
+  };
+
+  const formatJsonValue = (value) => {
+    const type = getJsonType(value);
+    if (type === "object") return "{...}";
+    if (type === "array") return `[${value.length}]`;
+    return JSON.stringify(value);
+  };
+
   const compareJSON = () => {
-    try {
-      const left = JSON.parse(jsonLeft);
-      const right = JSON.parse(jsonRight);
-
-      const differences = [];
-      const allKeys = new Set([...Object.keys(left), ...Object.keys(right)]);
-
-      allKeys.forEach((key) => {
-        const leftValue = JSON.stringify(left[key]);
-        const rightValue = JSON.stringify(right[key]);
-
-        if (leftValue !== rightValue) {
-          differences.push({
-            key,
-            leftValue: left[key] !== undefined ? leftValue : "missing",
-            rightValue: right[key] !== undefined ? rightValue : "missing",
-          });
-        }
-      });
-
-      return differences;
-    } catch (e) {
+    // No input yet – nothing to show
+    if (!jsonLeft.trim() || !jsonRight.trim()) {
       return null;
+    }
+
+    try {
+      const schema = JSON.parse(jsonLeft);
+      const response = JSON.parse(jsonRight);
+
+      const diffs = [];
+
+      const walk = (schemaVal, responseVal, path) => {
+        const schemaExists = typeof schemaVal !== "undefined";
+        const responseExists = typeof responseVal !== "undefined";
+
+        if (schemaExists && !responseExists) {
+          diffs.push({
+            path,
+            issue: "missing-field",
+            message: "Field is missing in response",
+            schemaValue: schemaVal,
+            responseValue: undefined,
+          });
+          return;
+        }
+
+        if (!schemaExists && responseExists) {
+          diffs.push({
+            path,
+            issue: "extra-field",
+            message: "Extra field present in response",
+            schemaValue: undefined,
+            responseValue: responseVal,
+          });
+          return;
+        }
+
+        if (!schemaExists && !responseExists) return;
+
+        const schemaType = getJsonType(schemaVal);
+        const responseType = getJsonType(responseVal);
+
+        if (schemaType !== responseType) {
+          diffs.push({
+            path,
+            issue: "type-mismatch",
+            message: `Type mismatch: expected ${schemaType}, got ${responseType}`,
+            schemaValue: schemaVal,
+            responseValue: responseVal,
+          });
+          // still walk deeper for objects/arrays if possible to show nested issues
+          if (schemaType === "object" && responseType === "object") {
+            // will be handled below
+          } else if (schemaType === "array" && responseType === "array") {
+            // handled below
+          } else {
+            return;
+          }
+        }
+
+        if (schemaType === "object" && responseType === "object") {
+          const keys = new Set([
+            ...Object.keys(schemaVal || {}),
+            ...Object.keys(responseVal || {}),
+          ]);
+
+          keys.forEach((key) => {
+            const childPath = path ? `${path}.${key}` : key;
+            walk(schemaVal ? schemaVal[key] : undefined, responseVal ? responseVal[key] : undefined, childPath);
+          });
+        } else if (schemaType === "array" && responseType === "array") {
+          if (schemaVal.length !== responseVal.length) {
+            diffs.push({
+              path,
+              issue: "array-length-mismatch",
+              message: `Array length mismatch: expected ${schemaVal.length}, got ${responseVal.length}`,
+              schemaValue: schemaVal,
+              responseValue: responseVal,
+            });
+          }
+          const maxLen = Math.max(schemaVal.length, responseVal.length);
+          for (let i = 0; i < maxLen; i++) {
+            const childPath = `${path}[${i}]`;
+            walk(schemaVal[i], responseVal[i], childPath);
+          }
+        } else {
+          // primitive value comparison
+          if (schemaVal !== responseVal) {
+            diffs.push({
+              path,
+              issue: "value-mismatch",
+              message: "Value differs from schema",
+              schemaValue: schemaVal,
+              responseValue: responseVal,
+            });
+          }
+        }
+      };
+
+      walk(schema, response, "$");
+
+      const stats = {
+        missing: diffs.filter((d) => d.issue === "missing-field").length,
+        extra: diffs.filter((d) => d.issue === "extra-field").length,
+        type: diffs.filter((d) => d.issue === "type-mismatch").length,
+        value: diffs.filter((d) => d.issue === "value-mismatch").length,
+        arrayLength: diffs.filter(
+          (d) => d.issue === "array-length-mismatch"
+        ).length,
+      };
+
+      return { diffs, stats };
+    } catch (e) {
+      return { error: "Invalid JSON format. Please check your input." };
     }
   };
 
@@ -588,14 +925,20 @@ ${bugReport.actual || "[What actually happens]"}`;
 
   const renderTool = () => {
     switch (activeTab) {
-            case 'data-gen':
+      case "data-gen":
         return (
           <div>
             <h2 className="mb-4 text-dark">Test Data Generator</h2>
             <div className="row g-3 mb-3">
               <div className="col-md-3">
-                <label className="form-label text-dark fw-bold">Data Type</label>
-                <select className="form-select" value={dataType} onChange={(e) => setDataType(e.target.value)}>
+                <label className="form-label text-dark fw-bold">
+                  Data Type
+                </label>
+                <select
+                  className="form-select"
+                  value={dataType}
+                  onChange={(e) => setDataType(e.target.value)}
+                >
                   <option value="email">Email</option>
                   <option value="name">Full Name</option>
                   <option value="phone">Phone Number</option>
@@ -608,10 +951,16 @@ ${bugReport.actual || "[What actually happens]"}`;
                   <option value="ipaddress">IP Address</option>
                 </select>
               </div>
-              {dataType === 'address' && (
+              {dataType === "address" && (
                 <div className="col-md-2">
-                  <label className="form-label text-dark fw-bold">Country</label>
-                  <select className="form-select" value={selectedCountry} onChange={(e) => setSelectedCountry(e.target.value)}>
+                  <label className="form-label text-dark fw-bold">
+                    Country
+                  </label>
+                  <select
+                    className="form-select"
+                    value={selectedCountry}
+                    onChange={(e) => setSelectedCountry(e.target.value)}
+                  >
                     <option value="US">USA</option>
                     <option value="IN">India</option>
                     <option value="Canada">Canada</option>
@@ -619,27 +968,65 @@ ${bugReport.actual || "[What actually happens]"}`;
                   </select>
                 </div>
               )}
-              <div className={dataType === 'address' ? 'col-md-2' : 'col-md-3'}>
-                <label className="form-label text-dark fw-bold">Count</label>
-                <input type="number" className="form-control" value={dataCount} onChange={(e) => setDataCount(parseInt(e.target.value))} />
+              <div
+                className={
+                  dataType === "address" ? "col-md-2" : "col-md-3"
+                }
+              >
+                <label className="form-label text-dark fw-bold">
+                  Count
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={dataCount}
+                  onChange={(e) =>
+                    setDataCount(parseInt(e.target.value))
+                  }
+                />
               </div>
-              <div className={dataType === 'address' ? 'col-md-2' : 'col-md-3'}>
-                <label className="form-label text-dark fw-bold">&nbsp;</label>
-                <button className="btn btn-primary w-100" onClick={generateData}>Generate</button>
+              <div
+                className={
+                  dataType === "address" ? "col-md-2" : "col-md-3"
+                }
+              >
+                <label className="form-label text-dark fw-bold">
+                  &nbsp;
+                </label>
+                <button
+                  className="btn btn-primary w-100"
+                  onClick={generateData}
+                >
+                  Generate
+                </button>
               </div>
             </div>
             <div className="position-relative">
-              <textarea className="form-control font-monospace" value={generatedData.join('\n')} readOnly rows="12" />
+              <textarea
+                className="form-control font-monospace"
+                value={generatedData.join("\n")}
+                readOnly
+                rows="12"
+              />
               {generatedData.length > 0 && (
-                <button 
+                <button
                   className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
-                  onClick={() => copyToClipboard(generatedData.join('\n'), 'Data copied!')}
+                  onClick={() =>
+                    copyToClipboard(
+                      generatedData.join("\n"),
+                      "Data copied!"
+                    )
+                  }
                 >
                   📋 Copy
                 </button>
               )}
             </div>
-            {copySuccess === 'Data copied!' && <div className="alert alert-success mt-2">✓ {copySuccess}</div>}
+            {copySuccess === "Data copied!" && (
+              <div className="alert alert-success mt-2">
+                ✓ {copySuccess}
+              </div>
+            )}
           </div>
         );
 
@@ -663,7 +1050,10 @@ ${bugReport.actual || "[What actually happens]"}`;
                 className="form-select"
                 value={bugReport.severity}
                 onChange={(e) =>
-                  setBugReport({ ...bugReport, severity: e.target.value })
+                  setBugReport({
+                    ...bugReport,
+                    severity: e.target.value,
+                  })
                 }
               >
                 <option value="low">Low</option>
@@ -679,7 +1069,10 @@ ${bugReport.actual || "[What actually happens]"}`;
                 placeholder="Environment"
                 value={bugReport.environment}
                 onChange={(e) =>
-                  setBugReport({ ...bugReport, environment: e.target.value })
+                  setBugReport({
+                    ...bugReport,
+                    environment: e.target.value,
+                  })
                 }
               />
             </div>
@@ -689,7 +1082,10 @@ ${bugReport.actual || "[What actually happens]"}`;
                 placeholder="Steps to Reproduce"
                 value={bugReport.steps}
                 onChange={(e) =>
-                  setBugReport({ ...bugReport, steps: e.target.value })
+                  setBugReport({
+                    ...bugReport,
+                    steps: e.target.value,
+                  })
                 }
                 rows="3"
               />
@@ -700,7 +1096,10 @@ ${bugReport.actual || "[What actually happens]"}`;
                 placeholder="Expected Behavior"
                 value={bugReport.expected}
                 onChange={(e) =>
-                  setBugReport({ ...bugReport, expected: e.target.value })
+                  setBugReport({
+                    ...bugReport,
+                    expected: e.target.value,
+                  })
                 }
                 rows="3"
               />
@@ -711,7 +1110,10 @@ ${bugReport.actual || "[What actually happens]"}`;
                 placeholder="Actual Behavior"
                 value={bugReport.actual}
                 onChange={(e) =>
-                  setBugReport({ ...bugReport, actual: e.target.value })
+                  setBugReport({
+                    ...bugReport,
+                    actual: e.target.value,
+                  })
                 }
                 rows="3"
               />
@@ -719,11 +1121,16 @@ ${bugReport.actual || "[What actually happens]"}`;
             <div className="card bg-light">
               <div className="card-body position-relative">
                 <h5 className="text-dark">Generated Report:</h5>
-                <pre className="mb-0 text-dark">{generateBugReport()}</pre>
+                <pre className="mb-0 text-dark">
+                  {generateBugReport()}
+                </pre>
                 <button
                   className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
                   onClick={() =>
-                    copyToClipboard(generateBugReport(), "Report copied!")
+                    copyToClipboard(
+                      generateBugReport(),
+                      "Report copied!"
+                    )
                   }
                 >
                   📋 Copy
@@ -731,7 +1138,9 @@ ${bugReport.actual || "[What actually happens]"}`;
               </div>
             </div>
             {copySuccess === "Report copied!" && (
-              <div className="alert alert-success mt-2">✓ {copySuccess}</div>
+              <div className="alert alert-success mt-2">
+                ✓ {copySuccess}
+              </div>
             )}
           </div>
         );
@@ -788,99 +1197,234 @@ ${bugReport.actual || "[What actually happens]"}`;
           </div>
         );
 
-      case "json-diff":
-        const diffResult = compareJSON();
+      case "json-diff": {
+        const result = compareJSON();
+
         return (
           <div>
-            <h2 className="mb-4 text-dark">JSON Diff</h2>
+            <div className="d-flex align-items-center justify-content-between mb-2">
+              <h2 className="text-dark mb-0">JSON Diff</h2>
+              <span className="text-muted small">
+                Left = <strong>Schema</strong>, Right ={" "}
+                <strong>Response</strong>
+              </span>
+            </div>
+
+            <p className="text-muted mb-3">
+              Paste your JSON <strong>schema</strong> on the left and the
+              actual <strong>response</strong> on the right. The tool will
+              highlight missing properties, extra fields, type mismatches,
+              and array issues (including nested objects/arrays).
+            </p>
+
             <div className="row g-3 mb-3">
               <div className="col-lg-6">
-                <label className="form-label fw-bold">JSON 1</label>
+                <label className="form-label fw-bold text-dark">
+                  JSON 1 – Schema
+                </label>
                 <textarea
                   className="form-control font-monospace"
-                  placeholder='{"name": "John", "age": 30}'
+                  placeholder='{"add":"wer","iopu":[{"yuio":5768},{"yuio":7990}],"id":980}'
                   value={jsonLeft}
                   onChange={(e) => setJsonLeft(e.target.value)}
-                  rows="12"
+                  rows="14"
                 />
               </div>
               <div className="col-lg-6">
-                <label className="form-label fw-bold">JSON 2</label>
+                <label className="form-label fw-bold text-dark">
+                  JSON 2 – Response
+                </label>
                 <textarea
                   className="form-control font-monospace"
-                  placeholder='{"name": "Jane", "age": 25}'
+                  placeholder='{"add":"wr","iopu":[{"yuio":7788}],"id":789}'
                   value={jsonRight}
                   onChange={(e) => setJsonRight(e.target.value)}
-                  rows="12"
+                  rows="14"
                 />
               </div>
             </div>
 
-            {diffResult === null ? (
-              <div className="alert alert-danger">
-                <strong>Error:</strong> Invalid JSON format. Please check your
-                input.
+            {!result ? (
+              <div className="alert alert-info">
+                Paste both JSON documents above to see a detailed diff.
               </div>
-            ) : diffResult.length === 0 ? (
+            ) : result.error ? (
+              <div className="alert alert-danger">
+                <strong>Error:</strong> {result.error}
+              </div>
+            ) : result.diffs.length === 0 ? (
               <div className="alert alert-success">
-                <strong>✓ Identical:</strong> Both JSON objects are exactly the
-                same.
+                <strong>✓ Identical:</strong> Response matches schema
+                structurally and by value.
               </div>
             ) : (
-              <div>
-                <div className="alert alert-warning">
-                  <strong>✗ Differences Found:</strong> {diffResult.length}{" "}
-                  field(s) differ
+              <>
+                <div className="alert alert-warning mb-3 text-dark">
+                  <strong>✗ Differences Found:</strong>{" "}
+                  {result.diffs.length} issue(s) detected.
                 </div>
+
+                <div className="row g-3 mb-3">
+                  <div className="col-md-2">
+                    <div className="card border-0 shadow-sm">
+                      <div className="card-body py-2 px-3">
+                        <div className="text-light small">Missing</div>
+                        <div className="fw-bold text-danger fs-5">
+                          {result.stats.missing}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-2">
+                    <div className="card border-0 shadow-sm">
+                      <div className="card-body py-2 px-3">
+                        <div className="text-light small">Extra</div>
+                        <div className="fw-bold text-secondary fs-5">
+                          {result.stats.extra}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-3">
+                    <div className="card border-0 shadow-sm">
+                      <div className="card-body py-2 px-3">
+                        <div className="text-light small">
+                          Type mismatches
+                        </div>
+                        <div className="fw-bold text-warning fs-5">
+                          {result.stats.type}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-3">
+                    <div className="card border-0 shadow-sm">
+                      <div className="card-body py-2 px-3">
+                        <div className="text-light small">
+                          Value mismatches
+                        </div>
+                        <div className="fw-bold text-primary fs-5">
+                          {result.stats.value}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-2">
+                    <div className="card border-0 shadow-sm">
+                      <div className="card-body py-2 px-3">
+                        <div className="text-light small">
+                          Array length
+                        </div>
+                        <div className="fw-bold text-info fs-5">
+                          {result.stats.arrayLength}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="card">
-                  <div className="card-header bg-light">
+                  <div className="card-header bg-light  text-dark">
                     <strong>Detailed Comparison</strong>
                   </div>
                   <div className="card-body p-0">
-                    <table className="table table-bordered mb-0">
+                    <table className="table table-bordered mb-0 align-middle">
                       <thead>
                         <tr>
-                          <th style={{ width: "20%" }}>Field</th>
-                          <th style={{ width: "40%" }} className="bg-light">
-                            JSON 1 Value
+                          <th style={{ width: "32%" }}>Path</th>
+                          <th style={{ width: "18%" }}>Issue</th>
+                          <th style={{ width: "25%" }} className="bg-light">
+                            Schema (JSON 1)
                           </th>
-                          <th style={{ width: "40%" }} className="bg-light">
-                            JSON 2 Value
+                          <th style={{ width: "25%" }} className="bg-light">
+                            Response (JSON 2)
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        {diffResult.map((diff, index) => (
-                          <tr key={index}>
-                            <td className="fw-bold">{diff.key}</td>
-                            <td
-                              className={
-                                diff.leftValue === "missing"
-                                  ? "bg-danger bg-opacity-25"
-                                  : "bg-warning bg-opacity-25"
-                              }
-                            >
-                              <code>{diff.leftValue}</code>
-                            </td>
-                            <td
-                              className={
-                                diff.rightValue === "missing"
-                                  ? "bg-danger bg-opacity-25"
-                                  : "bg-warning bg-opacity-25"
-                              }
-                            >
-                              <code>{diff.rightValue}</code>
-                            </td>
-                          </tr>
-                        ))}
+                        {result.diffs.map((diff, index) => {
+                          let rowClass = "";
+                          if (diff.issue === "missing-field") {
+                            rowClass = "table-danger";
+                          } else if (diff.issue === "extra-field") {
+                            rowClass = "table-secondary";
+                          } else if (diff.issue === "type-mismatch") {
+                            rowClass = "table-warning";
+                          } else if (
+                            diff.issue === "array-length-mismatch"
+                          ) {
+                            rowClass = "table-info";
+                          } else if (diff.issue === "value-mismatch") {
+                            rowClass = "table-light";
+                          }
+
+                          const badgeClassMap = {
+                            "missing-field": "bg-danger",
+                            "extra-field": "bg-secondary",
+                            "type-mismatch": "bg-warning text-dark",
+                            "value-mismatch": "bg-primary",
+                            "array-length-mismatch": "bg-info text-dark",
+                          };
+
+                          const labelMap = {
+                            "missing-field": "Missing",
+                            "extra-field": "Extra",
+                            "type-mismatch": "Type mismatch",
+                            "value-mismatch": "Value mismatch",
+                            "array-length-mismatch": "Array length",
+                          };
+
+                          return (
+                            <tr key={index} className={rowClass}>
+                              <td className="font-monospace small">
+                                {diff.path}
+                              </td>
+                              <td>
+                                <span
+                                  className={
+                                    "badge " +
+                                    (badgeClassMap[diff.issue] ||
+                                      "bg-secondary")
+                                  }
+                                >
+                                  {labelMap[diff.issue] || diff.issue}
+                                </span>
+                                <div className="small text-muted mt-1">
+                                  {diff.message}
+                                </div>
+                              </td>
+                              <td>
+                                <code className="d-block">
+                                  {formatJsonValue(diff.schemaValue)}
+                                </code>
+                                <div className="small text-muted">
+                                  {diff.schemaValue === undefined
+                                    ? "—"
+                                    : getJsonType(diff.schemaValue)}
+                                </div>
+                              </td>
+                              <td>
+                                <code className="d-block">
+                                  {formatJsonValue(diff.responseValue)}
+                                </code>
+                                <div className="small text-muted">
+                                  {diff.responseValue === undefined
+                                    ? "—"
+                                    : getJsonType(diff.responseValue)}
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
                 </div>
-              </div>
+              </>
             )}
           </div>
         );
+      }
 
       case "screenshot":
         return (
@@ -975,8 +1519,8 @@ ${bugReport.actual || "[What actually happens]"}`;
 
                 <div className="alert alert-info mt-3">
                   <strong>Instructions:</strong> Select a tool (Arrow,
-                  Rectangle, or Text) and draw on the image. Click Download to
-                  save your annotated screenshot.
+                  Rectangle, or Text) and draw on the image. Click
+                  Download to save your annotated screenshot.
                 </div>
               </div>
             )}
@@ -1001,7 +1545,9 @@ ${bugReport.actual || "[What actually happens]"}`;
                 .filter(
                   ([code, desc]) =>
                     code.includes(statusSearch) ||
-                    desc.toLowerCase().includes(statusSearch.toLowerCase())
+                    desc
+                      .toLowerCase()
+                      .includes(statusSearch.toLowerCase())
                 )
                 .map(([code, desc]) => (
                   <div key={code} className="card mb-2">
@@ -1104,7 +1650,10 @@ ${bugReport.actual || "[What actually happens]"}`;
                 Special Characters (!@#$%)
               </label>
             </div>
-            <button className="btn btn-dark mb-3" onClick={generatePassword}>
+            <button
+              className="btn btn-dark mb-3"
+              onClick={generatePassword}
+            >
               Generate Password
             </button>
             {generatedPassword && (
@@ -1116,7 +1665,10 @@ ${bugReport.actual || "[What actually happens]"}`;
                   <button
                     className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
                     onClick={() =>
-                      copyToClipboard(generatedPassword, "Password copied!")
+                      copyToClipboard(
+                        generatedPassword,
+                        "Password copied!"
+                      )
                     }
                   >
                     📋 Copy
@@ -1125,7 +1677,9 @@ ${bugReport.actual || "[What actually happens]"}`;
               </div>
             )}
             {copySuccess === "Password copied!" && (
-              <div className="alert alert-success mt-2">✓ {copySuccess}</div>
+              <div className="alert alert-success mt-2">
+                ✓ {copySuccess}
+              </div>
             )}
           </div>
         );
@@ -1198,7 +1752,9 @@ ${bugReport.actual || "[What actually happens]"}`;
               )}
             </div>
             {copySuccess === "Base64 copied!" && (
-              <div className="alert alert-success mt-2">✓ {copySuccess}</div>
+              <div className="alert alert-success mt-2">
+                ✓ {copySuccess}
+              </div>
             )}
           </div>
         );
@@ -1216,7 +1772,10 @@ ${bugReport.actual || "[What actually happens]"}`;
                 rows="6"
               />
             </div>
-            <button className="btn btn-info mb-3" onClick={formatSQL}>
+            <button
+              className="btn btn-info mb-3"
+              onClick={formatSQL}
+            >
               Format SQL
             </button>
             <div className="position-relative">
@@ -1226,14 +1785,18 @@ ${bugReport.actual || "[What actually happens]"}`;
               {sqlOutput && (
                 <button
                   className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
-                  onClick={() => copyToClipboard(sqlOutput, "SQL copied!")}
+                  onClick={() =>
+                    copyToClipboard(sqlOutput, "SQL copied!")
+                  }
                 >
                   📋 Copy
                 </button>
               )}
             </div>
             {copySuccess === "SQL copied!" && (
-              <div className="alert alert-success mt-2">✓ {copySuccess}</div>
+              <div className="alert alert-success mt-2">
+                ✓ {copySuccess}
+              </div>
             )}
           </div>
         );
@@ -1242,7 +1805,9 @@ ${bugReport.actual || "[What actually happens]"}`;
         return (
           <div className="text-center py-5">
             <div style={{ fontSize: "5rem" }}>🔧</div>
-            <h1 className="display-4 fw-bold text-primary mt-3">QuestKit</h1>
+            <h1 className="display-4 fw-bold text-primary mt-3">
+              QuestKit
+            </h1>
             <p className="lead">10 Essential Tools for Software Testers</p>
             <p className="text-muted">
               Select a tool from the sidebar to get started
@@ -1379,7 +1944,10 @@ ${bugReport.actual || "[What actually happens]"}`;
                 setMobileMenuOpen(false);
               }}
             >
-              <span className="me-2" style={{ fontSize: "1.2rem" }}>
+              <span
+                className="me-2"
+                style={{ fontSize: "1.2rem" }}
+              >
                 {tool.icon}
               </span>
               <span style={{ fontSize: "0.9rem" }}>{tool.name}</span>
