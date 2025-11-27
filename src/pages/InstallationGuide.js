@@ -1,6 +1,6 @@
 import React from 'react';
 import { Download, AlertTriangle, CheckCircle, MousePointerClick } from 'lucide-react';
-
+import { Helmet } from 'react-helmet';
 // Import the screenshots you uploaded
 import SmartScreen1 from '../assets/installations/SmartScreen1.png';
 import SmartScreen2 from '../assets/installations/SmartScreen2.png';

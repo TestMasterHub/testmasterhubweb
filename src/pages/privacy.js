@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Helmet } from 'react-helmet';
 const PrivacyPolicy = () => {
   return (
     <div className="bg-dark text-white py-5">

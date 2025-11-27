@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Download, KeyRound } from 'lucide-react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Helmet } from 'react-helmet';
 const InvitePage = () => {
   const [inviteCode, setInviteCode] = useState('');
   const [isValidCode, setIsValidCode] = useState(false);

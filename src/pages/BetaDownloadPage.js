@@ -1,6 +1,6 @@
 import React from 'react';
 import { Download } from 'lucide-react';
-
+import { Helmet } from 'react-helmet';
 const BetaDownloadPage = () => {
   const downloadUrl = 'https://api.intranet.testmasterhub.com/v1/release/download/latest?type=prod-beta';
 
