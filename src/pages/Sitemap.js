@@ -28,6 +28,13 @@ const Sitemap = () => {
 
   return (
     <div className="bg-dark text-white py-5 min-vh-100">
+      <Helmet>
+        <title>TestMasterHub Site Map</title>
+        <meta
+          name="description"
+          content="Explore the site map of TestMasterHub to easily navigate through all pages and resources available on our platform."
+        />
+      </Helmet>
       <div className="container py-5">
         <div>
             <h1 className="display-4 fw-bold mb-4 hero-title-gradient">Site Map</h1>

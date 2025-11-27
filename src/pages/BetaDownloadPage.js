@@ -10,6 +10,13 @@ const BetaDownloadPage = () => {
 
   return (
     <div className="bg-dark text-white d-flex justify-content-center align-items-center min-vh-100 p-3">
+      <Helmet>
+        <title>TestMasterHub Beta Access</title>
+        <meta
+          name="description"
+          content="Get access to the public beta version of TestMasterHub and experience the future of API testing."
+        />
+      </Helmet>
       <div className="card w-100" style={{ maxWidth: '500px' }}>
         <div className="card-body p-4 p-md-5 text-center">
           <Download className="icon-gradient mb-3" size={48} />

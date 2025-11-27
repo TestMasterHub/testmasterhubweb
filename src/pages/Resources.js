@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { FaRocket, FaCode, FaFileAlt, FaBars, FaArrowLeft, FaArrowRight, FaLayerGroup, FaGlobe, FaPlay,FaCheck } from 'react-icons/fa';
 import Prism from 'prismjs';
 import { gsap } from 'gsap';
+import { Helmet } from 'react-helmet';
 
 // Note: Ensure you have imported a dark Prism theme, e.g., 'prism-okaidia.css'
 // in your main App.js or index.js file.
@@ -352,6 +353,13 @@ const ResourcesPage = () => {
     
     return (
     <div className="modern-resources-page">
+      <Helmet>
+        <title>TestMasterHub Resources – Comprehensive API Testing Guide</title>
+        <meta
+          name="description"
+          content="Explore the comprehensive resources and documentation for TestMasterHub, your go-to API testing tool. Learn how to effectively use all features."
+        />
+      </Helmet>
       <style>{`
         .modern-resources-page {
           background: #1a1d24;

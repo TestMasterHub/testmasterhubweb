@@ -3,6 +3,13 @@ import React from 'react';
 const TermsOfService = () => {
   return (
     <div className="bg-dark text-white py-5">
+        <Helmet>
+            <title>TestMasterHub Installation Guide</title>
+            <meta
+              name="description"
+              content="Follow our step-by-step installation guide to get TestMasterHub up and running on your Windows machine."
+            />
+        </Helmet>
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-lg-8">

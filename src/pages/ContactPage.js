@@ -1,30 +1,31 @@
-import React, { useState } from 'react';
-import { 
-  Mail, 
-  MessageSquare, 
-  Send, 
+import React, { useState } from "react";
+import {
+  Mail,
+  MessageSquare,
+  Send,
   CheckCircle,
   Clock,
   Sparkles,
   Github,
   Linkedin,
-  Twitter
-} from 'lucide-react';
+  Twitter,
+} from "lucide-react";
+import { Helmet } from "react-helmet";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -33,23 +34,25 @@ const ContactPage = () => {
     setIsSubmitting(true);
 
     // Create mailto link as fallback
-    const mailtoLink = `mailto:contact.testmasterhub@gmail.com?subject=Contact from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
+    const mailtoLink = `mailto:contact.testmasterhub@gmail.com?subject=Contact from ${encodeURIComponent(
+      formData.name
+    )}&body=${encodeURIComponent(
       `Name: ${formData.name}\n` +
-      `Email: ${formData.email}\n\n` +
-      `Message:\n${formData.message}`
+        `Email: ${formData.email}\n\n` +
+        `Message:\n${formData.message}`
     )}`;
 
     try {
       const formDataEncoded = new URLSearchParams();
-      formDataEncoded.append('form-name', 'contact');
-      formDataEncoded.append('name', formData.name);
-      formDataEncoded.append('email', formData.email);
-      formDataEncoded.append('message', formData.message);
+      formDataEncoded.append("form-name", "contact");
+      formDataEncoded.append("name", formData.name);
+      formDataEncoded.append("email", formData.email);
+      formDataEncoded.append("message", formData.message);
 
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formDataEncoded.toString()
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formDataEncoded.toString(),
       });
 
       if (response.ok || response.status === 200) {
@@ -69,9 +72,9 @@ const ContactPage = () => {
   const resetForm = () => {
     setIsSubmitted(false);
     setFormData({
-      name: '',
-      email: '',
-      message: ''
+      name: "",
+      email: "",
+      message: "",
     });
   };
 
@@ -79,13 +82,24 @@ const ContactPage = () => {
   if (isSubmitted) {
     return (
       <div className="contact-success-wrapper">
+        <Helmet>
+          <title>Contact TestMasterHub Team</title>
+          <meta
+            name="description"
+            content="Contact the TestMasterHub support team for product queries, feedback, and partnership opportunities."
+          />
+        </Helmet>
+
         <div className="container">
           <div className="success-content">
             <div className="success-icon-wrapper">
               <CheckCircle size={64} strokeWidth={1.5} />
             </div>
             <h1>Thanks for reaching out!</h1>
-            <p>We've received your message and will get back to you within 24 hours.</p>
+            <p>
+              We've received your message and will get back to you within 24
+              hours.
+            </p>
             <button className="btn-reset" onClick={resetForm}>
               Send Another Message
             </button>
@@ -110,7 +124,7 @@ const ContactPage = () => {
           .success-icon-wrapper {
             width: 120px;
             height: 120px;
-            background: linear-gradient(135deg, #ff66c4, #8150FF);
+            background: linear-gradient(135deg, #ff66c4, #8150ff);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -145,7 +159,7 @@ const ContactPage = () => {
           }
 
           .btn-reset {
-            background: linear-gradient(135deg, #ff66c4, #8150FF);
+            background: linear-gradient(135deg, #ff66c4, #8150ff);
             color: white;
             border: none;
             padding: 1rem 2rem;
@@ -174,7 +188,10 @@ const ContactPage = () => {
               <span>CONTACT US</span>
             </div>
             <h1>Let's Talk</h1>
-            <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            <p>
+              Have questions? We'd love to hear from you. Send us a message and
+              we'll respond as soon as possible.
+            </p>
           </div>
         </div>
       </div>
@@ -225,7 +242,11 @@ const ContactPage = () => {
                   ></textarea>
                 </div>
 
-                <button type="submit" className="btn-submit" disabled={isSubmitting}>
+                <button
+                  type="submit"
+                  className="btn-submit"
+                  disabled={isSubmitting}
+                >
                   {isSubmitting ? (
                     <>
                       <div className="spinner"></div>
@@ -249,7 +270,10 @@ const ContactPage = () => {
                 </div>
                 <h3>Email Us</h3>
                 <p>Our team is here to help</p>
-                <a href="mailto:contact.testmasterhub@gmail.com" className="info-link">
+                <a
+                  href="mailto:contact.testmasterhub@gmail.com"
+                  className="info-link"
+                >
                   contact.testmasterhub@gmail.com
                 </a>
               </div>
@@ -269,20 +293,34 @@ const ContactPage = () => {
                 </div>
                 <h3>Get Started</h3>
                 <p>Ready to try TestMasterHub?</p>
-                <a href="/invite/beta-download" className="info-link">Download Now →</a>
+                <a href="/invite/beta-download" className="info-link">
+                  Download Now →
+                </a>
               </div>
 
               {/* Social Links */}
               <div className="social-section">
                 <p className="social-label">Follow Us</p>
                 <div className="social-links">
-                  <a href="https://github.com/TestMasterHub/testmasterhub-app-support" className="social-icon" aria-label="GitHub">
+                  <a
+                    href="https://github.com/TestMasterHub/testmasterhub-app-support"
+                    className="social-icon"
+                    aria-label="GitHub"
+                  >
                     <Github size={20} />
                   </a>
-                  <a href="https://www.linkedin.com/company/testmasterhub/" className="social-icon" aria-label="LinkedIn">
+                  <a
+                    href="https://www.linkedin.com/company/testmasterhub/"
+                    className="social-icon"
+                    aria-label="LinkedIn"
+                  >
                     <Linkedin size={20} />
                   </a>
-                  <a href="https://x.com/TestmasterHub" className="social-icon" aria-label="Twitter">
+                  <a
+                    href="https://x.com/TestmasterHub"
+                    className="social-icon"
+                    aria-label="Twitter"
+                  >
                     <Twitter size={20} />
                   </a>
                 </div>
@@ -404,7 +442,7 @@ const ContactPage = () => {
         .form-group input:focus,
         .form-group textarea:focus {
           outline: none;
-          border-color: #8150FF;
+          border-color: #8150ff;
           box-shadow: 0 0 0 3px rgba(129, 80, 255, 0.1);
         }
 
@@ -414,7 +452,7 @@ const ContactPage = () => {
         }
 
         .btn-submit {
-          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          background: linear-gradient(135deg, #ff66c4, #8150ff);
           color: white;
           border: none;
           padding: 1rem 2rem;
@@ -450,7 +488,9 @@ const ContactPage = () => {
         }
 
         @keyframes spin {
-          to { transform: rotate(360deg); }
+          to {
+            transform: rotate(360deg);
+          }
         }
 
         /* Info Section */
@@ -476,7 +516,7 @@ const ContactPage = () => {
         .info-icon {
           width: 48px;
           height: 48px;
-          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          background: linear-gradient(135deg, #ff66c4, #8150ff);
           border-radius: 0.75rem;
           display: flex;
           align-items: center;
@@ -507,7 +547,7 @@ const ContactPage = () => {
         }
 
         .info-link:hover {
-          color: #8150FF;
+          color: #8150ff;
         }
 
         .info-highlight {
@@ -552,7 +592,7 @@ const ContactPage = () => {
         }
 
         .social-icon:hover {
-          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          background: linear-gradient(135deg, #ff66c4, #8150ff);
           color: white;
           border-color: transparent;
           transform: translateY(-2px);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Helmet } from "react-helmet"; // ⬅️ add this
 const QuestKit = () => {
   const [activeTab, setActiveTab] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,6 +19,20 @@ const QuestKit = () => {
     expected: "",
     actual: "",
   });
+const getSeoForTab = (tab) => {
+  switch (tab) {
+    default:
+      return {
+        title: "Free Online QA Tools – JSON Diff, Regex, Data Generator | TestMasterHub Tools",
+        description:
+          "Free online QA tools including JSON Diff, Regex tester, Test Data Generator, Screenshot Annotator, Password Generator, and more. Perfect for QA engineers and developers.",
+        keywords:
+          "json diff, regex tester, test data generator, qa tools, developer utilities, testmasterhub tools",
+      };
+  }
+};
+
+  const seo = getSeoForTab(activeTab);
 
   // Regex
   const [regexPattern, setRegexPattern] = useState("");
@@ -1819,6 +1833,15 @@ ${bugReport.actual || "[What actually happens]"}`;
 
   return (
     <div className="d-flex" style={{ minHeight: "100vh" }}>
+       <Helmet>
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.description} />
+        <meta name="keywords" content={seo.keywords} />
+        <meta property="og:title" content={seo.title} />
+        <meta property="og:description" content={seo.description} />
+        <meta name="twitter:title" content={seo.title} />
+        <meta name="twitter:description" content={seo.description} />
+      </Helmet>
       <style>{`
         body {
           background: #f8f9fa;

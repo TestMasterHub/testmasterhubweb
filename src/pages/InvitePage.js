@@ -27,6 +27,13 @@ const InvitePage = () => {
 
   return (
     <div className="bg-dark text-white d-flex justify-content-center align-items-center min-vh-100 p-3">
+      <Helmet>
+        <title>TestMasterHub Private Version Access</title>
+        <meta
+          name="description"
+          content="Enter your invite code to access and download the exclusive private version of TestMasterHub."
+        />
+      </Helmet>
       <div className="card w-100" style={{ maxWidth: '500px' }}>
         <div className="card-body p-4 p-md-5">
           <div className="text-center mb-4">

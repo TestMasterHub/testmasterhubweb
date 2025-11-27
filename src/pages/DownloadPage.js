@@ -1,47 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 // Import useNavigate
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Download, Sparkles, Bug, Zap } from 'lucide-react';
+import { useLocation, useNavigate } from "react-router-dom";
+import { Download, Sparkles, Bug, Zap } from "lucide-react";
 import { FaWindows } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 const DownloadPage = () => {
   const location = useLocation();
   // Initialize useNavigate
-  const navigate = useNavigate(); 
-  
+  const navigate = useNavigate();
+
   const [stableRelease, setStableRelease] = useState(null);
   const [betaRelease, setBetaRelease] = useState(null);
-  
-  const isBetaPage = location.pathname.includes('beta-download');
-  const [activeTab, setActiveTab] = useState(isBetaPage ? 'beta' : 'stable');
- const BaseURL = process.env.REACT_APP_API_URL;
+
+  const isBetaPage = location.pathname.includes("beta-download");
+  const [activeTab, setActiveTab] = useState(isBetaPage ? "beta" : "stable");
+  const BaseURL = process.env.REACT_APP_API_URL;
   useEffect(() => {
-    setActiveTab(isBetaPage ? 'beta' : 'stable');
+    setActiveTab(isBetaPage ? "beta" : "stable");
   }, [isBetaPage]);
 
   useEffect(() => {
     fetch(`${BaseURL}/v1/release/latest`)
-      .then(response => response.json())
-      .then(data => setStableRelease(data))
-      .catch(error => console.error("Error fetching stable release:", error));
+      .then((response) => response.json())
+      .then((data) => setStableRelease(data))
+      .catch((error) => console.error("Error fetching stable release:", error));
 
     fetch(`${BaseURL}/v1/release/latest?type=prod-beta`)
-      .then(response => response.json())
-      .then(data => setBetaRelease(data))
-      .catch(error => console.error("Error fetching beta release:", error));
+      .then((response) => response.json())
+      .then((data) => setBetaRelease(data))
+      .catch((error) => console.error("Error fetching beta release:", error));
   }, []);
 
-  const currentRelease = activeTab === 'stable' ? stableRelease : betaRelease;
-  const downloadUrl = activeTab === 'stable' 
-    ? stableRelease?.downloadUrl 
-    : `${BaseURL}/v1/release/download/latest?type=prod-beta`;
+  const currentRelease = activeTab === "stable" ? stableRelease : betaRelease;
+  const downloadUrl =
+    activeTab === "stable"
+      ? stableRelease?.downloadUrl
+      : `${BaseURL}/v1/release/download/latest?type=prod-beta`;
 
   const handleDownload = () => {
     // This handler is now used for the beta button
-    if (activeTab === 'beta') {
+    if (activeTab === "beta") {
       window.location.href = downloadUrl;
       // Navigate to the guide
-      navigate('/installation-guide'); 
+      navigate("/installation-guide");
     }
   };
 
@@ -50,17 +52,30 @@ const DownloadPage = () => {
     if (downloadUrl) {
       window.location.href = downloadUrl;
       // Navigate to the guide
-      navigate('/installation-guide');
+      navigate("/installation-guide");
     }
   };
 
   return (
     <div className="bg-dark text-white min-vh-100">
+      <Helmet>
+        <title>Download TestMasterHub – Windows, macOS, Linux</title>
+        <meta
+          name="description"
+          content="Download TestMasterHub for Windows, macOS, and Linux. Offline mode, AI assertions, local storage, Git sync."
+        />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="text-center py-5">
         <div className="container py-5">
-          <h1 className="display-3 fw-bold hero-title-gradient">Download TestMasterHub</h1>
-          <p className="lead text-white-50 mx-auto mt-4" style={{ maxWidth: '700px' }}>
+          <h1 className="display-3 fw-bold hero-title-gradient">
+            Download TestMasterHub
+          </h1>
+          <p
+            className="lead text-white-50 mx-auto mt-4"
+            style={{ maxWidth: "700px" }}
+          >
             Choose between stable release or beta version with latest features
           </p>
         </div>
@@ -71,17 +86,17 @@ const DownloadPage = () => {
           <div className="col-lg-8">
             <div className="card animated-card p-4">
               <div className="card-body text-center">
-                {activeTab === 'stable' ? (
+                {activeTab === "stable" ? (
                   <FaWindows size={48} className="mb-3 icon-gradient" />
                 ) : (
                   <Zap size={48} className="mb-3 icon-gradient" />
                 )}
-                
+
                 <h2 className="fw-bold">
-                  TestMasterHub {activeTab === 'beta' ? 'Beta' : ''} for Windows
+                  TestMasterHub {activeTab === "beta" ? "Beta" : ""} for Windows
                 </h2>
-                
-                {activeTab === 'beta' && (
+
+                {activeTab === "beta" && (
                   <span className="badge bg-primary fs-6 px-3 py-2 mt-2 mb-3">
                     Public Beta • Open for Everyone
                   </span>
@@ -89,13 +104,15 @@ const DownloadPage = () => {
 
                 {currentRelease ? (
                   <>
-                    <p className="text-white-50 mb-4 mt-3">Version {currentRelease.version}</p>
-                    {activeTab === 'stable' ? (
+                    <p className="text-white-50 mb-4 mt-3">
+                      Version {currentRelease.version}
+                    </p>
+                    {activeTab === "stable" ? (
                       // Changed from <a> to <button> and use handleStableDownload
                       <button
-                         onClick={handleStableDownload}
-                         className="btn btn-primary-gradient btn-lg w-100"
-                         disabled={!downloadUrl}
+                        onClick={handleStableDownload}
+                        className="btn btn-primary-gradient btn-lg w-100"
+                        disabled={!downloadUrl}
                       >
                         <Download className="me-2" size={20} />
                         Download for Windows x64
@@ -104,7 +121,8 @@ const DownloadPage = () => {
                       // This button already uses handleDownload
                       <button
                         onClick={handleDownload}
-                        className="btn btn-primary-gradient btn-lg w-100">
+                        className="btn btn-primary-gradient btn-lg w-100"
+                      >
                         <Download className="me-2" size={20} />
                         Download Beta Version
                       </button>
@@ -140,12 +158,17 @@ const DownloadPage = () => {
                         What's New
                       </h4>
                       <ul className="list-unstyled ms-4">
-                        {currentRelease.releaseNotes.whatsnew.map((item, index) => (
-                          <li key={index} className="mb-3 d-flex text-white-50">
-                            <span className="text-success me-3">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
+                        {currentRelease.releaseNotes.whatsnew.map(
+                          (item, index) => (
+                            <li
+                              key={index}
+                              className="mb-3 d-flex text-white-50"
+                            >
+                              <span className="text-success me-3">•</span>
+                              <span>{item}</span>
+                            </li>
+                          )
+                        )}
                       </ul>
                     </div>
 
@@ -156,19 +179,28 @@ const DownloadPage = () => {
                         Bug Fixes
                       </h4>
                       <ul className="list-unstyled ms-4">
-                        {currentRelease.releaseNotes.bugfixes.map((item, index) => (
-                          <li key={index} className="mb-3 d-flex text-white-50">
-                            <span className="text-danger me-3">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
+                        {currentRelease.releaseNotes.bugfixes.map(
+                          (item, index) => (
+                            <li
+                              key={index}
+                              className="mb-3 d-flex text-white-50"
+                            >
+                              <span className="text-danger me-3">•</span>
+                              <span>{item}</span>
+                            </li>
+                          )
+                        )}
                       </ul>
                     </div>
                   </div>
                 </div>
               ) : (
                 <div className="text-center">
-                  <div className="spinner-border" role="status" style={{width: '3rem', height: '3rem'}}>
+                  <div
+                    className="spinner-border"
+                    role="status"
+                    style={{ width: "3rem", height: "3rem" }}
+                  >
                     <span className="visually-hidden">Loading...</span>
                   </div>
                 </div>

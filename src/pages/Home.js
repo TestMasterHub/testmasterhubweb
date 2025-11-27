@@ -1,31 +1,67 @@
-import React, { useEffect } from 'react';
-import { ArrowRight, Users, Zap, BarChart, Settings, Code, Database, Sparkles, Brain, Mail, Lock, Check } from 'lucide-react';
+import React, { useEffect } from "react";
+import {
+  ArrowRight,
+  Users,
+  Zap,
+  BarChart,
+  Settings,
+  Code,
+  Database,
+  Sparkles,
+  Brain,
+  Mail,
+  Lock,
+  Check,
+} from "lucide-react";
+import { Helmet } from "react-helmet";
 
 // Mock images - replace with your actual imports
-import DashboardImage from '../assets/images/Dashboard.png';
-import workflow from '../assets/images/workflow.png';
+import DashboardImage from "../assets/images/Dashboard.png";
+import workflow from "../assets/images/workflow.png";
 
 const Home = () => {
   useEffect(() => {
     // Simplified scroll animations
     const handleScroll = () => {
-      const elements = document.querySelectorAll('.fade-in-up');
-      elements.forEach(el => {
+      const elements = document.querySelectorAll(".fade-in-up");
+      elements.forEach((el) => {
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight * 0.85) {
-          el.classList.add('visible');
+          el.classList.add("visible");
         }
       });
     };
-    
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener("scroll", handleScroll);
     handleScroll();
-    
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div className="modern-homepage">
+      <Helmet>
+        <title>
+          TestMasterHub – AI-Powered Local-First API Testing Platform
+        </title>
+        <meta
+          name="description"
+          content="TestMasterHub is a local-first AI-powered API testing platform with collections, offline automation, environments, Git sync, monitoring, and auto-generated assertions."
+        />
+        <meta
+          name="keywords"
+          content="api testing tool, postman alternative, offline api testing, testmasterhub, api automation, ai assertions, api collections"
+        />
+        <meta
+          property="og:title"
+          content="TestMasterHub – AI-Powered API Testing"
+        />
+        <meta
+          property="og:description"
+          content="Local-first AI-powered API testing platform with offline mode, Git sync, AI assertions, monitoring, and more."
+        />
+      </Helmet>
+
       {/* Hero Section - Simplified & Centered */}
       <section className="hero-modern">
         <div className="container">
@@ -35,30 +71,34 @@ const Home = () => {
                 <Sparkles size={16} />
                 <span>AI-POWERED API TESTING</span>
               </div>
-              
+
               <h1 className="hero-headline mb-4">
-                API Testing Made <span className="gradient-text">Intelligent</span>
+                API Testing Made{" "}
+                <span className="gradient-text">Intelligent</span>
               </h1>
-              
+
               <p className="hero-subtext mb-5">
-                Local-first API testing platform with AI-powered assertions. Store data locally, test offline, sync when online.
+                Local-first API testing platform with AI-powered assertions.
+                Store data locally, test offline, sync when online.
               </p>
-              
+
               <div className="hero-cta-group">
                 <a href="/invite/beta-download" className="btn-gradient-large">
                   Try Free <ArrowRight size={20} />
                 </a>
-                <button className="btn-outline-large">
-                  Watch Demo
-                </button>
+                <button className="btn-outline-large">Watch Demo</button>
               </div>
             </div>
           </div>
-          
+
           <div className="row justify-content-center mt-5 pt-4">
             <div className="col-lg-10">
               <div className="hero-image-wrapper fade-in-up">
-                <img src={DashboardImage} alt="TestMasterHub Dashboard" className="hero-image" />
+                <img
+                  src={DashboardImage}
+                  alt="TestMasterHub Dashboard"
+                  className="hero-image"
+                />
               </div>
             </div>
           </div>
@@ -75,9 +115,13 @@ const Home = () => {
                 <Sparkles size={18} />
                 <span>AI DOCUMENTATION</span>
               </div>
-              <h2 className="feature-title">Generate Documentation Instantly</h2>
+              <h2 className="feature-title">
+                Generate Documentation Instantly
+              </h2>
               <p className="feature-description">
-                Transform test collections into professional, developer-friendly API documentation automatically. Always synchronized and up-to-date with one-click generation.
+                Transform test collections into professional, developer-friendly
+                API documentation automatically. Always synchronized and
+                up-to-date with one-click generation.
               </p>
               <div className="feature-benefits">
                 <div className="benefit-item">
@@ -115,7 +159,9 @@ const Home = () => {
               </div>
               <h2 className="feature-title">Auto-Generate Test Cases</h2>
               <p className="feature-description">
-                Boost coverage instantly with AI-generated tests for positive flows, error handling, and edge cases. AI features require internet connection for processing.
+                Boost coverage instantly with AI-generated tests for positive
+                flows, error handling, and edge cases. AI features require
+                internet connection for processing.
               </p>
               <div className="feature-benefits">
                 <div className="benefit-item">
@@ -162,13 +208,23 @@ const Home = () => {
               </div>
               <h2 className="feature-title">Comprehensive Test Reports</h2>
               <p className="feature-description">
-                Receive detailed HTML reports after each build. Complete test summaries, metrics, and insights delivered to your inbox automatically.
+                Receive detailed HTML reports after each build. Complete test
+                summaries, metrics, and insights delivered to your inbox
+                automatically.
               </p>
               <div className="report-features">
-                <div className="report-badge"><BarChart size={16} /> Test Metrics</div>
-                <div className="report-badge"><Code size={16} /> Error Details</div>
-                <div className="report-badge"><Settings size={16} /> Service Status</div>
-                <div className="report-badge"><Database size={16} /> Summary Stats</div>
+                <div className="report-badge">
+                  <BarChart size={16} /> Test Metrics
+                </div>
+                <div className="report-badge">
+                  <Code size={16} /> Error Details
+                </div>
+                <div className="report-badge">
+                  <Settings size={16} /> Service Status
+                </div>
+                <div className="report-badge">
+                  <Database size={16} /> Summary Stats
+                </div>
               </div>
             </div>
             <div className="feature-visual">
@@ -218,19 +274,50 @@ const Home = () => {
         <div className="container">
           <div className="section-header fade-in-up">
             <h2>Complete Testing Platform</h2>
-            <p>Everything you need for comprehensive API testing, enhanced with AI</p>
+            <p>
+              Everything you need for comprehensive API testing, enhanced with
+              AI
+            </p>
           </div>
-          
+
           <div className="platform-grid fade-in-up">
             {[
-              { icon: Database, title: 'Smart Collections', desc: 'Organize APIs locally' },
-              { icon: Settings, title: 'Environments', desc: 'Stored on your device' },
-              { icon: Zap, title: 'Automation', desc: 'Run tests offline' },
-              { icon: BarChart, title: 'Monitoring', desc: 'Track API health locally' },
-              { icon: Code, title: 'Request Builder', desc: 'Build requests offline' },
-              { icon: Lock, title: 'Local Encryption', desc: 'Data encrypted locally' },
-              { icon: Users, title: 'Git Integration', desc: 'Sync when online' },
-              { icon: Brain, title: 'AI Assertions', desc: 'Requires internet' }
+              {
+                icon: Database,
+                title: "Smart Collections",
+                desc: "Organize APIs locally",
+              },
+              {
+                icon: Settings,
+                title: "Environments",
+                desc: "Stored on your device",
+              },
+              { icon: Zap, title: "Automation", desc: "Run tests offline" },
+              {
+                icon: BarChart,
+                title: "Monitoring",
+                desc: "Track API health locally",
+              },
+              {
+                icon: Code,
+                title: "Request Builder",
+                desc: "Build requests offline",
+              },
+              {
+                icon: Lock,
+                title: "Local Encryption",
+                desc: "Data encrypted locally",
+              },
+              {
+                icon: Users,
+                title: "Git Integration",
+                desc: "Sync when online",
+              },
+              {
+                icon: Brain,
+                title: "AI Assertions",
+                desc: "Requires internet",
+              },
             ].map((feature, i) => (
               <div key={i} className="platform-card">
                 <div className="platform-icon">
@@ -251,13 +338,13 @@ const Home = () => {
             <h2>How It Works</h2>
             <p>Streamlined workflow with intelligent automation</p>
           </div>
-          
+
           <div className="workflow-steps fade-in-up">
             {[
-              { num: 1, title: 'Create & Import', desc: 'Set up your APIs' },
-              { num: 2, title: 'AI Generates', desc: 'Auto assertions' },
-              { num: 3, title: 'Automate', desc: 'Run & monitor' },
-              { num: 4, title: 'Analyze', desc: 'Get insights' }
+              { num: 1, title: "Create & Import", desc: "Set up your APIs" },
+              { num: 2, title: "AI Generates", desc: "Auto assertions" },
+              { num: 3, title: "Automate", desc: "Run & monitor" },
+              { num: 4, title: "Analyze", desc: "Get insights" },
             ].map((step, i) => (
               <React.Fragment key={i}>
                 <div className="workflow-step">
@@ -269,7 +356,7 @@ const Home = () => {
               </React.Fragment>
             ))}
           </div>
-          
+
           <div className="workflow-image fade-in-up">
             <img src={workflow} alt="Workflow Visualization" />
           </div>
@@ -282,13 +369,25 @@ const Home = () => {
           <div className="section-header fade-in-up">
             <h2>Common Questions</h2>
           </div>
-          
+
           <div className="faq-list fade-in-up">
             {[
-              { q: 'What makes TestMasterHub different?', a: 'We combine comprehensive API testing with AI-powered auto-assertion generation, saving time while ensuring thorough coverage.' },
-              { q: 'How does the AI work?', a: 'Our AI analyzes API responses in real-time to automatically generate assertions for status codes, response times, data validation, and content verification.' },
-              { q: 'Can I customize AI assertions?', a: 'Absolutely! You have full control to review, modify, or add custom assertions. AI provides a smart foundation you can build upon.' },
-              { q: 'Does it support team collaboration?', a: 'Yes! Includes Git integration for version control, collection import/export, and collaborative workflows.' }
+              {
+                q: "What makes TestMasterHub different?",
+                a: "We combine comprehensive API testing with AI-powered auto-assertion generation, saving time while ensuring thorough coverage.",
+              },
+              {
+                q: "How does the AI work?",
+                a: "Our AI analyzes API responses in real-time to automatically generate assertions for status codes, response times, data validation, and content verification.",
+              },
+              {
+                q: "Can I customize AI assertions?",
+                a: "Absolutely! You have full control to review, modify, or add custom assertions. AI provides a smart foundation you can build upon.",
+              },
+              {
+                q: "Does it support team collaboration?",
+                a: "Yes! Includes Git integration for version control, collection import/export, and collaborative workflows.",
+              },
             ].map((faq, i) => (
               <details key={i} className="faq-item">
                 <summary>{faq.q}</summary>
@@ -348,7 +447,7 @@ const Home = () => {
         }
 
         .gradient-text {
-          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          background: linear-gradient(135deg, #ff66c4, #8150ff);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -369,7 +468,8 @@ const Home = () => {
           flex-wrap: wrap;
         }
 
-        .btn-gradient-large, .btn-outline-large {
+        .btn-gradient-large,
+        .btn-outline-large {
           padding: 1rem 2rem;
           border-radius: 999px;
           font-weight: 600;
@@ -384,7 +484,7 @@ const Home = () => {
         }
 
         .btn-gradient-large {
-          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          background: linear-gradient(135deg, #ff66c4, #8150ff);
           color: white;
         }
 
@@ -400,7 +500,7 @@ const Home = () => {
         }
 
         .btn-outline-large:hover {
-          border-color: #8150FF;
+          border-color: #8150ff;
           background: rgba(129, 80, 255, 0.1);
         }
 
@@ -508,7 +608,7 @@ const Home = () => {
 
         .mini-card:hover {
           transform: translateY(-5px);
-          border-color: #8150FF;
+          border-color: #8150ff;
         }
 
         .mini-card-icon {
@@ -622,7 +722,8 @@ const Home = () => {
           color: #333;
         }
 
-        .badge-success, .badge-error {
+        .badge-success,
+        .badge-error {
           padding: 0.25rem 0.75rem;
           border-radius: 999px;
           font-size: 0.75rem;
@@ -679,14 +780,14 @@ const Home = () => {
 
         .platform-card:hover {
           transform: translateY(-5px);
-          border-color: #8150FF;
+          border-color: #8150ff;
         }
 
         .platform-icon {
           width: 64px;
           height: 64px;
           margin: 0 auto 1.5rem;
-          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          background: linear-gradient(135deg, #ff66c4, #8150ff);
           border-radius: 1rem;
           display: flex;
           align-items: center;
@@ -728,7 +829,7 @@ const Home = () => {
         .step-number {
           width: 56px;
           height: 56px;
-          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          background: linear-gradient(135deg, #ff66c4, #8150ff);
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -753,7 +854,7 @@ const Home = () => {
 
         .workflow-arrow {
           font-size: 2rem;
-          color: #8150FF;
+          color: #8150ff;
         }
 
         .workflow-image {
@@ -801,13 +902,13 @@ const Home = () => {
         }
 
         .faq-item summary::after {
-          content: '+';
+          content: "+";
           font-size: 1.5rem;
-          color: #8150FF;
+          color: #8150ff;
         }
 
         .faq-item[open] summary::after {
-          content: '−';
+          content: "−";
         }
 
         .faq-item p {
@@ -819,7 +920,7 @@ const Home = () => {
         /* CTA */
         .section-cta {
           padding: 6rem 0;
-          background: linear-gradient(135deg, #ff66c4, #8150FF);
+          background: linear-gradient(135deg, #ff66c4, #8150ff);
         }
 
         .cta-content {
@@ -843,7 +944,7 @@ const Home = () => {
 
         .cta-content .btn-gradient-large {
           background: white;
-          color: #8150FF;
+          color: #8150ff;
         }
 
         .cta-content .btn-gradient-large:hover {

@@ -3,6 +3,13 @@ import React from 'react';
 const PrivacyPolicy = () => {
   return (
     <div className="bg-dark text-white py-5">
+        <Helmet>
+          <title>TestMasterHub Privacy Policy</title>
+          <meta
+            name="description"
+            content="Read the privacy policy of TestMasterHub to understand how we collect, use, and protect your data."
+          />
+        </Helmet>
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-lg-8">
