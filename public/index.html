@@ -6,29 +6,68 @@
   <link rel="icon" href="%PUBLIC_URL%/Logo.jpg" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description"
-    content="TestMasterHub is a powerful and intuitive API testing platform designed to simplify API validation for developers and testers. With a fully UI-driven experience, it enables effortless API request execution, assertions, environment management, and automated testing. Users can organize requests into collections, schedule test runs, and generate detailed reports—all without scripting. Featuring built-in proxy support, customizable assertions, and real-time monitoring, TestMasterHub ensures efficient and accurate API testing. Whether you're an individual tester or part of a team, TestMasterHub helps streamline API workflows with ease. 🚀" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/Logo.jpg" />
-  <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+  <!-- Primary SEO -->
+  <title>TestMasterHub – AI-Powered Local-First API Testing Platform</title>
+  <meta
+    name="description"
+    content="TestMasterHub is an AI-powered, local-first API testing platform for developers and QA engineers. Run collections offline, manage environments, generate assertions, monitor APIs, and share detailed reports. Includes TesterTools: free JSON Diff, regex tester, test data generator, and more."
+  />
+  <meta
+    name="keywords"
+    content="TestMasterHub, api testing tool, postman alternative, local-first api testing, offline api testing, api automation, api collections, api monitoring, qa tools, TesterTools, json diff"
+  />
   <meta name="application-name" content="TestMasterHub & TesterTools" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="TestMasterHub – AI-Powered Local-First API Testing Platform" />
+  <meta
+    property="og:description"
+    content="TestMasterHub helps developers and testers design, run, and automate API tests with AI-powered assertions, offline execution, environments, monitoring, and rich reports. Plus free TesterTools like JSON Diff and test data utilities."
+  />
+  <meta property="og:image" content="%PUBLIC_URL%/Logo.jpg" />
+  <!-- Replace with your actual production URL -->
+  <meta property="og:url" content="https://testmasterhub.com" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TestMasterHub – AI-Powered API Testing Platform" />
+  <meta
+    name="twitter:description"
+    content="AI-powered, local-first API testing with offline runs, environments, monitoring, and TesterTools (JSON Diff, regex tester, data generator)."
+  />
+  <meta name="twitter:image" content="%PUBLIC_URL%/Logo.jpg" />
+
+  <!-- PWA / Icons -->
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/Logo.jpg" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <!-- Structured Data for TestMasterHub -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "TestMasterHub",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "url": "https://testmasterhub.com/",
+      "description": "TestMasterHub is an AI-powered, local-first API testing platform that supports collections, offline execution, environments, monitoring, and detailed reports for developers and QA teams. It also provides TesterTools, a set of free utilities like JSON Diff, regex tester, and test data generator.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
+
+  <!-- Netlify contact form -->
   <form name="contact" netlify netlify-honeypot="bot-field" hidden>
     <input type="text" name="name" />
     <input type="email" name="email" />
