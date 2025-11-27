@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet"; // ⬅️ add this
-const QuestKit = () => {
+const TesterTools = () => {
   const [activeTab, setActiveTab] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -19,18 +19,51 @@ const QuestKit = () => {
     expected: "",
     actual: "",
   });
-const getSeoForTab = (tab) => {
-  switch (tab) {
-    default:
-      return {
-        title: "Free Online QA Tools – JSON Diff, Regex, Data Generator | TestMasterHub Tools",
-        description:
-          "Free online QA tools including JSON Diff, Regex tester, Test Data Generator, Screenshot Annotator, Password Generator, and more. Perfect for QA engineers and developers.",
-        keywords:
-          "json diff, regex tester, test data generator, qa tools, developer utilities, testmasterhub tools",
-      };
-  }
-};
+  const getSeoForTab = (tab) => {
+    switch (tab) {
+      case "json-diff":
+        return {
+          title: "JSON Diff Tool – Compare JSON Online | TesterTools",
+          description:
+            "Free JSON Diff tool by TesterTools to compare JSON schema and API responses. Detect missing fields, extra properties, type mismatches, and array differences in seconds.",
+          keywords:
+            "json diff, json compare, compare json online, json schema diff, json response diff, api json diff, tester tools",
+        };
+      case "data-gen":
+        return {
+          title: "Test Data Generator for QA & Developers | TesterTools",
+          description:
+            "Generate realistic test data like emails, names, phone numbers, addresses, usernames and more. Ideal for QA engineers and API testing workflows.",
+          keywords:
+            "test data generator, fake data generator, qa test data, sample emails, sample names, dummy data, tester tools",
+        };
+      case "regex":
+        return {
+          title: "Online Regex Tester for QA & Developers | TesterTools",
+          description:
+            "Test and validate regular expressions online using TesterTools. Great for form validation, API response checks, and automation scripts.",
+          keywords:
+            "regex tester, regular expression tester, online regex tool, test regex, validate regex, qa regex",
+        };
+      case "bug-report":
+        return {
+          title: "Bug Report Template Generator for QA Teams | TesterTools",
+          description:
+            "Generate structured bug reports with severity, environment, steps, expected and actual results to improve QA communication and defect tracking.",
+          keywords:
+            "bug report template, qa bug report, defect template, bug reporting tool, tester tools",
+        };
+      default:
+        return {
+          title:
+            "TesterTools – Free Online QA Tools (JSON Diff, Regex, Data Generator)",
+          description:
+            "TesterTools provides free online QA utilities including JSON Diff, test data generator, regex tester, bug report template, HTTP status codes reference, password generator, and more.",
+          keywords:
+            "testertools, tester tools, qa tools, json diff, json compare, online qa utilities, developer tools, test data generator, regex tester",
+        };
+    }
+  };
 
   const seo = getSeoForTab(activeTab);
 
@@ -377,12 +410,9 @@ const getSeoForTab = (tab) => {
           first[Math.floor(Math.random() * first.length)].toLowerCase();
         const lastName =
           last[Math.floor(Math.random() * last.length)].toLowerCase();
-        const domain =
-          domains[Math.floor(Math.random() * domains.length)];
+        const domain = domains[Math.floor(Math.random() * domains.length)];
         data.push(
-          `${firstName}.${lastName}${Math.floor(
-            Math.random() * 100
-          )}@${domain}`
+          `${firstName}.${lastName}${Math.floor(Math.random() * 100)}@${domain}`
         );
       } else if (dataType === "name") {
         data.push(
@@ -411,8 +441,7 @@ const getSeoForTab = (tab) => {
           countryData.states ||
           countryData.provinces ||
           countryData.prefectures;
-        const regionCode =
-          region[Math.floor(Math.random() * region.length)];
+        const regionCode = region[Math.floor(Math.random() * region.length)];
 
         let zipcode;
         if (selectedCountry === "US") {
@@ -468,9 +497,9 @@ const getSeoForTab = (tab) => {
           "Labs",
         ];
         data.push(
-          `${
-            prefixes[Math.floor(Math.random() * prefixes.length)]
-          } ${suffixes[Math.floor(Math.random() * suffixes.length)]}`
+          `${prefixes[Math.floor(Math.random() * prefixes.length)]} ${
+            suffixes[Math.floor(Math.random() * suffixes.length)]
+          }`
         );
       } else if (dataType === "url") {
         const protocols = ["https://www.", "https://"];
@@ -492,29 +521,28 @@ const getSeoForTab = (tab) => {
         );
       } else if (dataType === "date") {
         const year = Math.floor(Math.random() * 5 + 2020);
-        const month = String(
-          Math.floor(Math.random() * 12 + 1)
-        ).padStart(2, "0");
-        const day = String(
-          Math.floor(Math.random() * 28 + 1)
-        ).padStart(2, "0");
+        const month = String(Math.floor(Math.random() * 12 + 1)).padStart(
+          2,
+          "0"
+        );
+        const day = String(Math.floor(Math.random() * 28 + 1)).padStart(2, "0");
         data.push(`${year}-${month}-${day}`);
       } else if (dataType === "creditcard") {
-        const cardNum = `${Math.floor(Math.random() * 9000 + 1000)}-${Math.floor(
+        const cardNum = `${Math.floor(
           Math.random() * 9000 + 1000
         )}-${Math.floor(Math.random() * 9000 + 1000)}-${Math.floor(
           Math.random() * 9000 + 1000
-        )}`;
-        const month = String(
-          Math.floor(Math.random() * 12 + 1)
-        ).padStart(2, "0");
-        const year = String(
-          Math.floor(Math.random() * 10 + 25)
-        ).padStart(2, "0");
-        const cvv = Math.floor(Math.random() * 900 + 100);
-        data.push(
-          `Card: ${cardNum} | Expiry: ${month}/${year} | CVV: ${cvv}`
+        )}-${Math.floor(Math.random() * 9000 + 1000)}`;
+        const month = String(Math.floor(Math.random() * 12 + 1)).padStart(
+          2,
+          "0"
         );
+        const year = String(Math.floor(Math.random() * 10 + 25)).padStart(
+          2,
+          "0"
+        );
+        const cvv = Math.floor(Math.random() * 900 + 100);
+        data.push(`Card: ${cardNum} | Expiry: ${month}/${year} | CVV: ${cvv}`);
       } else if (dataType === "ipaddress") {
         const ip = `${Math.floor(Math.random() * 256)}.${Math.floor(
           Math.random() * 256
@@ -643,7 +671,11 @@ ${bugReport.actual || "[What actually happens]"}`;
 
           keys.forEach((key) => {
             const childPath = path ? `${path}.${key}` : key;
-            walk(schemaVal ? schemaVal[key] : undefined, responseVal ? responseVal[key] : undefined, childPath);
+            walk(
+              schemaVal ? schemaVal[key] : undefined,
+              responseVal ? responseVal[key] : undefined,
+              childPath
+            );
           });
         } else if (schemaType === "array" && responseType === "array") {
           if (schemaVal.length !== responseVal.length) {
@@ -681,9 +713,8 @@ ${bugReport.actual || "[What actually happens]"}`;
         extra: diffs.filter((d) => d.issue === "extra-field").length,
         type: diffs.filter((d) => d.issue === "type-mismatch").length,
         value: diffs.filter((d) => d.issue === "value-mismatch").length,
-        arrayLength: diffs.filter(
-          (d) => d.issue === "array-length-mismatch"
-        ).length,
+        arrayLength: diffs.filter((d) => d.issue === "array-length-mismatch")
+          .length,
       };
 
       return { diffs, stats };
@@ -982,31 +1013,17 @@ ${bugReport.actual || "[What actually happens]"}`;
                   </select>
                 </div>
               )}
-              <div
-                className={
-                  dataType === "address" ? "col-md-2" : "col-md-3"
-                }
-              >
-                <label className="form-label text-dark fw-bold">
-                  Count
-                </label>
+              <div className={dataType === "address" ? "col-md-2" : "col-md-3"}>
+                <label className="form-label text-dark fw-bold">Count</label>
                 <input
                   type="number"
                   className="form-control"
                   value={dataCount}
-                  onChange={(e) =>
-                    setDataCount(parseInt(e.target.value))
-                  }
+                  onChange={(e) => setDataCount(parseInt(e.target.value))}
                 />
               </div>
-              <div
-                className={
-                  dataType === "address" ? "col-md-2" : "col-md-3"
-                }
-              >
-                <label className="form-label text-dark fw-bold">
-                  &nbsp;
-                </label>
+              <div className={dataType === "address" ? "col-md-2" : "col-md-3"}>
+                <label className="form-label text-dark fw-bold">&nbsp;</label>
                 <button
                   className="btn btn-primary w-100"
                   onClick={generateData}
@@ -1026,10 +1043,7 @@ ${bugReport.actual || "[What actually happens]"}`;
                 <button
                   className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
                   onClick={() =>
-                    copyToClipboard(
-                      generatedData.join("\n"),
-                      "Data copied!"
-                    )
+                    copyToClipboard(generatedData.join("\n"), "Data copied!")
                   }
                 >
                   📋 Copy
@@ -1037,9 +1051,7 @@ ${bugReport.actual || "[What actually happens]"}`;
               )}
             </div>
             {copySuccess === "Data copied!" && (
-              <div className="alert alert-success mt-2">
-                ✓ {copySuccess}
-              </div>
+              <div className="alert alert-success mt-2">✓ {copySuccess}</div>
             )}
           </div>
         );
@@ -1135,16 +1147,11 @@ ${bugReport.actual || "[What actually happens]"}`;
             <div className="card bg-light">
               <div className="card-body position-relative">
                 <h5 className="text-dark">Generated Report:</h5>
-                <pre className="mb-0 text-dark">
-                  {generateBugReport()}
-                </pre>
+                <pre className="mb-0 text-dark">{generateBugReport()}</pre>
                 <button
                   className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
                   onClick={() =>
-                    copyToClipboard(
-                      generateBugReport(),
-                      "Report copied!"
-                    )
+                    copyToClipboard(generateBugReport(), "Report copied!")
                   }
                 >
                   📋 Copy
@@ -1152,9 +1159,7 @@ ${bugReport.actual || "[What actually happens]"}`;
               </div>
             </div>
             {copySuccess === "Report copied!" && (
-              <div className="alert alert-success mt-2">
-                ✓ {copySuccess}
-              </div>
+              <div className="alert alert-success mt-2">✓ {copySuccess}</div>
             )}
           </div>
         );
@@ -1225,10 +1230,10 @@ ${bugReport.actual || "[What actually happens]"}`;
             </div>
 
             <p className="text-muted mb-3">
-              Paste your JSON <strong>schema</strong> on the left and the
-              actual <strong>response</strong> on the right. The tool will
-              highlight missing properties, extra fields, type mismatches,
-              and array issues (including nested objects/arrays).
+              Paste your JSON <strong>schema</strong> on the left and the actual{" "}
+              <strong>response</strong> on the right. The tool will highlight
+              missing properties, extra fields, type mismatches, and array
+              issues (including nested objects/arrays).
             </p>
 
             <div className="row g-3 mb-3">
@@ -1274,8 +1279,8 @@ ${bugReport.actual || "[What actually happens]"}`;
             ) : (
               <>
                 <div className="alert alert-warning mb-3 text-dark">
-                  <strong>✗ Differences Found:</strong>{" "}
-                  {result.diffs.length} issue(s) detected.
+                  <strong>✗ Differences Found:</strong> {result.diffs.length}{" "}
+                  issue(s) detected.
                 </div>
 
                 <div className="row g-3 mb-3">
@@ -1302,9 +1307,7 @@ ${bugReport.actual || "[What actually happens]"}`;
                   <div className="col-md-3">
                     <div className="card border-0 shadow-sm">
                       <div className="card-body py-2 px-3">
-                        <div className="text-light small">
-                          Type mismatches
-                        </div>
+                        <div className="text-light small">Type mismatches</div>
                         <div className="fw-bold text-warning fs-5">
                           {result.stats.type}
                         </div>
@@ -1314,9 +1317,7 @@ ${bugReport.actual || "[What actually happens]"}`;
                   <div className="col-md-3">
                     <div className="card border-0 shadow-sm">
                       <div className="card-body py-2 px-3">
-                        <div className="text-light small">
-                          Value mismatches
-                        </div>
+                        <div className="text-light small">Value mismatches</div>
                         <div className="fw-bold text-primary fs-5">
                           {result.stats.value}
                         </div>
@@ -1326,15 +1327,22 @@ ${bugReport.actual || "[What actually happens]"}`;
                   <div className="col-md-2">
                     <div className="card border-0 shadow-sm">
                       <div className="card-body py-2 px-3">
-                        <div className="text-light small">
-                          Array length
-                        </div>
+                        <div className="text-light small">Array length</div>
                         <div className="fw-bold text-info fs-5">
                           {result.stats.arrayLength}
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+                <div className="d-flex justify-content-end mb-2">
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-outline-secondary"
+                    onClick={downloadHtmlReport}
+                  >
+                    💾 Download Detailed Comparison (HTML)
+                  </button>
                 </div>
 
                 <div className="card">
@@ -1364,9 +1372,7 @@ ${bugReport.actual || "[What actually happens]"}`;
                             rowClass = "table-secondary";
                           } else if (diff.issue === "type-mismatch") {
                             rowClass = "table-warning";
-                          } else if (
-                            diff.issue === "array-length-mismatch"
-                          ) {
+                          } else if (diff.issue === "array-length-mismatch") {
                             rowClass = "table-info";
                           } else if (diff.issue === "value-mismatch") {
                             rowClass = "table-light";
@@ -1533,8 +1539,8 @@ ${bugReport.actual || "[What actually happens]"}`;
 
                 <div className="alert alert-info mt-3">
                   <strong>Instructions:</strong> Select a tool (Arrow,
-                  Rectangle, or Text) and draw on the image. Click
-                  Download to save your annotated screenshot.
+                  Rectangle, or Text) and draw on the image. Click Download to
+                  save your annotated screenshot.
                 </div>
               </div>
             )}
@@ -1559,9 +1565,7 @@ ${bugReport.actual || "[What actually happens]"}`;
                 .filter(
                   ([code, desc]) =>
                     code.includes(statusSearch) ||
-                    desc
-                      .toLowerCase()
-                      .includes(statusSearch.toLowerCase())
+                    desc.toLowerCase().includes(statusSearch.toLowerCase())
                 )
                 .map(([code, desc]) => (
                   <div key={code} className="card mb-2">
@@ -1664,10 +1668,7 @@ ${bugReport.actual || "[What actually happens]"}`;
                 Special Characters (!@#$%)
               </label>
             </div>
-            <button
-              className="btn btn-dark mb-3"
-              onClick={generatePassword}
-            >
+            <button className="btn btn-dark mb-3" onClick={generatePassword}>
               Generate Password
             </button>
             {generatedPassword && (
@@ -1679,10 +1680,7 @@ ${bugReport.actual || "[What actually happens]"}`;
                   <button
                     className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
                     onClick={() =>
-                      copyToClipboard(
-                        generatedPassword,
-                        "Password copied!"
-                      )
+                      copyToClipboard(generatedPassword, "Password copied!")
                     }
                   >
                     📋 Copy
@@ -1691,9 +1689,7 @@ ${bugReport.actual || "[What actually happens]"}`;
               </div>
             )}
             {copySuccess === "Password copied!" && (
-              <div className="alert alert-success mt-2">
-                ✓ {copySuccess}
-              </div>
+              <div className="alert alert-success mt-2">✓ {copySuccess}</div>
             )}
           </div>
         );
@@ -1766,9 +1762,7 @@ ${bugReport.actual || "[What actually happens]"}`;
               )}
             </div>
             {copySuccess === "Base64 copied!" && (
-              <div className="alert alert-success mt-2">
-                ✓ {copySuccess}
-              </div>
+              <div className="alert alert-success mt-2">✓ {copySuccess}</div>
             )}
           </div>
         );
@@ -1786,10 +1780,7 @@ ${bugReport.actual || "[What actually happens]"}`;
                 rows="6"
               />
             </div>
-            <button
-              className="btn btn-info mb-3"
-              onClick={formatSQL}
-            >
+            <button className="btn btn-info mb-3" onClick={formatSQL}>
               Format SQL
             </button>
             <div className="position-relative">
@@ -1799,18 +1790,14 @@ ${bugReport.actual || "[What actually happens]"}`;
               {sqlOutput && (
                 <button
                   className="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
-                  onClick={() =>
-                    copyToClipboard(sqlOutput, "SQL copied!")
-                  }
+                  onClick={() => copyToClipboard(sqlOutput, "SQL copied!")}
                 >
                   📋 Copy
                 </button>
               )}
             </div>
             {copySuccess === "SQL copied!" && (
-              <div className="alert alert-success mt-2">
-                ✓ {copySuccess}
-              </div>
+              <div className="alert alert-success mt-2">✓ {copySuccess}</div>
             )}
           </div>
         );
@@ -1819,9 +1806,7 @@ ${bugReport.actual || "[What actually happens]"}`;
         return (
           <div className="text-center py-5">
             <div style={{ fontSize: "5rem" }}>🔧</div>
-            <h1 className="display-4 fw-bold text-primary mt-3">
-              QuestKit
-            </h1>
+            <h1 className="display-4 fw-bold text-primary mt-3">TesterTools</h1>
             <p className="lead">10 Essential Tools for Software Testers</p>
             <p className="text-muted">
               Select a tool from the sidebar to get started
@@ -1830,17 +1815,284 @@ ${bugReport.actual || "[What actually happens]"}`;
         );
     }
   };
+  const escapeHtml = (value) => {
+    if (value === null || value === undefined) return "";
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  };
+
+  const buildHtmlReport = (result) => {
+    const { diffs, stats } = result;
+
+    const issueLabelMap = {
+      "missing-field": "Missing",
+      "extra-field": "Extra",
+      "type-mismatch": "Type mismatch",
+      "value-mismatch": "Value mismatch",
+      "array-length-mismatch": "Array length",
+    };
+
+    const issueDescMap = {
+      "missing-field": "Field is missing in response",
+      "extra-field": "Extra field present in response",
+      "type-mismatch": "Type mismatch between schema and response",
+      "value-mismatch": "Value differs from schema",
+      "array-length-mismatch": "Array length mismatch between schema and response",
+    };
+
+    const getRowStyle = (issue) => {
+      switch (issue) {
+        case "missing-field":
+          return "background-color:#f8d7da;"; // danger-like
+        case "extra-field":
+          return "background-color:#e2e3e5;"; // secondary-like
+        case "type-mismatch":
+          return "background-color:#fff3cd;"; // warning-like (light yellow)
+        case "array-length-mismatch":
+          return "background-color:#cff4fc;"; // info-like
+        case "value-mismatch":
+          return "background-color:#f8f9fa;"; // light
+        default:
+          return "";
+      }
+    };
+
+    const rowsHtml = diffs
+      .map((diff) => {
+        const issueLabel = issueLabelMap[diff.issue] || diff.issue;
+        const issueDesc = diff.message || issueDescMap[diff.issue] || "";
+        const schemaType =
+          diff.schemaValue === undefined ? "—" : getJsonType(diff.schemaValue);
+        const responseType =
+          diff.responseValue === undefined
+            ? "—"
+            : getJsonType(diff.responseValue);
+
+        const rowStyle = getRowStyle(diff.issue);
+
+        return `
+          <tr style="${rowStyle}">
+            <td class="path-cell">
+              <code>${escapeHtml(diff.path)}</code>
+            </td>
+            <td class="issue-cell">
+              <span class="badge badge-${escapeHtml(
+                diff.issue
+              )}">${escapeHtml(issueLabel)}</span>
+              <div class="issue-desc">${escapeHtml(issueDesc)}</div>
+            </td>
+            <td class="schema-cell">
+              <code class="json-value json-schema">${escapeHtml(
+                formatJsonValue(diff.schemaValue)
+              )}</code>
+              <div class="value-type">${escapeHtml(schemaType)}</div>
+            </td>
+            <td class="response-cell">
+              <code class="json-value json-response">${escapeHtml(
+                formatJsonValue(diff.responseValue)
+              )}</code>
+              <div class="value-type">${escapeHtml(responseType)}</div>
+            </td>
+          </tr>
+        `;
+      })
+      .join("");
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JSON Diff Detailed Comparison – TesterTools</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f9fa;
+      padding: 24px;
+      color: #212529;
+    }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+    .summary {
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      background: #fff3cd;
+      border-radius: 4px;
+      border: 1px solid #ffeeba;
+      font-size: 14px;
+    }
+    .summary span {
+      display: inline-block;
+      margin-right: 16px;
+    }
+    .summary strong {
+      font-weight: 600;
+    }
+
+    .table-wrapper {
+      background: #ffffff;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead {
+      background-color: #f8f9fa;
+    }
+    th, td {
+      border: 1px solid #dee2e6;
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+    th {
+      font-weight: 600;
+    }
+
+    code {
+      font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+      font-size: 12px;
+    }
+
+    .issue-cell {
+      min-width: 140px;
+    }
+
+    .issue-desc {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #495057;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #212529;
+      background-color: #e2e3e5;
+    }
+
+    /* Badge colours similar to Bootstrap */
+    .badge-missing-field {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .badge-extra-field {
+      background-color: #e2e3e5;
+      color: #383d41;
+    }
+    .badge-type-mismatch {
+      background-color: #ffe08a;
+      color: #7a5a00;
+    }
+    .badge-value-mismatch {
+      background-color: #cfe2ff;
+      color: #084298;
+    }
+    .badge-array-length-mismatch {
+      background-color: #b6effb;
+      color: #055160;
+    }
+
+    .json-value {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .json-schema {
+      color: #b03a9b; /* similar to pink-ish schema text */
+    }
+    .json-response {
+      color: #c92a2a; /* red-ish response text */
+    }
+    .value-type {
+      font-size: 11px;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <h1>Detailed Comparison</h1>
+
+  <div class="summary">
+    <span><strong>Total issues:</strong> ${diffs.length}</span>
+    <span><strong>Missing:</strong> ${stats.missing}</span>
+    <span><strong>Extra:</strong> ${stats.extra}</span>
+    <span><strong>Type mismatches:</strong> ${stats.type}</span>
+    <span><strong>Value mismatches:</strong> ${stats.value}</span>
+    <span><strong>Array length:</strong> ${stats.arrayLength}</span>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:32%;">Path</th>
+          <th style="width:18%;">Issue</th>
+          <th style="width:25%;">Schema (JSON 1)</th>
+          <th style="width:25%;">Response (JSON 2)</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rowsHtml}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>`;
+  };
+
+  const downloadHtmlReport = () => {
+    const result = compareJSON();
+    if (!result || result.error) {
+      alert("Please provide valid JSON in both fields before exporting.");
+      return;
+    }
+    if (!result.diffs || result.diffs.length === 0) {
+      alert("No differences found to export.");
+      return;
+    }
+
+    const html = buildHtmlReport(result);
+    const blob = new Blob([html], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "json-diff-detailed-comparison.html";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="d-flex" style={{ minHeight: "100vh" }}>
-       <Helmet>
+      <Helmet>
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
         <meta name="keywords" content={seo.keywords} />
         <meta property="og:title" content={seo.title} />
         <meta property="og:description" content={seo.description} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
+        <meta property="og:type" content="website" />
+        <Helmet>
+          <meta property="og:site_name" content="TesterTools" />
+          <meta name="twitter:site" content="@TesterTools" />
+        </Helmet>
+
+        <meta
+          property="og:url"
+          content="https://testmasterhub.com/testertools"
+        />
       </Helmet>
       <style>{`
         body {
@@ -1933,7 +2185,7 @@ ${bugReport.actual || "[What actually happens]"}`;
       <div className={`sidebar ${mobileMenuOpen ? "show" : ""}`}>
         <div className="p-3 border-bottom d-flex justify-content-between align-items-center">
           <div>
-            <h4 className="mb-0 text-primary fw-bold">QuestKit</h4>
+            <h4 className="mb-0 text-primary fw-bold">TesterTools</h4>
           </div>
           <button
             className="btn btn-sm btn-light d-lg-none"
@@ -1967,10 +2219,7 @@ ${bugReport.actual || "[What actually happens]"}`;
                 setMobileMenuOpen(false);
               }}
             >
-              <span
-                className="me-2"
-                style={{ fontSize: "1.2rem" }}
-              >
+              <span className="me-2" style={{ fontSize: "1.2rem" }}>
                 {tool.icon}
               </span>
               <span style={{ fontSize: "0.9rem" }}>{tool.name}</span>
@@ -1984,4 +2233,4 @@ ${bugReport.actual || "[What actually happens]"}`;
   );
 };
 
-export default QuestKit;
+export default TesterTools;

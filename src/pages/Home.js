@@ -60,6 +60,7 @@ const Home = () => {
           property="og:description"
           content="Local-first AI-powered API testing platform with offline mode, Git sync, AI assertions, monitoring, and more."
         />
+        <meta property="og:url" content="https://testmasterhub.com " />
       </Helmet>
 
       {/* Hero Section - Simplified & Centered */}
