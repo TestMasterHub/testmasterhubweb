@@ -1,39 +1,38 @@
 import React, { useEffect } from "react";
-// Changed: Removed TerminalSquare and ensured Code is imported.
 import {
-  CheckCircle,
   Sparkles,
   Brain,
   Zap,
-  Users,
-  Lock,
-  BarChart,
-  Settings,
-  Code,
-  GitBranch,
   ShieldCheck,
   Layers,
+  BarChart,
+  Inbox,
+  MonitorSmartphone,
+  GitBranch,
+  Lock,
+  Settings,
+  Mail,
+  Cloud,
 } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Helmet } from "react-helmet";
 import ProductImage from "../assets/images/UI.png";
-import TestimonialsImage1 from "../assets/images/Dashboard.png";
-import TestimonialsImage2 from "../assets/images/Dashboard.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Product = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // --- Hero Animation ---
+      // Hero
       gsap
         .timeline({ defaults: { ease: "power3.out", duration: 1 } })
-        .from(".hero-title-product", { opacity: 0, y: 40 })
-        .from(".hero-lead-product", { opacity: 0, y: 20 }, "-=0.8")
-        .from(".hero-button-product", { opacity: 0, y: 20 }, "-=0.8");
+        .from(".product-hero-title", { opacity: 0, y: 40 })
+        .from(".product-hero-lead", { opacity: 0, y: 20 }, "-=0.7")
+        .from(".product-hero-cta", { opacity: 0, y: 20 }, "-=0.6")
+        .from(".product-hero-badges > *", { opacity: 0, y: 20, stagger: 0.1 }, "-=0.6");
 
-      // --- Animate Sections on Scroll ---
+      // Sections
       const sections = gsap.utils.toArray(".animated-section");
       sections.forEach((section) => {
         const header = section.querySelector(".section-header");
@@ -49,10 +48,10 @@ const Product = () => {
 
         if (header) tl.from(header, { opacity: 0, y: 30, duration: 0.8 });
         if (content)
-          tl.from(content, { opacity: 0, y: 30, duration: 0.8 }, "-=0.5");
+          tl.from(content, { opacity: 0, y: 30, duration: 0.8 }, "-=0.4");
       });
 
-      // --- Staggered Card/Row Animation ---
+      // Staggered items
       gsap.utils.toArray(".stagger-container").forEach((container) => {
         const items = container.querySelectorAll(".stagger-item");
         gsap.from(items, {
@@ -68,278 +67,424 @@ const Product = () => {
         });
       });
     });
+
     return () => ctx.revert();
   }, []);
 
   return (
     <div className="bg-dark text-white">
       <Helmet>
-        <title>TestMasterHub Product – AI-Powered API Testing Platform</title>
+        <title>TestMasterHub – AI-first API Testing Product</title>
         <meta
           name="description"
-          content="Discover the full capabilities of TestMasterHub including offline testing, AI assertions, monitoring, Git sync, documentation generator, and more."
+          content="See how TestMasterHub combines AI assertions, TestGen, HTML/email reports, suites, monitors, environments, GitHub in-app, offline encrypted storage, dashboards, and local/remote runners in one desktop product."
         />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="text-center py-5">
+      {/* HERO */}
+      <section className="product-hero py-5">
         <div className="container py-5">
-          <h1 className="display-3 fw-bold hero-title-product hero-title-gradient">
-            Test at the Speed of Thought
-          </h1>
-          <p
-            className="lead text-white-50 mx-auto my-4 hero-lead-product"
-            style={{ maxWidth: "800px" }}
-          >
-            TestMasterHub is the AI-native platform for developers who demand
-            speed, intelligence, and confidence. Automate assertions, generate
-            tests, and collaborate seamlessly in one unified workspace.
-          </p>
-          <a
-            href="/invite/beta-download"
-            className="btn btn-primary-gradient btn-lg mt-3 hero-button-product"
-          >
-            Download for Free
-          </a>
-        </div>
-      </section>
+          <div className="row align-items-center g-5">
+            {/* Left */}
+            <div className="col-lg-6">
+              <div className="d-inline-flex align-items-center product-hero-pill mb-3">
+                <Sparkles size={16} className="me-2" />
+                <span className="small fw-semibold text-uppercase">
+                  AI-powered, offline-first test hub
+                </span>
+              </div>
 
-      {/* The AI Advantage Section */}
-      <section className="container py-5 animated-section">
-        <div className="row align-items-center g-5">
-          <div className="col-lg-6 section-content">
-            <div
-              className="p-3 rounded-3"
-              style={{
-                background: "linear-gradient(135deg, #333, #111)",
-                border: "1px solid var(--gsap-border)",
-              }}
-            >
-              <img
-                src={ProductImage}
-                className="img-fluid rounded"
-                alt="TestMasterHub AI in action"
-              />
-            </div>
-          </div>
-          <div className="col-lg-6">
-            <div className="section-header">
-              <span className="text-gradient-pink-purple fw-bold">
-                THE AI CORE
-              </span>
-              <h2 className="display-5 fw-bold my-3">
-                From Response to Assertion in Milliseconds.
-              </h2>
-            </div>
-            <div className="section-content">
-              <p className="lead text-white-50">
-                Stop wasting time writing boilerplate. TestMasterHub's AI core
-                analyzes API responses and instantly generates precise,
-                comprehensive assertions. It validates structure, status, and
-                data integrity with zero manual setup.
+              <h1 className="display-4 fw-bold product-hero-title hero-title-gradient mb-3">
+                Your entire API test stack in one desktop app.
+              </h1>
+
+              <p className="lead text-white-50 product-hero-lead mb-4">
+                TestMasterHub is where you design flows, run suites locally or in CI,
+                get rich HTML & email reports, and let AI handle assertions, test cases,
+                and documentation – all with encrypted local storage by default.
               </p>
-              <ul className="list-unstyled mt-4 fs-5">
-                <li className="d-flex align-items-center mb-3">
-                  <Sparkles className="icon-gradient me-3 flex-shrink-0" />{" "}
-                  AI-Generated Assertions
-                </li>
-                <li className="d-flex align-items-center mb-3">
-                  <Brain className="icon-gradient me-3 flex-shrink-0" />{" "}
-                  Automatic Edge Case Detection
-                </li>
-                <li className="d-flex align-items-center">
-                  <Zap className="icon-gradient me-3 flex-shrink-0" /> Instant
-                  Test Case Generation
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* The Developer's Toolkit Section */}
-      <section className="py-5 bg-dark-subtle animated-section">
-        <div className="container">
-          <div className="text-center mb-5 section-header">
-            <h2 className="display-5 fw-bold">
-              Built for the Modern Development Lifecycle
-            </h2>
-            <p
-              className="lead text-white-50 mx-auto"
-              style={{ maxWidth: "700px" }}
-            >
-              A complete, professional-grade toolkit that integrates perfectly
-              with your workflow.
-            </p>
-          </div>
-          <div className="row g-4 stagger-container section-content">
-            {[
-              {
-                icon: Code,
-                title: "Develop & Test",
-                text: "A powerful request builder, smart collections, and multi-environment management.",
-              },
-              {
-                icon: Zap,
-                title: "Automate & Deploy",
-                text: "Integrate with any CI/CD pipeline, schedule builds, and set up automated monitors.",
-              },
-              {
-                icon: Users,
-                title: "Collaborate & Secure",
-                text: "Use Git Sync for version control and rely on enterprise-grade encryption for all your data.",
-              },
-            ].map((item) => (
-              <div className="col-lg-4 stagger-item" key={item.title}>
-                <div className="card h-100 p-3">
-                  <div className="card-body">
-                    <div className="icon-gradient-fill d-inline-flex p-3 rounded-3 mb-3">
-                      <item.icon size={24} />
-                    </div>
-                    <h5 className="fw-bold">{item.title}</h5>
-                    <p className="card-text">{item.text}</p>
+              <div className="d-flex flex-wrap gap-2 mb-4 product-hero-badges">
+                <span className="product-badge">
+                  <Brain size={14} className="me-2" /> Smart Assertions & TestGen
+                </span>
+                <span className="product-badge">
+                  <Mail size={14} className="me-2" /> Email + HTML Reports
+                </span>
+                <span className="product-badge">
+                  <Lock size={14} className="me-2" /> Offline & Encrypted
+                </span>
+              </div>
+
+              <div className="d-flex flex-wrap gap-3 align-items-center">
+                <a
+                  href="/invite/beta-download"
+                  className="btn btn-primary-gradient btn-lg product-hero-cta"
+                >
+                  Download TestMasterHub
+                </a>
+                <span className="text-white-50 small">
+                  Local-first desktop app • No cloud lock-in
+                </span>
+              </div>
+            </div>
+
+            {/* Right */}
+            <div className="col-lg-6">
+              <div className="product-hero-right">
+                <div className="product-hero-image-wrapper">
+                  <div className="product-hero-glow" />
+                  <img
+                    src={ProductImage}
+                    alt="TestMasterHub UI"
+                    className="img-fluid rounded-4 product-hero-image"
+                  />
+                </div>
+                <div className="product-hero-metadata">
+                  <div>
+                    <span className="product-meta-label">Execution</span>
+                    <p className="mb-0 small">Suites · Monitors · Local & Remote</p>
+                  </div>
+                  <div>
+                    <span className="product-meta-label">Reporting</span>
+                    <p className="mb-0 small">Dashboard · HTML · Email</p>
+                  </div>
+                  <div>
+                    <span className="product-meta-label">AI Layer</span>
+                    <p className="mb-0 small">Smart Assertions · TestGen · Doc Hub</p>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Feature Breakdown Section */}
-      <section className="py-5 animated-section">
-        <div className="container">
-          <div className="text-center mb-5 section-header">
-            <h2 className="display-5 fw-bold">Find the Perfect Plan</h2>
-            <p className="lead text-white-50">
-              Start for free, upgrade for power.
+      {/* AI ENGINE */}
+      <section className="container py-5 animated-section">
+        <div className="row align-items-center g-5">
+          <div className="col-lg-5 section-header">
+            <span className="text-gradient-pink-purple fw-bold small text-uppercase">
+              AI testing engine
+            </span>
+            <h2 className="h1 fw-bold mt-2 mb-3">
+              Let AI build the assertions and tests. You focus on the API.
+            </h2>
+            <p className="text-white-50">
+              TestMasterHub’s AI layer watches real responses and flows, then suggests
+              assertions, generates test cases, and maintains living documentation –
+              without you wrestling with prompts every time.
             </p>
           </div>
-          <div className="table-responsive section-content">
-            <table className="table table-dark table-bordered feature-table">
-              <thead>
-                <tr>
-                  <th scope="col" className="w-50">
-                    Feature
-                  </th>
-                  <th scope="col" className="text-center">
-                    Free
-                  </th>
-                  <th
-                    scope="col"
-                    className="text-center text-gradient-pink-purple"
-                  >
-                    Pro
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="stagger-container">
-                {[
-                  { feature: "AI Assertion Generation", free: true, pro: true },
-                  {
-                    feature: "AI Test Case Generation",
-                    free: false,
-                    pro: true,
-                  },
-                  {
-                    feature: "Unlimited Local Collections",
-                    free: true,
-                    pro: true,
-                  },
-                  {
-                    feature: "CI/CD Integration & Builds",
-                    free: false,
-                    pro: true,
-                  },
-                  { feature: "Scheduled Monitoring", free: false, pro: true },
-                  {
-                    feature: "Git Sync & Collaboration",
-                    free: false,
-                    pro: true,
-                  },
-                  {
-                    feature: "Enterprise-Grade Encryption",
-                    free: true,
-                    pro: true,
-                  },
-                ].map((item) => (
-                  <tr key={item.feature} className="stagger-item">
-                    <td className="fw-bold">{item.feature}</td>
-                    <td className="text-center">
-                      {item.free && <CheckCircle className="text-success" />}
-                    </td>
-                    <td className="text-center">
-                      {item.pro && <ShieldCheck className="icon-gradient" />}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="col-lg-7 section-content">
+            <div className="row g-4 stagger-container">
+              <div className="col-md-6 stagger-item">
+                <div className="product-feature-card h-100">
+                  <div className="product-feature-icon">
+                    <Brain size={22} />
+                  </div>
+                  <h5 className="fw-semibold mb-2">Smart Assertion Suggestions</h5>
+                  <p className="small text-white-50 mb-3">
+                    Automatically proposes field checks, status validations, and edge
+                    conditions based on previous responses or schema knowledge.
+                  </p>
+                  <ul className="small list-unstyled mb-0">
+                    <li>• No more hand-written boilerplate checks</li>
+                    <li>• Captures positive, negative & edge cases</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="col-md-6 stagger-item">
+                <div className="product-feature-card h-100">
+                  <div className="product-feature-icon">
+                    <Zap size={22} />
+                  </div>
+                  <h5 className="fw-semibold mb-2">TestGen for full coverage</h5>
+                  <p className="small text-white-50 mb-3">
+                    Generate suites of test cases for a flow: happy path, broken input,
+                    auth failures, limit checks and more – ready to run.
+                  </p>
+                  <ul className="small list-unstyled mb-0">
+                    <li>• Turn a single request into a full suite</li>
+                    <li>• Reduce “we forgot this scenario” bugs</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="col-md-6 stagger-item">
+                <div className="product-feature-card h-100">
+                  <div className="product-feature-icon">
+                    <Layers size={22} />
+                  </div>
+                  <h5 className="fw-semibold mb-2">AI Documentation Hub</h5>
+                  <p className="small text-white-50 mb-3">
+                    Convert flows and responses into human-readable docs – great for
+                    onboarding, knowledge sharing and handoffs.
+                  </p>
+                  <ul className="small list-unstyled mb-0">
+                    <li>• Docs stay in sync with the actual tests</li>
+                    <li>• No separate wiki to maintain</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="col-md-6 stagger-item">
+                <div className="product-feature-card h-100">
+                  <div className="product-feature-icon">
+                    <Sparkles size={22} />
+                  </div>
+                  <h5 className="fw-semibold mb-2">AI that fits your workflow</h5>
+                  <p className="small text-white-50 mb-0">
+                    AI is woven into assertions, TestGen and docs – you stay in control
+                    of the flow design and final checks.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      {/* <section className="py-5 bg-dark-subtle animated-section">
-                <div className="container">
-                    <div className="text-center mb-5 section-header">
-                        <h2 className="display-5 fw-bold">Loved by High-Performance Teams</h2>
-                    </div>
-                    <div className="row g-4 stagger-container section-content">
-                        <div className="col-md-6 stagger-item">
-                            <div className="card h-100">
-                                <div className="card-body p-4">
-                                    <p className="fs-5 fst-italic">
-                                        "The AI-assertions are a legit game-changer. It feels like pair-programming with a QA expert. We're catching more edge cases with less effort."
-                                    </p>
-                                    <div className="d-flex align-items-center mt-4">
-                                        <img src={TestimonialsImage1} className="rounded-circle me-3" style={{ width: '50px', height: '50px' }} alt="User" />
-                                        <div>
-                                            <h6 className="fw-bold mb-0">Sarah Chen</h6>
-                                            <small className="text-white-50">Lead Engineer, Vertex AI</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6 stagger-item">
-                            <div className="card h-100">
-                                <div className="card-body p-4">
-                                    <p className="fs-5 fst-italic">
-                                        "Finally, a tool that understands a developer's workflow. The Git Sync feature alone makes this indispensable for our team."
-                                    </p>
-                                    <div className="d-flex align-items-center mt-4">
-                                        <img src={TestimonialsImage2} className="rounded-circle me-3" style={{ width: '50px', height: '50px' }} alt="User" />
-                                        <div>
-                                            <h6 className="fw-bold mb-0">Marco Diaz</h6>
-                                            <small className="text-white-50">DevOps Manager, QuantumLeap</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
+      {/* EVERYTHING IN ONE APP – BENTO GRID */}
+      <section className="py-5 bg-dark-subtle animated-section">
+        <div className="container">
+          <div className="section-header text-center mb-4">
+            <h2 className="display-5 fw-bold mb-2">
+              Everything around your APIs. In a single product.
+            </h2>
+            <p className="lead text-white-50 text-balance">
+              Not just a request client. TestMasterHub combines suites, monitors,
+              environments, GitHub, dashboards, and reports into one offline-friendly
+              desktop app.
+            </p>
+          </div>
 
-      {/* Final CTA Section */}
+          <div className="row g-4 section-content stagger-container">
+            {/* Reports */}
+            <div className="col-md-6 col-lg-4 stagger-item">
+              <div className="product-bento-card h-100">
+                <div className="product-bento-icon">
+                  <Inbox size={22} />
+                </div>
+                <h5 className="product-bento-title">Email & HTML reports</h5>
+                <p className="product-bento-text">
+                  After each run, receive detailed HTML reports plus clean email
+                  summaries: suite health, timings, failures and logs – ready for the
+                  team.
+                </p>
+              </div>
+            </div>
+
+            {/* Suites & monitors */}
+            <div className="col-md-6 col-lg-4 stagger-item">
+              <div className="product-bento-card h-100">
+                <div className="product-bento-icon">
+                  <Layers size={22} />
+                </div>
+                <h5 className="product-bento-title">Suites, monitors & dashboard</h5>
+                <p className="product-bento-text">
+                  Group flows into suites, set monitors for critical paths, and see
+                  everything on a local dashboard with pass/fail and trends.
+                </p>
+              </div>
+            </div>
+
+            {/* Environments */}
+            <div className="col-md-6 col-lg-4 stagger-item">
+              <div className="product-bento-card h-100">
+                <div className="product-bento-icon">
+                  <Settings size={22} />
+                </div>
+                <h5 className="product-bento-title">Environments & secrets</h5>
+                <p className="product-bento-text">
+                  Configure Dev, QA, Staging and more with isolated variables and
+                  secrets. Switch context instantly without editing URLs by hand.
+                </p>
+              </div>
+            </div>
+
+            {/* GitHub */}
+            <div className="col-md-6 col-lg-4 stagger-item">
+              <div className="product-bento-card h-100">
+                <div className="product-bento-icon">
+                  <GitBranch size={22} />
+                </div>
+                <h5 className="product-bento-title">GitHub inside the app</h5>
+                <p className="product-bento-text">
+                  Browse repos and branches from TestMasterHub, keep tests versioned
+                  next to your code, and review changes like any other PR.
+                </p>
+              </div>
+            </div>
+
+            {/* Offline & encrypted */}
+            <div className="col-md-6 col-lg-4 stagger-item">
+              <div className="product-bento-card h-100">
+                <div className="product-bento-icon">
+                  <Lock size={22} />
+                </div>
+                <h5 className="product-bento-title">Offline & encrypted storage</h5>
+                <p className="product-bento-text">
+                  Collections, environments and history live on your machine with
+                  encryption. No hosted workspace, no external analytics, no surprise
+                  leaks.
+                </p>
+              </div>
+            </div>
+
+            {/* Local + remote runners */}
+            <div className="col-md-6 col-lg-4 stagger-item">
+              <div className="product-bento-card h-100">
+                <div className="product-bento-icon">
+                  <MonitorSmartphone size={22} />
+                </div>
+                <h5 className="product-bento-title">Local & remote execution</h5>
+                <p className="product-bento-text">
+                  Debug flows locally, then run the same suites through remote runners
+                  in CI. Same config, same reports, different environment.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WORKFLOW STRIP */}
+      <section className="py-5 animated-section">
+        <div className="container">
+          <div className="section-header text-center mb-4">
+            <h2 className="h2 fw-bold mb-2">How teams actually use TestMasterHub</h2>
+            <p className="text-white-50 text-balance">
+              A realistic flow from first request to automated suites and reports.
+            </p>
+          </div>
+
+          <div className="section-content">
+            <div className="row g-3 product-workflow-row">
+              {[
+                {
+                  icon: Settings,
+                  title: "1. Model APIs & environments",
+                  text: "Import Postman collections or start fresh. Create environments for dev/QA/stage and wire variables once.",
+                },
+                {
+                  icon: Layers,
+                  title: "2. Build suites & monitors",
+                  text: "Chain calls into flows, group them into suites, and set monitors for the business-critical ones.",
+                },
+                {
+                  icon: MonitorSmartphone,
+                  title: "3. Run locally & in CI",
+                  text: "Use the desktop runner while building, then plug remote runners into your pipelines.",
+                },
+                {
+                  icon: BarChart,
+                  title: "4. Read reports, ship faster",
+                  text: "Use dashboards, HTML reports, and email summaries to triage issues and prove stability.",
+                },
+              ].map((step) => (
+                <div className="col-md-3 product-workflow-step" key={step.title}>
+                  <div className="product-workflow-card h-100">
+                    <div className="product-workflow-icon">
+                      <step.icon size={20} />
+                    </div>
+                    <h6 className="fw-semibold mb-2">{step.title}</h6>
+                    <p className="small text-white-50 mb-0">{step.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SIMPLE VALUE SECTION */}
+      <section className="py-5 bg-dark-subtle animated-section">
+        <div className="container">
+          <div className="row align-items-center g-4">
+            <div className="col-lg-6 section-header">
+              <h2 className="h2 fw-bold mb-3">Why teams switch to TestMasterHub</h2>
+              <p className="text-white-50 mb-3">
+                If your current tool only sends requests, you&apos;re doing the rest
+                manually: assertions, reports, docs, and CI wiring. TestMasterHub
+                treats all of that as first-class features.
+              </p>
+              <ul className="list-unstyled small mb-0">
+                <li className="mb-2">
+                  ✓ All critical testing pieces live in one desktop product.
+                </li>
+                <li className="mb-2">
+                  ✓ AI removes the “blank page” problem for assertions & testcases.
+                </li>
+                <li className="mb-2">
+                  ✓ Offline-first & encrypted by design – safe for real data.
+                </li>
+                <li>✓ Local comfort, remote scale for CI and scheduled monitors.</li>
+              </ul>
+            </div>
+            <div className="col-lg-6 section-content">
+              <div className="product-value-panel">
+                <div className="d-flex align-items-center mb-3">
+                  <ShieldCheck size={22} className="me-2 text-gradient-pink-purple" />
+                  <h5 className="fw-semibold mb-0">Built for serious backends</h5>
+                </div>
+                <p className="small text-white-50 mb-3">
+                  Microservices, message brokers, internal APIs – TestMasterHub is
+                  built for teams that treat API tests as an asset, not a side
+                  project.
+                </p>
+                <div className="row g-3 small">
+                  <div className="col-sm-6">
+                    <div className="product-metric">
+                      <span className="product-metric-label">Execution modes</span>
+                      <span className="product-metric-value">Local + Remote</span>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="product-metric">
+                      <span className="product-metric-label">Storage</span>
+                      <span className="product-metric-value">Encrypted local</span>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="product-metric">
+                      <span className="product-metric-label">Reporting</span>
+                      <span className="product-metric-value">Dashboard · HTML · Email</span>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="product-metric">
+                      <span className="product-metric-label">AI modules</span>
+                      <span className="product-metric-value">Assertions · TestGen · Docs</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
       <section className="py-5 text-center">
         <div className="container my-5">
-          <h2 className="display-4 fw-bold mb-3 hero-title-gradient">
-            Ship with Unbreakable Confidence.
+          <h2 className="display-5 fw-bold mb-3 hero-title-gradient">
+            Turn your API tests into a real product.
           </h2>
           <p
             className="lead text-white-50 mx-auto"
-            style={{ maxWidth: "600px" }}
+            style={{ maxWidth: "640px" }}
           >
-            Stop guessing. Start testing with the power of AI. Download
-            TestMasterHub and transform your workflow today.
+            Download TestMasterHub and get AI-powered assertions, TestGen, HTML/email
+            reports, suites, monitors, environments, GitHub in-app, dashboards and
+            local + remote execution – all in one place.
           </p>
           <a
             href="/invite/beta-download"
-            className="btn btn-primary-gradient btn-lg mt-4"
+            className="btn btn-primary-gradient btn-lg mt-3"
           >
-            Start Your Free Trial
+            Start with the desktop app
           </a>
         </div>
       </section>

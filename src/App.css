@@ -14,7 +14,10 @@ body {
   background-color: var(--gsap-dark);
   color: var(--gsap-light); 
 }
-
+a{
+  color: var(--gsap-pink);
+  text-decoration: none;
+}
 p {
   color: rgba(240, 240, 240, 0.8);
 }
@@ -26,7 +29,7 @@ p {
 .text-white-50 { color: rgba(240, 240, 240, 0.6) !important; }
 .text-success { color: #4ade80 !important; }
 
-h1, h2, h3, h4, h5, h6, .fw-bold { color: #ffffff; }
+h1, h2, h3, h4, h5, h6 { color: #ffffff; }
 
 /* --- Banner --- */
 .banner-info {
@@ -317,4 +320,1001 @@ h1, h2, h3, h4, h5, h6, .fw-bold { color: #ffffff; }
 }
 .border-top-custom {
     border-top: 1px solid var(--gsap-border);
+}
+
+/* ===== Homepage – Email Reports section (matches report HTML) ===== */
+
+:root {
+  /* safe to add – used only by report preview */
+  --tmh-report-primary: #6366f1;
+  --tmh-report-primary-soft: rgba(99, 102, 241, 0.14);
+  --tmh-report-bg-card: #020617;
+  --tmh-report-bg-card-soft: #0b1220;
+  --tmh-report-border-subtle: #1e293b;
+  --tmh-report-text-main: #e5e7eb;
+  --tmh-report-text-muted: #94a3b8;
+  --tmh-report-success: #22c55e;
+  --tmh-report-error: #ef4444;
+}
+
+/* layout for the section itself (keeps two-column layout) */
+.report-section-home {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 8rem;
+}
+
+@media (max-width: 991px) {
+  .report-section-home {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 5rem;
+  }
+}
+
+.report-copy {
+  color: var(--tmh-report-text-main);
+}
+
+/* reuse existing feature-tag/title/description from AI section */
+
+/* right side shell */
+.report-preview-shell {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.report-preview-card {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 18px;
+  background: #f9fafb;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  overflow: hidden;
+}
+
+/* top bar – based on report header */
+.report-preview-header {
+  padding: 1rem 1.2rem 0.9rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.report-preview-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.report-preview-sub {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin-top: 0.2rem;
+}
+
+/* status chip – copied from report HTML */
+.status-chip {
+  padding: 0.25rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  border: 1px solid transparent;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.status-chip-passed {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.6);
+  color: #15803d;
+}
+
+.status-chip-failed {
+  background: rgba(248, 113, 113, 0.08);
+  border-color: rgba(248, 113, 113, 0.7);
+  color: #b91c1c;
+}
+
+/* stats row – 3 boxes like mini summary */
+.report-preview-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 1rem 1.1rem 0.6rem;
+}
+
+.report-stat {
+  background: #f3f4f6;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.6rem;
+  text-align: left;
+}
+
+.report-stat-label {
+  font-size: 0.7rem;
+  color: #6b7280;
+  margin-bottom: 0.1rem;
+}
+
+.report-stat-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.1;
+}
+
+.report-stat-caption {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  margin-top: 0.15rem;
+}
+
+.report-stat-success .report-stat-value {
+  color: var(--tmh-report-success);
+}
+
+.report-stat-failed .report-stat-value {
+  color: var(--tmh-report-error);
+}
+
+/* list of tests – inspired by request cards in the HTML report */
+.report-preview-list {
+  padding: 0.8rem 1.1rem 1rem;
+  border-top: 1px solid rgba(229, 231, 235, 0.8);
+  background: #ffffff;
+}
+
+.report-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0;
+  font-size: 0.78rem;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+.report-list-row:last-child {
+  border-bottom: none;
+}
+
+.report-list-name {
+  color: #111827;
+}
+
+/* reuse status pill styles from report HTML */
+.status-pill-inline {
+  font-size: 0.72rem;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.status-success {
+  background: rgba(34, 197, 94, 0.08);
+  color: #15803d;
+  border: 1px solid rgba(34, 197, 94, 0.5);
+}
+
+.status-failed {
+  background: rgba(248, 113, 113, 0.08);
+  color: #b91c1c;
+  border: 1px solid rgba(248, 113, 113, 0.6);
+}
+
+/* pills under description */
+.report-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.report-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--tmh-report-border-subtle);
+  color: var(--tmh-report-text-main);
+}
+/* =========================
+   TestMasterHub – Workflow
+   ========================= */
+
+.tmh-workflow-section {
+  background: #020617;          /* same dark base */
+  padding: 4.5rem 0 4rem;
+}
+
+.tmh-workflow-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;            /* align with other sections */
+}
+
+/* header – LEFT aligned like screenshot */
+.tmh-workflow-header {
+  text-align: left;
+  max-width: 720px;
+  margin: 0 0 2.5rem;
+}
+
+.tmh-workflow-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid #1e293b;
+  background: rgba(15, 23, 42, 0.9);
+  color: #a855f7;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.tmh-workflow-header h2 {
+  font-size: clamp(1.9rem, 3vw, 2.3rem);
+  font-weight: 700;
+  color: #f9fafb;
+  margin-bottom: 0.6rem;
+}
+
+.tmh-workflow-header p {
+  font-size: 0.98rem;
+  color: #94a3b8;
+  line-height: 1.7;
+}
+
+/* full-width responsive grid, NO horizontal scroll */
+.tmh-workflow-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.6rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+/* card – same feel as your screenshot */
+.tmh-workflow-step {
+  border-radius: 1.25rem;
+  background: radial-gradient(circle at top left, #0b1120, #020617);
+  border: 1px solid #111827;
+  padding: 1.6rem 1.5rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.75);
+}
+
+/* number chip */
+.tmh-step-chip {
+  align-self: flex-start;
+  margin-bottom: 0.8rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.35);
+}
+
+/* title & text */
+.tmh-workflow-step h3 {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #f9fafb;
+  margin-bottom: 0.45rem;
+}
+
+.tmh-workflow-step p {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+/* bullets – subtle like muted text in screenshot */
+.tmh-workflow-step ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tmh-workflow-step li {
+  position: relative;
+  font-size: 0.83rem;
+  color: #6b7280;
+  margin: 0.15rem 0;
+  padding-left: 0.9rem;
+}
+
+.tmh-workflow-step li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #4b5563;
+}
+
+/* arrows no longer used */
+.tmh-workflow-arrow {
+  display: none !important;
+}
+
+/* responsive spacing tweaks */
+@media (max-width: 768px) {
+  .tmh-workflow-section {
+    padding: 3.5rem 0 3rem;
+  }
+}
+/* ================================
+   TestMasterHub – Comparison Page
+   ================================ */
+
+/* Hero */
+.comparison-hero {
+  background: #050509;
+  border-bottom: 1px solid #111827;
+}
+
+.comparison-hero .display-5 {
+  letter-spacing: -0.02em;
+}
+
+.comparison-pill {
+  background: linear-gradient(90deg, #9333ea, #ec4899);
+  color: #f9fafb;
+  padding: 0.4rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chip-hero {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  background: rgba(15, 23, 42, 0.9);
+  font-size: 0.8rem;
+  color: #e5e7eb;
+}
+
+.tmh-summary-card {
+  background: radial-gradient(circle at top left, #111827, #020617);
+  border-radius: 1.25rem;
+  border: 1px solid #1f2937;
+  padding: 1.6rem 1.5rem;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.8);
+  font-size: 0.9rem;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Layout helpers */
+.mb-6 {
+  margin-bottom: 4rem;
+}
+
+/* Sidebar */
+.comparison-sidebar {
+  background: #050816;
+  border: 1px solid #111827;
+  border-radius: 1.25rem;
+}
+
+.comparison-nav-link {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.comparison-nav-link svg {
+  flex-shrink: 0;
+}
+
+.comparison-nav-link.active {
+  background: linear-gradient(90deg, #4c1d95, #ec4899);
+  color: #f9fafb;
+  transform: translateX(4px);
+}
+
+.comparison-nav-link:not(.active):hover {
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+}
+
+/* Platform cards (Overview) */
+.platform-card {
+  background: #020617;
+  border-radius: 1.25rem;
+  border: 1px solid #111827;
+  padding: 1.4rem 1.3rem 1.2rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+}
+
+.platform-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.platform-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b1120;
+}
+
+.tmh-logo {
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+}
+
+.bruno-logo {
+  background: #06b6d4;
+}
+
+.postman-logo {
+  background: #f59e0b;
+}
+
+.platform-card h5 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.platform-list {
+  padding-left: 0;
+}
+
+.platform-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.35rem;
+}
+
+/* Migration highlight */
+.bg-gradient-pink-purple,
+.comparison-migration-card {
+  background: linear-gradient(120deg, #ec4899, #6366f1);
+  color: #f9fafb;
+}
+
+.comparison-migration-card {
+  border-radius: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+/* Highlight cards (Capabilities / Collaboration) */
+.tmh-highlight-card {
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  border-radius: 1.1rem;
+  border: 1px solid #111827;
+  padding: 1.5rem 1.4rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+}
+
+.tmh-highlight-card h5 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Feature depth comparison table */
+.comparison-matrix .card-header {
+  background: #050816;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.comparison-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9rem;
+}
+
+.comparison-table thead tr {
+  background: #020617;
+}
+
+.comparison-table thead th {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+}
+
+.comparison-table tbody tr:nth-child(odd) {
+  background: #020617;
+}
+
+.comparison-table tbody tr:nth-child(even) {
+  background: #020617;
+}
+
+.comparison-table tbody td {
+  padding: 0.7rem 1rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.9);
+  vertical-align: middle;
+}
+
+/* Badge visibility fix */
+.comparison-table td span.badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* TMH column – strong green pill */
+.badge.bg-success-subtle {
+  background: rgba(22, 163, 74, 0.16);
+  color: #bbf7d0;
+  border-radius: 999px;
+  border: 1px solid #22c55e;
+}
+
+/* Bruno column – neutral gray pill */
+.badge.bg-secondary-subtle {
+  background: rgba(156, 163, 175, 0.35); 
+  color: #1f2937;
+  border-radius: 999px;
+  border: 1px solid rgba(209, 213, 219, 0.8); /* light border for contrast */
+  font-weight: 600;
+}
+
+/* Postman column – high-contrast yellow pill */
+.badge.bg-warning-subtle {
+  background: rgba(234, 179, 8, 0.22);
+  color: #111827;
+  border-radius: 999px;
+  border: 1px solid #facc15;
+}
+
+/* Security / Collaboration cards */
+.collab-summary-card {
+  background: #020617;
+  border-radius: 1rem;
+  border: 1px solid #111827;
+  padding: 1.1rem 1rem;
+}
+
+/* CTA at bottom (reuses gradient class above) */
+.bg-gradient-pink-purple .btn-light {
+  border-radius: 999px;
+}
+
+/* Small responsive tweaks */
+@media (max-width: 991.98px) {
+  .comparison-sidebar {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .comparison-hero {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .tmh-summary-card {
+    margin-top: 2rem;
+  }
+}
+/* Page Background */
+.tmh-page-wrapper {
+  background-color: var(--tmh-bg-dark);
+  color: #e4e4e7;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- Typography Utilities --- */
+.text-glow {
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+.text-balance {
+  text-wrap: balance;
+}
+
+/* --- The "Matrix" Comparison Table (Exact Match to Image) --- */
+.matrix-container {
+  background: var(--tmh-bg-card);
+  border: 1px solid var(--tmh-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+}
+
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.matrix-table th {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: #71717a;
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--tmh-border);
+  font-weight: 600;
+}
+
+.matrix-table th:first-child {
+  text-align: left;
+}
+
+.matrix-table td {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--tmh-border);
+  vertical-align: middle;
+}
+
+.matrix-table tr:last-child td {
+  border-bottom: none;
+}
+
+.capability-name {
+  font-weight: 600;
+  color: #f4f4f5;
+  font-size: 0.95rem;
+}
+
+/* The Pills (Badges) */
+.matrix-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px; /* Pill shape */
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  min-width: 100px;
+  border: 1px solid transparent;
+}
+
+.badge-tmh {
+  background-color: var(--badge-tmh-bg);
+  color: var(--badge-tmh-text);
+  border-color: var(--badge-tmh-border);
+  box-shadow: 0 0 15px -3px rgba(74, 222, 128, 0.15);
+}
+
+.badge-postman {
+  background-color: var(--badge-postman-bg);
+  color: var(--badge-postman-text);
+  border-color: var(--badge-postman-border);
+}
+
+.badge-bruno {
+  background-color: var(--badge-bruno-bg);
+  color: var(--badge-bruno-text);
+  border-color: var(--badge-bruno-border);
+}
+
+/* Highlight the TMH Column */
+.col-tmh {
+  background: rgba(139, 92, 246, 0.03); /* Very subtle purple tint */
+  position: relative;
+}
+
+/* --- Feature Cards (Bento Grid Style) --- */
+.bento-card {
+  background: var(--tmh-bg-card);
+  border: 1px solid var(--tmh-border);
+  border-radius: 16px;
+  padding: 2rem;
+  height: 100%;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.bento-card:hover {
+  border-color: #52525b;
+  transform: translateY(-2px);
+}
+
+.bento-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.bento-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.75rem;
+}
+
+.bento-text {
+  font-size: 0.9rem;
+  color: #a1a1aa;
+  line-height: 1.6;
+}
+
+/* --- Hero Section Specifics --- */
+.hero-glow-bg {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 600px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(9, 9, 11, 0) 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.vs-pill {
+  background: #27272a;
+  border: 1px solid #3f3f46;
+  color: #d4d4d8;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 0 10px;
+}
+/* ============================
+   Product Page – Redesign
+   ============================ */
+
+.product-hero {
+  background: #050509;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-hero::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at top left, rgba(236, 72, 153, 0.12), transparent 60%),
+    radial-gradient(circle at top right, rgba(99, 102, 241, 0.12), transparent 60%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.product-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.product-hero-pill {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid #1f2937;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.75rem;
+  color: #e5e7eb;
+  letter-spacing: 0.08em;
+}
+
+.product-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  background: rgba(15, 23, 42, 0.9);
+  font-size: 0.78rem;
+  color: #e5e7eb;
+}
+
+/* hero right side */
+
+.product-hero-right {
+  position: relative;
+}
+
+.product-hero-image-wrapper {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.85);
+  background: radial-gradient(circle at top, #020617, #020617);
+}
+
+.product-hero-image {
+  display: block;
+  width: 100%;
+}
+
+.product-hero-glow {
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.4), transparent 60%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.product-hero-metadata {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid #111827;
+  margin-top: 1.3rem;
+  font-size: 0.8rem;
+}
+
+.product-meta-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+/* AI engine cards */
+
+.product-feature-card {
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  border-radius: 1.1rem;
+  border: 1px solid #111827;
+  padding: 1.35rem 1.25rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+}
+
+.product-feature-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  margin-bottom: 1rem;
+}
+
+/* Bento grid */
+
+.product-bento-card {
+  background: #020617;
+  border-radius: 1.2rem;
+  border: 1px solid #111827;
+  padding: 1.6rem 1.4rem;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.75);
+}
+
+.product-bento-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(129, 80, 255, 0.2));
+  border: 1px solid rgba(129, 80, 255, 0.5);
+}
+
+.product-bento-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.product-bento-text {
+  font-size: 0.9rem;
+  color: rgba(240, 240, 240, 0.78);
+  line-height: 1.6;
+}
+
+/* Workflow strip */
+
+.product-workflow-row {
+  border-radius: 1.5rem;
+  background: #020617;
+  border: 1px solid #111827;
+  padding: 1.8rem 1.4rem;
+}
+
+.product-workflow-card {
+  background: radial-gradient(circle at top left, #0b1120, #020617);
+  border-radius: 1rem;
+  border: 1px solid #111827;
+  padding: 1.1rem 1rem;
+  height: 100%;
+}
+
+.product-workflow-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.7rem;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+}
+
+/* Value / metric panel */
+
+.product-value-panel {
+  background: #020617;
+  border-radius: 1.3rem;
+  border: 1px solid #111827;
+  padding: 1.6rem 1.5rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+}
+
+.product-metric {
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.8rem;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid #111827;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.product-metric-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+}
+
+.product-metric-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 991.98px) {
+  .product-hero-metadata {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .product-hero {
+    padding-top: 3rem !important;
+  }
+
+  .product-bento-card {
+    padding: 1.4rem 1.25rem;
+  }
+
+  .product-workflow-row {
+    padding: 1.4rem 1.1rem;
+  }
 }
