@@ -23,7 +23,10 @@
   .cursor-pointer {
     cursor: pointer;
   }
-  
+  .nav-item{
+    margin-right: 1rem !important;
+    margin-left: 1rem !important;
+  }
   @media (min-width: 992px) {
     .navbar-expand-lg .navbar-nav .nav-link {
       padding-right: 1rem;

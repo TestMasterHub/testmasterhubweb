@@ -31,31 +31,37 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarContent">
           {/* Main Navigation */}
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li className="nav-item">
+            <li className="nav-item mx-2">
               <Link className={`nav-link ${isActive("/comparison") ? 'active' : ''}`} to="/comparison">
                 TestMasterHub Vs Bruno Vs Postman
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item mx-2">
               <Link className={`nav-link ${isActive("/product") ? 'active' : ''}`} to="/product">
                 Product
               </Link>
             </li>
-             <li className="nav-item">
+             <li className="nav-item mx-2">
               <Link className={`nav-link ${isActive("/pricing") ? 'active' : ''}`} to="/pricing">
                 Pricing
               </Link>
             </li>
-             <li className="nav-item">
+             <li className="nav-item mx-2">
               <Link className={`nav-link ${isActive("/enterprise") ? 'active' : ''}`} to="/enterprise">
                 Enterprise
               </Link>
             </li>
-            <li className="nav-item">
+             <li className="nav-item mx-2">
+              <Link className={`nav-link ${isActive("/testertools") ? 'active' : ''}`} to="/testertools" target="_blank">
+                Testing Tools
+              </Link>
+            </li>
+            <li className="nav-item mx-2">
               <Link className={`nav-link ${isActive("/resources") ? 'active' : ''}`} to="/resources">
                 Resources
               </Link>
-            </li><li className="nav-item">
+            </li>
+            <li className="nav-item mx-2">
               <Link className={`nav-link ${isActive("/contact") ? 'active' : ''}`} to="/contact">
                 Contact Sales
               </Link>
