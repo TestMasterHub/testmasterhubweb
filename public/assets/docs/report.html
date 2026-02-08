@@ -1,0 +1,1922 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>TestMasterHub – API Flow Report</title>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+      <style>
+        :root {
+          --primary: #6366f1;
+          --primary-soft: rgba(99, 102, 241, 0.14);
+          --primary-strong: #4f46e5;
+          --bg-main: #0f172a;
+          --bg-card: #020617;
+          --bg-card-soft: #0b1220;
+          --border-subtle: #1e293b;
+          --text-main: #e5e7eb;
+          --text-muted: #94a3b8;
+          --accent-success: #22c55e;
+          --accent-error: #ef4444;
+          --accent-info: #3b82f6;
+          --accent-warning: #f59e0b;
+          --shadow-lg: 0 18px 45px rgba(15, 23, 42, 0.75);
+          --radius-lg: 18px;
+          --radius-md: 0.75rem;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        html, body {
+          margin: 0;
+          padding: 0;
+          font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+          background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #020617 100%);
+          color: var(--text-main);
+        }
+
+        body {
+          -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+
+        h1, h2, h3, h4, h5 {
+          margin: 0;
+          font-weight: 600;
+        }
+
+        main.container {
+          max-width: 1160px;
+          margin: 0 auto;
+          padding: 1.5rem 1.5rem 2.5rem;
+        }
+
+        /* Top header */
+        .header {
+          padding: 1.6rem 1.5rem 1.4rem;
+          border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+          background: linear-gradient(120deg, rgba(99,102,241,0.14), rgba(15,23,42,0.85) 30%, #020617 80%);
+          position: sticky;
+          top: 0;
+          z-index: 5;
+          backdrop-filter: blur(16px);
+        }
+
+        .header-inner {
+          max-width: 1160px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          gap: 1.5rem;
+          align-items: center;
+        }
+
+        .header-left h1 {
+          font-size: 1.4rem;
+          letter-spacing: 0.02em;
+        }
+
+        .header-sub {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+          margin-top: 0.4rem;
+        }
+
+        .header-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.17rem 0.5rem;
+          border-radius: 999px;
+          background: rgba(148, 163, 184, 0.14);
+          font-size: 0.75rem;
+          color: var(--text-muted);
+          margin-top: 0.3rem;
+        }
+
+        .header-right {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+          align-items: flex-end;
+        }
+
+        .tagline {
+          font-size: 0.78rem;
+          color: var(--text-muted);
+        }
+
+        .nav-chips {
+          display: flex;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+
+        .nav-chip {
+          padding: 0.25rem 0.6rem;
+          border-radius: 999px;
+          font-size: 0.72rem;
+          border: 1px solid rgba(148, 163, 184, 0.25);
+          background: rgba(15, 23, 42, 0.7);
+          cursor: pointer;
+          color: var(--text-muted);
+        }
+
+        .nav-chip:hover {
+          border-color: var(--primary);
+          color: var(--text-main);
+        }
+
+        /* Status chip */
+        .status-chip {
+          padding: 0.3rem 0.9rem;
+          border-radius: 999px;
+          font-size: 0.78rem;
+          border: 1px solid transparent;
+          letter-spacing: 0.06em;
+        }
+
+        .status-chip-passed {
+          background: rgba(34,197,94,0.08);
+          border-color: rgba(34,197,94,0.6);
+          color: #bbf7d0;
+        }
+
+        .status-chip-failed {
+          background: rgba(248,113,113,0.08);
+          border-color: rgba(248,113,113,0.7);
+          color: #fecaca;
+        }
+
+        /* Sections */
+        .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          margin-bottom: 0.9rem;
+        }
+
+        .section-header h2 {
+          font-size: 1.0rem;
+        }
+
+        .section-subtitle {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+        }
+
+        .summary-header-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.9rem;
+        }
+
+        .summary-subtitle {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+          margin-top: 0.25rem;
+        }
+
+        .execution-summary {
+          background: radial-gradient(circle at top left, rgba(99,102,241,0.16), rgba(15,23,42,0.95));
+          border-radius: var(--radius-lg);
+          padding: 1.2rem 1.25rem 1.1rem;
+          margin: 1.3rem 0 1.1rem;
+          border: 1px solid rgba(148, 163, 184, 0.22);
+          box-shadow: var(--shadow-lg);
+        }
+
+        .summary-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+          gap: 1rem;
+          margin-top: 0.6rem;
+        }
+
+        .summary-card {
+          background: rgba(15,23,42,0.9);
+          border-radius: var(--radius-md);
+          padding: 0.85rem 0.9rem;
+          border: 1px solid var(--border-subtle);
+        }
+
+        .summary-card h3 {
+          font-size: 0.88rem;
+          margin-bottom: 0.4rem;
+        }
+
+        .summary-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 0.8rem;
+          margin-top: 0.4rem;
+        }
+
+        .summary-table th {
+          text-align: left;
+          width: 36%;
+          padding: 0.18rem 0.35rem 0.18rem 0;
+          color: var(--text-muted);
+          font-weight: 400;
+        }
+
+        .summary-table td {
+          padding: 0.18rem 0.35rem;
+        }
+
+        /* Metrics & metadata */
+        .metrics-section {
+          margin-top: 1.3rem;
+        }
+
+        .metrics-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 0.8rem;
+        }
+
+        .metric-card {
+          border-radius: var(--radius-md);
+          padding: 0.7rem 0.75rem;
+          border: 1px solid var(--border-subtle);
+          background: var(--bg-card);
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+        }
+
+        .metric-title-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 0.78rem;
+          color: var(--text-muted);
+        }
+
+        .metric-value {
+          font-size: 1.05rem;
+          font-weight: 600;
+          margin-top: 0.15rem;
+        }
+
+        .metric-note {
+          font-size: 0.72rem;
+          color: var(--text-muted);
+        }
+
+        .metric-success .metric-value {
+          color: var(--accent-success);
+        }
+
+        .metric-error .metric-value {
+          color: var(--accent-error);
+        }
+
+        .progress-bar {
+          margin-top: 0.35rem;
+          height: 0.4rem;
+          border-radius: 999px;
+          background: rgba(30,64,175,0.45);
+          overflow: hidden;
+        }
+
+        .progress-fill {
+          height: 100%;
+          border-radius: 999px;
+          background: linear-gradient(90deg, #22c55e, #4ade80);
+          width: 50%;
+        }
+
+        .metadata-section {
+          margin-top: 1.5rem;
+        }
+
+        .metadata-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 1rem;
+        }
+
+        .metadata-card {
+          background: var(--bg-card);
+          padding: 0.9rem;
+          border-radius: var(--radius-md);
+          border: 1px solid var(--border-subtle);
+        }
+
+        .metadata-title-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.4rem;
+        }
+
+        .metadata-title-row h3 {
+          font-size: 0.9rem;
+        }
+
+        .metadata-pill {
+          font-size: 0.7rem;
+          padding: 0.1rem 0.5rem;
+          border-radius: 999px;
+          border: 1px solid rgba(148, 163, 184, 0.5);
+          color: var(--text-muted);
+        }
+
+        .metadata-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 0.78rem;
+        }
+
+        .metadata-table th {
+          width: 32%;
+          text-align: left;
+          padding: 0.2rem 0.3rem 0.2rem 0;
+          color: var(--text-muted);
+          font-weight: 400;
+        }
+
+        .metadata-table td {
+          padding: 0.2rem 0.3rem;
+        }
+
+        /* Charts */
+        .charts-section {
+          margin-top: 1.6rem;
+        }
+
+        .charts-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
+          gap: 1rem;
+        }
+
+        .chart-card {
+          background: var(--bg-card);
+          padding: 0.85rem 0.9rem;
+          border-radius: var(--radius-md);
+          border: 1px solid var(--border-subtle);
+        }
+
+        .chart-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.4rem;
+        }
+
+        .chart-title {
+          font-size: 0.85rem;
+        }
+
+        .chart-subtitle {
+          font-size: 0.72rem;
+          color: var(--text-muted);
+        }
+
+        .chart-wrapper {
+          height: 230px;
+        }
+
+        /* Request/flow cards */
+        .api-requests-section {
+          margin-top: 1.7rem;
+        }
+
+        .request-card {
+          background: var(--bg-card-soft);
+          border-radius: var(--radius-md);
+          border: 1px solid var(--border-subtle);
+          margin-bottom: 0.75rem;
+          overflow: hidden;
+        }
+
+        .request-header {
+          padding: 0.65rem 0.8rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+        }
+
+        .request-header:hover {
+          background: rgba(15,23,42,0.9);
+        }
+
+        .request-main {
+          display: flex;
+          gap: 0.6rem;
+          align-items: center;
+        }
+
+        .request-name-block {
+          display: flex;
+          flex-direction: column;
+          gap: 0.15rem;
+        }
+
+        .request-name {
+          font-size: 0.9rem;
+        }
+
+        .request-endpoint {
+          font-size: 0.74rem;
+          color: var(--text-muted);
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+        }
+
+        .request-meta {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.72rem;
+          color: var(--text-muted);
+        }
+
+        .detail-toggle-label {
+          color: var(--text-main);
+          font-weight: 500;
+          font-size: 0.74rem;
+        }
+
+        .method-badge {
+          font-size: 0.7rem;
+          padding: 0.05rem 0.45rem;
+          border-radius: 999px;
+          border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .protocol-pill {
+          font-size: 0.7rem;
+          padding: 0.08rem 0.5rem;
+          border-radius: 999px;
+          border: 1px solid transparent;
+        }
+
+        .proto-http {
+          border-color: rgba(59,130,246,0.7);
+          background: rgba(37,99,235,0.16);
+          color: #bfdbfe;
+        }
+
+        .proto-graphql {
+          border-color: rgba(244,114,182,0.7);
+          background: rgba(236,72,153,0.18);
+          color: #f9a8d4;
+        }
+
+        .proto-ws {
+          border-color: rgba(45,212,191,0.7);
+          background: rgba(13,148,136,0.18);
+          color: #a5f3fc;
+        }
+
+        .proto-grpc {
+          border-color: rgba(56,189,248,0.7);
+          background: rgba(59,130,246,0.18);
+          color: #bae6fd;
+        }
+
+        .no-tests-pill {
+          opacity: 0.7;
+        }
+
+        .status-pill {
+          font-size: 0.72rem;
+          padding: 0.15rem 0.5rem;
+          border-radius: 999px;
+          font-weight: 500;
+        }
+
+        .status-pill-inline {
+          font-size: 0.76rem;
+          padding: 0.1rem 0.5rem;
+          border-radius: 999px;
+        }
+
+        .status-success {
+          background: rgba(34,197,94,0.08);
+          color: #bbf7d0;
+          border: 1px solid rgba(34,197,94,0.6);
+        }
+
+        .status-failed {
+          background: rgba(248,113,113,0.08);
+          color: #fecaca;
+          border: 1px solid rgba(248,113,113,0.7);
+        }
+
+        .request-content {
+          display: none;
+          border-top: 1px solid var(--border-subtle);
+          padding: 0.75rem 0.8rem 0.8rem;
+        }
+
+        .request-card.active .request-content {
+          display: block;
+        }
+
+        .request-columns {
+          display: grid;
+          grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+          gap: 0.9rem;
+        }
+
+        .body-section h4 {
+          font-size: 0.86rem;
+          margin-bottom: 0.4rem;
+        }
+
+        .body-section h5 {
+          font-size: 0.8rem;
+          margin: 0.6rem 0 0.25rem;
+        }
+
+        .data-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 0.78rem;
+        }
+
+        .data-table th,
+        .data-table td {
+          padding: 0.2rem 0.35rem;
+        }
+
+        .data-table th {
+          color: var(--text-muted);
+          font-weight: 400;
+        }
+
+        .json-viewer {
+          margin-top: 0.25rem;
+          border-radius: 0.45rem;
+          background: #020617;
+          border: 1px solid #111827;
+          overflow: auto;
+          max-height: 240px;
+        }
+
+        .json-viewer pre {
+          margin: 0;
+          padding: 0.5rem 0.6rem;
+          font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          font-size: 0.75rem;
+          color: #e5e7eb;
+          white-space: pre;
+        }
+
+        .test-results-section {
+          margin-top: 0.7rem;
+        }
+
+        .test-results-section h4 {
+          font-size: 0.82rem;
+          margin-bottom: 0.3rem;
+        }
+
+        .test-results-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        .test-result-item {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.76rem;
+          padding: 0.25rem 0.4rem;
+          border-radius: 0.35rem;
+        }
+
+        .test-passed {
+          background: rgba(22,163,74,0.12);
+          color: #bbf7d0;
+        }
+
+        .test-failed {
+          background: rgba(248,113,113,0.12);
+          color: #fecaca;
+        }
+
+        .test-icon {
+          font-size: 0.8rem;
+        }
+
+        .test-status {
+          font-weight: 500;
+          opacity: 0.9;
+        }
+
+        .no-test-results,
+        .no-logs {
+          text-align: center;
+          color: var(--text-muted);
+          font-size: 0.78rem;
+          padding: 1rem;
+        }
+
+        /* Logs */
+        .logs-section {
+          margin-top: 1.7rem;
+        }
+
+        .log-container {
+          border-radius: var(--radius-md);
+          border: 1px solid var(--border-subtle);
+          background: #020617;
+          max-height: 320px;
+          overflow: auto;
+        }
+
+        .log-entry {
+          display: flex;
+          gap: 0.65rem;
+          padding: 0.35rem 0.65rem;
+          font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          font-size: 0.74rem;
+          border-bottom: 1px solid rgba(15,23,42,0.9);
+        }
+
+        .log-entry:last-child {
+          border-bottom: none;
+        }
+
+        .log-icon {
+          width: 1.15rem;
+          text-align: center;
+          padding-top: 0.15rem;
+        }
+
+        .log-content {
+          flex: 1;
+        }
+
+        .log-index {
+          color: var(--text-muted);
+          font-size: 0.7rem;
+        }
+
+        .log-text {
+          margin-top: 0.08rem;
+        }
+
+        .log-success .log-icon { color: var(--accent-success); }
+        .log-error .log-icon { color: var(--accent-error); }
+        .log-info .log-icon { color: var(--accent-info); }
+        .log-summary .log-icon { color: var(--accent-warning); }
+
+        /* Footer */
+        .footer {
+          margin-top: 2.3rem;
+          padding: 1.5rem 0 1.7rem;
+          text-align: center;
+          font-size: 0.75rem;
+          color: var(--text-muted);
+          border-top: 1px solid rgba(15,23,42,0.9);
+        }
+
+        .footer a {
+          color: var(--text-main);
+        }
+
+        .footer a:hover {
+          text-decoration: underline;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 900px) {
+          main.container {
+            padding: 1rem 1rem 1.5rem;
+          }
+          .summary-grid,
+          .metadata-grid,
+          .charts-grid,
+          .request-columns,
+          .metrics-grid {
+            grid-template-columns: 1fr;
+          }
+          .header-inner {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .header-right {
+            align-items: flex-start;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      <header class="header">
+        <div class="header-inner">
+          <div class="header-left">
+            <h1>TestMasterHub – API Flow Report</h1>
+            <div class="header-sub">
+              Subscribers &nbsp;·&nbsp; Build #18 &nbsp;·&nbsp; Test Prod
+            </div>
+            <div class="header-badge">
+              <span>Generated Sun 04 Jan 2026, 22:10:14</span>
+            </div>
+          </div>
+          <div class="header-right">
+            <div class="tagline">Multi-protocol chaining · HTTP · GraphQL · WebSocket · gRPC</div>
+            <div class="nav-chips">
+              <button class="nav-chip" onclick="scrollToSection('summary')">Overview</button>
+              <button class="nav-chip" onclick="scrollToSection('metrics')">Metrics</button>
+              <button class="nav-chip" onclick="scrollToSection('metadata')">Metadata</button>
+              <button class="nav-chip" onclick="scrollToSection('requests')">Requests</button>
+              <button class="nav-chip" onclick="scrollToSection('logs')">Logs</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="container">
+        
+      <section class="execution-summary" id="summary">
+        <div class="summary-header-row">
+          <div>
+            <h2>Execution Summary</h2>
+            <p class="summary-subtitle">
+              Build #18 for <strong>Subscribers</strong> in <strong>BlogWiki Prod</strong>
+            </p>
+          </div>
+          <div class="status-chip status-chip-failed">
+            FAILED
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <h3>Run Info</h3>
+            <table class="summary-table">
+              <tr>
+                <th>Collection</th>
+                <td>Subscribers</td>
+              </tr>
+              <tr>
+                <th>Environment</th>
+                <td>Test Prod</td>
+              </tr>
+              <tr>
+                <th>Build</th>
+                <td>#18</td>
+              </tr>
+              <tr>
+                <th>Generated At</th>
+                <td>Sun 04 Jan 2026, 22:10:14</td>
+              </tr>
+              
+            </table>
+          </div>
+
+          <div class="summary-card">
+            <h3>Result Snapshot</h3>
+            <table class="summary-table">
+              <tr>
+                <th>Total Duration</th>
+                <td>2185.90 ms</td>
+              </tr>
+              <tr>
+                <th>Total Requests</th>
+                <td>2</td>
+              </tr>
+              <tr>
+                <th>Passed / Failed</th>
+                <td>1 passed / 1 failed</td>
+              </tr>
+              <tr>
+                <th>Success Rate</th>
+                <td>50%</td>
+              </tr>
+              <tr>
+                <th>Data Transferred</th>
+                <td>4.94 KB</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+    
+
+        <section class="metrics-section" id="metrics">
+          <div class="section-header">
+            <h2>Overview Metrics</h2>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric-card metric-info">
+              <div class="metric-title-row">
+                <span>Total Requests</span>
+                <span>🧩</span>
+              </div>
+              <div class="metric-value">2</div>
+              <div class="metric-note">Steps executed in this flow</div>
+            </div>
+
+            <div class="metric-card metric-success">
+              <div class="metric-title-row">
+                <span>Success Rate</span>
+                <span>✓</span>
+              </div>
+              <div class="metric-value">50%</div>
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+              <div class="metric-note">1 passed / 1 failed</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-title-row">
+                <span>Avg Step Time</span>
+                <span>⚡</span>
+              </div>
+              <div class="metric-value">1092 ms</div>
+              <div class="metric-note">Average across all steps</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-title-row">
+                <span>Total Data</span>
+                <span>📦</span>
+              </div>
+              <div class="metric-value">4.94 KB</div>
+              <div class="metric-note">Combined response payload size</div>
+            </div>
+          </div>
+        </section>
+
+        
+      <section class="metadata-section" id="metadata">
+        <div class="section-header">
+          <h2>Run Metadata</h2>
+        </div>
+        <div class="metadata-grid">
+          <div class="metadata-card">
+            <div class="metadata-title-row">
+              <h3>Executor</h3>
+              <span class="metadata-pill">User</span>
+            </div>
+            <table class="metadata-table">
+              <tr>
+                <th>Name</th>
+                <td>Unknown User</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td><code>N/A</code></td>
+              </tr>
+              
+              
+            </table>
+          </div>
+
+          <div class="metadata-card">
+            <div class="metadata-title-row">
+              <h3>Machine</h3>
+              <span class="metadata-pill">Environment</span>
+            </div>
+            <table class="metadata-table">
+              <tr>
+                <th>OS</th>
+                <td>Windows_NT 10.0.26200</td>
+              </tr>
+              <tr>
+                <th>Platform</th>
+                <td>win32</td>
+              </tr>
+              <tr>
+                <th>Architecture</th>
+                <td>x64</td>
+              </tr>
+              <tr>
+                <th>Hostname</th>
+                <td><code>ITOP-TestPlatform</code></td>
+              </tr>
+              <tr>
+                <th>App Version</th>
+                <td><code>2.1.0</code></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+    
+
+        <section class="charts-section">
+          <div class="section-header">
+            <h2>Performance & Status</h2>
+          </div>
+          <div class="charts-grid">
+            <div class="chart-card">
+              <div class="chart-header">
+                <div>
+                  <div class="chart-title">Response Time per Step</div>
+                  <div class="chart-subtitle">
+                    Visualising how each protocol behaves in sequence
+                  </div>
+                </div>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="responseTimeChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <div>
+                  <div class="chart-title">Status Distribution</div>
+                  <div class="chart-subtitle">
+                    Passed vs Failed across all steps
+                  </div>
+                </div>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="statusChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+      <section class="api-requests-section" id="requests">
+        <div class="section-header">
+          <h2>Step-by-Step Flow</h2>
+          <div class="section-subtitle">
+            2 steps across protocols – <span>HTTP · 1</span> &nbsp;•&nbsp; <span>GraphQL · 1</span>
+          </div>
+        </div>
+
+        
+              <article class="request-card">
+                <header class="request-header" onclick="toggleRequest(0)">
+                  <div class="request-main">
+                    <span class="status-pill status-success">
+                      ✓ Passed
+                    </span>
+                    <div class="request-name-block">
+                      <div class="request-name">getSubsciberEmail</div>
+                      <div class="request-endpoint">
+                        <span class="method-badge">GET</span>
+                        <code>https://testapi.app/api/v1/subscribers/getSubsciberdata</code>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="request-meta">
+                    <span class="protocol-pill proto-http">HTTP</span>
+                    <span>⚡ 613.00 ms</span>
+                    <span>📦 3629</span>
+                    <span>🧪 6 / 6 assertions</span>
+                    <span class="detail-toggle-label">Details</span>
+                  </div>
+                </header>
+
+                <div class="request-content" id="request-0">
+                  <div class="request-columns">
+                    <div class="body-section">
+                      <h4>Request</h4>
+                      <table class="data-table">
+                        <tr>
+                          <th style="width:140px;">Method</th>
+                          <td><code>GET</code></td>
+                        </tr>
+                        <tr>
+                          <th>URL / Target</th>
+                          <td><code>https://testapi.app/api/v1/subscribers/getSubsciberdata</code></td>
+                        </tr>
+                        <tr>
+                          <th>Response Time</th>
+                          <td>613.00 ms</td>
+                        </tr>
+                        <tr>
+                          <th>Status</th>
+                          <td>
+                            <span class="status-pill-inline status-success">
+                              Success
+                            </span>
+                          </td>
+                        </tr>
+                      </table>
+
+                      
+                      <h5>Request Headers</h5>
+                      
+                        <table class="data-table">
+                          <thead>
+                            <tr>
+                              <th>Header</th>
+                              <th>Value</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                              <tr>
+                                <td><code>Accept-Encoding</code></td>
+                                <td><code>gzip, deflate, br</code></td>
+                              </tr>
+                            
+                              <tr>
+                                <td><code>User-Agent</code></td>
+                                <td><code>TestMasterHub/1.0 (Windows NT 10.0; Win64; x64)</code></td>
+                              </tr>
+                            
+                              <tr>
+                                <td><code>Accept</code></td>
+                                <td><code>application/json</code></td>
+                              </tr>
+                            
+                              <tr>
+                                <td><code>Connection</code></td>
+                                <td><code>keep-alive</code></td>
+                              </tr>
+                            
+                              <tr>
+                                <td><code>Content-Type</code></td>
+                                <td><code>application/json</code></td>
+                              </tr>
+                            
+                          </tbody>
+                        </table>
+                      
+                      
+
+                      
+                    </div>
+
+                    
+                    <div class="body-section">
+                      <h4>Response</h4>
+                      <table class="data-table">
+                        <tr>
+                          <th style="width:140px;">Status Code</th>
+                          <td>
+                            <span class="status-pill-inline status-success">
+                              200
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Response Time</th>
+                          <td>613.00 ms</td>
+                        </tr>
+                        <tr>
+                          <th>Size</th>
+                          <td>3629</td>
+                        </tr>
+                      </table>
+
+                      <h5>Response Headers</h5>
+                      
+                        <table class="data-table">
+                          <thead>
+                            <tr>
+                              <th>Header</th>
+                              <th>Value</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                                <tr>
+                                  <td><code>age</code></td>
+                                  <td><code>0</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>cache-control</code></td>
+                                  <td><code>public, max-age=0, must-revalidate</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>content-type</code></td>
+                                  <td><code>application/json; charset=utf-8</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>date</code></td>
+                                  <td><code>Sun, 04 Jan 2026 16:40:12 GMT</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>etag</code></td>
+                                  <td><code>W/"e2d-rrNPbbJGPqhGaDJmU1umsAdfhjjhs"</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>server</code></td>
+                                  <td><code>Vercel</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>strict-transport-security</code></td>
+                                  <td><code>max-age=63072000; includeSubDomains; preload</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>vary</code></td>
+                                  <td><code>Origin</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>x-powered-by</code></td>
+                                  <td><code>Express</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>x-vercel-cache</code></td>
+                                  <td><code>MISS</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>x-vercel-id</code></td>
+                                  <td><code>blm1::i0d1::23n85-176754483322-3ad586133536</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>transfer-encoding</code></td>
+                                  <td><code>chunked</code></td>
+                                </tr>
+                              
+                          </tbody>
+                        </table>
+                        
+
+                      <h5>Response Body</h5>
+                      <div class="json-viewer">
+                        <pre>[
+  {
+    &quot;_id&quot;: &quot;66b897e1924f1a0d7e4bed62&quot;,
+    &quot;email&quot;: &quot;tets2@email.com&quot;,
+    &quot;verified&quot;: false,
+    &quot;subscribedAt&quot;: &quot;2024-08-11T10:52:17.174Z&quot;,
+    &quot;__v&quot;: 0
+  },
+  {
+    &quot;_id&quot;: &quot;66b8b16959d789987d496c75&quot;,
+    &quot;email&quot;: &quot;test3@gmail.com&quot;,
+    &quot;verified&quot;: false,
+    &quot;subscribedAt&quot;: &quot;2024-08-11T12:41:13.017Z&quot;,
+    &quot;__v&quot;: 0
+  },
+  {
+    &quot;_id&quot;: &quot;66b8bc85c45d74abc5c53795&quot;,
+    &quot;email&quot;: &quot;ravi@gmail.com&quot;,
+    &quot;verified&quot;: false,
+    &quot;subscribedAt&quot;: &quot;2024-08-11T13:28:37.248Z&quot;,
+    &quot;__v&quot;: 0
+  },
+  {
+    &quot;_id&quot;: &quot;66b8bcf4c45d74abc5c5379d&quot;,
+    &quot;email&quot;: &quot;suprise@gmail.com&quot;,
+    &quot;verified&quot;: false,
+    &quot;subscribedAt&quot;: &quot;2024-08-11T13:30:28.703Z&quot;,
+    &quot;__v&quot;: 0
+  },
+  {
+    &quot;_id&quot;: &quot;66b8bd5704aa1360a08f7e63&quot;,
+    &quot;email&quot;: &quot;gmail@gmail.com&quot;,
+    &quot;verified&quot;: false,
+    &quot;subscribedAt&quot;: &quot;2024-08-11T13:32:07.662Z&quot;,
+    &quot;__v&quot;: 0
+  },
+  {
+    &quot;_id&quot;: &quot;66b8bffc0bcc873bb4c68784&quot;,
+    &quot;email&quot;: &quot;g@h.com&quot;,
+    &quot;verified&quot;: false,
+    &quot;subscribedAt&quot;: &quot;2024-08-11T13:43:24.256Z&quot;,
+    &quot;__v&quot;: 0
+  },
+  {
+    &quot;_id&quot;: &quot;66d3ff2973534060c359a7f7&quot;,
+    &quot;email&quot;: &quot;vin@g.com&quot;,
+    &quot;verified&quot;: false,
+    &quot;subscribedAt&quot;: &quot;2024-09-01T05:44:09.590Z&quot;,
+    &quot;__v&quot;: 0
+  },
+  {
+    &quot;_id&quot;: &quot;66d41024a7e3ea25c0393eda&quot;,
+    &quot;email&quot;: &quot;test@gmail.com&quot;,
+    &quot;verified&quot;: false,
+    &quot;subscribedAt&quot;: &quot;2024-09-01T06:56:36.614Z&quot;,
+    &quot;__v&quot;: 0
+  },
+  {
+    &quot;_id&quot;: &quot;66d41502a7e3ea25c0393f00&quot;,
+    &quot;email&quot;: &quot;errorcommingon0109@email.com&quot;,
+    &quot;verified&quot;: false,
+    &quot;subscribedAt&quot;: &quot;2024-09-01T07:17:22.591Z&quot;,
+    &quot;__v&quot;: 0
+  }
+]</pre>
+                      </div>
+
+                      
+      <div class="test-results-section">
+        <h4>Assertions</h4>
+        <div class="test-results-grid">
+          
+            <div class="test-result-item test-passed">
+              <span class="test-icon">✓</span>
+              <span class="test-description">Status code is 200</span>
+              <span class="test-status">PASSED</span>
+            </div>
+          
+            <div class="test-result-item test-passed">
+              <span class="test-icon">✓</span>
+              <span class="test-description">Status code should be 200</span>
+              <span class="test-status">PASSED</span>
+            </div>
+          
+            <div class="test-result-item test-passed">
+              <span class="test-icon">✓</span>
+              <span class="test-description">Response should be a non-empty array</span>
+              <span class="test-status">PASSED</span>
+            </div>
+          
+            <div class="test-result-item test-passed">
+              <span class="test-icon">✓</span>
+              <span class="test-description">First subscriber object should have an 'email' property</span>
+              <span class="test-status">PASSED</span>
+            </div>
+          
+            <div class="test-result-item test-passed">
+              <span class="test-icon">✓</span>
+              <span class="test-description">The 'verified' property in the first subscriber should be a boolean</span>
+              <span class="test-status">PASSED</span>
+            </div>
+          
+            <div class="test-result-item test-passed">
+              <span class="test-icon">✓</span>
+              <span class="test-description">The email for the first subscriber should be 'tets2@email.com'</span>
+              <span class="test-status">PASSED</span>
+            </div>
+          
+        </div>
+      </div>
+    
+                    </div>
+                    
+                  </div>
+                </div>
+              </article>
+            
+              <article class="request-card">
+                <header class="request-header" onclick="toggleRequest(1)">
+                  <div class="request-main">
+                    <span class="status-pill status-failed">
+                      ✗ Failed
+                    </span>
+                    <div class="request-name-block">
+                      <div class="request-name">GraphQL 2</div>
+                      <div class="request-endpoint">
+                        <span class="method-badge">POST</span>
+                        <code>https://graphql.anilist.co/</code>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="request-meta">
+                    <span class="protocol-pill proto-graphql">GraphQL</span>
+                    <span>⚡ 1570.00 ms</span>
+                    <span>📦 1434</span>
+                    <span class="no-tests-pill">No tests</span>
+                    <span class="detail-toggle-label">Details</span>
+                  </div>
+                </header>
+
+                <div class="request-content" id="request-1">
+                  <div class="request-columns">
+                    <div class="body-section">
+                      <h4>Request</h4>
+                      <table class="data-table">
+                        <tr>
+                          <th style="width:140px;">Method</th>
+                          <td><code>POST</code></td>
+                        </tr>
+                        <tr>
+                          <th>URL / Target</th>
+                          <td><code>https://graphql.anilist.co/</code></td>
+                        </tr>
+                        <tr>
+                          <th>Response Time</th>
+                          <td>1570.00 ms</td>
+                        </tr>
+                        <tr>
+                          <th>Status</th>
+                          <td>
+                            <span class="status-pill-inline status-failed">
+                              Failed
+                            </span>
+                          </td>
+                        </tr>
+                      </table>
+
+                      
+                      <h5>Request Headers</h5>
+                      
+                        <table class="data-table">
+                          <thead>
+                            <tr>
+                              <th>Header</th>
+                              <th>Value</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                              <tr>
+                                <td><code>Content-Type</code></td>
+                                <td><code>application/json</code></td>
+                              </tr>
+                            
+                          </tbody>
+                        </table>
+                      
+                      
+
+                      
+                      <h5>Request Body</h5>
+                      <div class="json-viewer">
+                        <pre>{
+  &quot;query&quot;: &quot;{  Media(id: $id) {    format    genres    tags {      $id    }    averageScore  }}&quot;,
+  &quot;variables&quot;: {
+    &quot;$id&quot;: &quot;{{Name}}&quot;
+  }
+}</pre>
+                      </div>
+                      
+                    </div>
+
+                    
+                    <div class="body-section">
+                      <h4>Response</h4>
+                      <table class="data-table">
+                        <tr>
+                          <th style="width:140px;">Status Code</th>
+                          <td>
+                            <span class="status-pill-inline status-failed">
+                              400
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Response Time</th>
+                          <td>1570.00 ms</td>
+                        </tr>
+                        <tr>
+                          <th>Size</th>
+                          <td>1434</td>
+                        </tr>
+                      </table>
+
+                      <h5>Response Headers</h5>
+                      
+                        <table class="data-table">
+                          <thead>
+                            <tr>
+                              <th>Header</th>
+                              <th>Value</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                                <tr>
+                                  <td><code>date</code></td>
+                                  <td><code>Sun, 04 Jan 2026 16:40:14 GMT</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>content-type</code></td>
+                                  <td><code>application/json</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>transfer-encoding</code></td>
+                                  <td><code>chunked</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>connection</code></td>
+                                  <td><code>keep-alive</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>cf-ray</code></td>
+                                  <td><code>9b8c2d302a6940c9-BOM</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>cf-cache-status</code></td>
+                                  <td><code>DYNAMIC</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>access-control-allow-origin</code></td>
+                                  <td><code>*</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>cache-control</code></td>
+                                  <td><code>no-cache, private</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>server</code></td>
+                                  <td><code>cloudflare</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>set-cookie</code></td>
+                                  <td><code>laravel_session=2Eat31BqzRSdEmzpvXNFottCsmDZZYTpDZJK6ZiA; expires=Mon, 05-Jan-2026 04:40:14 GMT; Max-Age=43200; path=/; httponly</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>access-control-allow-headers</code></td>
+                                  <td><code>Authorization,Accept,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>access-control-allow-methods</code></td>
+                                  <td><code>GET, POST, OPTIONS</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>access-control-expose-headers</code></td>
+                                  <td><code>X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Content-Length, Content-Range</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>x-ratelimit-limit</code></td>
+                                  <td><code>30</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>x-ratelimit-remaining</code></td>
+                                  <td><code>29</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>vary</code></td>
+                                  <td><code>accept-encoding</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>report-to</code></td>
+                                  <td><code>{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=AxiHplij9LpD5MdOPGjgyyjk%2B1huj8nksg31g%2F8YeOGJZQtSAUynQOohQeTX6ppwl39JZbgoaCdm4dqEhOAKq2%2B6kCs3iJSUr9V7%2ByhfP0tG"}]}</code></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td><code>nel</code></td>
+                                  <td><code>{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}</code></td>
+                                </tr>
+                              
+                          </tbody>
+                        </table>
+                        
+
+                      <h5>Response Body</h5>
+                      <div class="json-viewer">
+                        <pre>{
+  &quot;error&quot;: &quot;Bad Request&quot;,
+  &quot;status&quot;: 400,
+  &quot;requestUrl&quot;: &quot;https://graphql.anilist.co/&quot;,
+  &quot;response&quot;: {
+    &quot;errors&quot;: [
+      {
+        &quot;message&quot;: &quot;Syntax Error: Expected Name, found $&quot;,
+        &quot;status&quot;: 400,
+        &quot;locations&quot;: [
+          {
+            &quot;line&quot;: 1,
+            &quot;column&quot;: 56
+          }
+        ]
+      }
+    ],
+    &quot;data&quot;: null
+  },
+  &quot;headers&quot;: {
+    &quot;date&quot;: &quot;Sun, 04 Jan 2026 16:40:14 GMT&quot;,
+    &quot;content-type&quot;: &quot;application/json&quot;,
+    &quot;transfer-encoding&quot;: &quot;chunked&quot;,
+    &quot;connection&quot;: &quot;keep-alive&quot;,
+    &quot;cf-ray&quot;: &quot;9b8c2d302a6940c9-BOM&quot;,
+    &quot;cf-cache-status&quot;: &quot;DYNAMIC&quot;,
+    &quot;access-control-allow-origin&quot;: &quot;*&quot;,
+    &quot;cache-control&quot;: &quot;no-cache, private&quot;,
+    &quot;server&quot;: &quot;cloudflare&quot;,
+    &quot;set-cookie&quot;: &quot;laravel_session=2Eat31BqzRSdEmzpvXNFottCsmDZZYTpDZJK6ZiA; expires=Mon, 05-Jan-2026 04:40:14 GMT; Max-Age=43200; path=/; httponly&quot;,
+    &quot;access-control-allow-headers&quot;: &quot;Authorization,Accept,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range&quot;,
+    &quot;access-control-allow-methods&quot;: &quot;GET, POST, OPTIONS&quot;,
+    &quot;access-control-expose-headers&quot;: &quot;X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Content-Length, Content-Range&quot;,
+    &quot;x-ratelimit-limit&quot;: &quot;30&quot;,
+    &quot;x-ratelimit-remaining&quot;: &quot;29&quot;,
+    &quot;vary&quot;: &quot;accept-encoding&quot;,
+    &quot;report-to&quot;: &quot;{\&quot;group\&quot;:\&quot;cf-nel\&quot;,\&quot;max_age\&quot;:604800,\&quot;endpoints\&quot;:[{\&quot;url\&quot;:\&quot;https://a.nel.cloudflare.com/report/v4?s=AxiHplij9LpD5MdOPGjgyyjk%2B1huj8nksg31g%2F8YeOGJZQtSAUynQOohQeTX6ppwl39JZbgoaCdm4dqEhOAKq2%2B6kCs3iJSUr9V7%2ByhfP0tG\&quot;}]}&quot;,
+    &quot;nel&quot;: &quot;{\&quot;report_to\&quot;:\&quot;cf-nel\&quot;,\&quot;success_fraction\&quot;:0.0,\&quot;max_age\&quot;:604800}&quot;
+  },
+  &quot;code&quot;: &quot;ERR_BAD_REQUEST&quot;
+}</pre>
+                      </div>
+
+                      <div class="no-test-results">No test results available</div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </article>
+            
+      </section>
+    
+
+        
+      <section class="logs-section" id="logs">
+        <div class="section-header">
+          <h2>Execution Logs</h2>
+          <span class="log-count">30 entries</span>
+        </div>
+        <div class="log-container">
+          
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#1</div>
+                    <div class="log-text">[10:10:12 PM] ⚙ Running 1 collections in SEQUENTIAL mode (collection-level).</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#2</div>
+                    <div class="log-text">[10:10:12 PM] 🚀 Starting Microservice Flow: Subscribers (Build #18)</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#3</div>
+                    <div class="log-text">[10:10:12 PM] 📌 Data iterations for "Subscribers": 1</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#4</div>
+                    <div class="log-text">[10:10:12 PM] 🔁 Single iteration (no test data) for "Subscribers"</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#5</div>
+                    <div class="log-text">[10:10:12 PM] 📋 Prepared 2 steps (Protocols: http, graphql) for iteration 1</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#6</div>
+                    <div class="log-text">[10:10:12 PM] 🚀 Starting Microservice Flow Execution.</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#7</div>
+                    <div class="log-text">[10:10:12 PM] 
+▶ Executing Step 1: getSubsciberEmail [http]</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#8</div>
+                    <div class="log-text">[10:10:12 PM]   URL: https://bwapi.vercel.app/api/v1/subscriber/getSubsciberEmail</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#9</div>
+                    <div class="log-text">[10:10:12 PM]   Method: GET</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#10</div>
+                    <div class="log-text">[10:10:12 PM] → [Flow] Step "getSubsciberEmail" attempt 1 (retry enabled: false, count: 1)</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-success">
+                  <div class="log-icon">✓</div>
+                  <div class="log-content">
+                    <div class="log-index">#11</div>
+                    <div class="log-text">[10:10:12 PM] ✓ [Flow] Step "getSubsciberEmail" attempt 1 passed (status: 200).</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-success">
+                  <div class="log-icon">✓</div>
+                  <div class="log-content">
+                    <div class="log-index">#12</div>
+                    <div class="log-text">[10:10:12 PM]   Passed Tests: 6</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#13</div>
+                    <div class="log-text">[10:10:12 PM] 
+▶ Executing Step 2: GraphQL 2 [graphql]</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#14</div>
+                    <div class="log-text">[10:10:12 PM]   URL: https://graphql.anilist.co/</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#15</div>
+                    <div class="log-text">[10:10:12 PM]   Method: POST</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#16</div>
+                    <div class="log-text">[10:10:12 PM] → [Flow] Step "GraphQL 2" attempt 1 (retry enabled: false, count: 1)</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-error">
+                  <div class="log-icon">✗</div>
+                  <div class="log-content">
+                    <div class="log-index">#17</div>
+                    <div class="log-text">[10:10:14 PM] ✖ [Flow] Step "GraphQL 2" attempt 1 failed</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-summary">
+                  <div class="log-icon">★</div>
+                  <div class="log-content">
+                    <div class="log-index">#18</div>
+                    <div class="log-text">[10:10:14 PM]   Status: 400</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-error">
+                  <div class="log-icon">✗</div>
+                  <div class="log-content">
+                    <div class="log-index">#19</div>
+                    <div class="log-text">[10:10:14 PM]   Error: Request failed</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#20</div>
+                    <div class="log-text">[10:10:14 PM] ℹ Microservice Flow Execution finished.</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-summary">
+                  <div class="log-icon">★</div>
+                  <div class="log-content">
+                    <div class="log-index">#21</div>
+                    <div class="log-text">[10:10:14 PM] 
+📊 Flow Summary:</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#22</div>
+                    <div class="log-text">[10:10:14 PM]   Total Steps: 2</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#23</div>
+                    <div class="log-text">[10:10:14 PM]   Executed: 2</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-success">
+                  <div class="log-icon">✓</div>
+                  <div class="log-content">
+                    <div class="log-index">#24</div>
+                    <div class="log-text">[10:10:14 PM]   Passed: 1</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-error">
+                  <div class="log-icon">✗</div>
+                  <div class="log-content">
+                    <div class="log-index">#25</div>
+                    <div class="log-text">[10:10:14 PM]   Failed: 1</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-error">
+                  <div class="log-icon">✗</div>
+                  <div class="log-content">
+                    <div class="log-index">#26</div>
+                    <div class="log-text">[10:10:14 PM]   Status: FAILED</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#27</div>
+                    <div class="log-text">[10:10:14 PM] Step 'getSubsciberEmail': Pass (200)</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-info">
+                  <div class="log-icon">ℹ</div>
+                  <div class="log-content">
+                    <div class="log-index">#28</div>
+                    <div class="log-text">[10:10:14 PM] Step 'GraphQL 2': Fail (400)</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-error">
+                  <div class="log-icon">✗</div>
+                  <div class="log-content">
+                    <div class="log-index">#29</div>
+                    <div class="log-text">[10:10:14 PM] ✅ Flow iteration 1/1 completed for Subscribers. Status: FAILED</div>
+                  </div>
+                </div>
+              
+                <div class="log-entry log-error">
+                  <div class="log-icon">✗</div>
+                  <div class="log-content">
+                    <div class="log-index">#30</div>
+                    <div class="log-text">[10:10:14 PM] ✅ Flow Completed for Subscribers. Final Status: FAILED</div>
+                  </div>
+                </div>
+              
+        </div>
+      </section>
+    
+      </main>
+
+      <footer class="footer">
+        <div>
+          <div>Made with TestMasterHub · Multi-protocol API testing & reporting</div>
+          <div style="margin-top: 0.3rem;">
+            Visit <a href="https://testmasterhub.com" target="_blank" rel="noreferrer">testmasterhub.com</a>
+          </div>
+          <div style="margin-top: 0.2rem; opacity: 0.7;">Report layout v3 – Flow-centric dashboard</div>
+        </div>
+      </footer>
+
+      <script>
+        function scrollToSection(id) {
+          const el = document.getElementById(id);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function toggleRequest(index) {
+          const header = document.querySelector('[onclick="toggleRequest(' + index + ')"]');
+          if (!header) return;
+          const card = header.closest('.request-card');
+          const wasActive = card.classList.contains('active');
+          document.querySelectorAll('.request-card').forEach(c => c.classList.remove('active'));
+          if (!wasActive) card.classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+          const firstCard = document.querySelector('.request-card');
+          if (firstCard) firstCard.classList.add('active');
+
+          const responseTimeData = [{"label":"getSubsciberEmail","fullLabel":"GET getSubsciberEmail","time":613,"status":"Success"},{"label":"GraphQL 2","fullLabel":"POST GraphQL 2","time":1570,"status":"Failed"}];
+          const avgTime = 1092;
+
+          if (document.getElementById('responseTimeChart') && responseTimeData.length) {
+            new Chart(document.getElementById('responseTimeChart'), {
+              type: 'line',
+              data: {
+                labels: responseTimeData.map(d => d.label),
+                datasets: [
+                  {
+                    label: 'Response Time (ms)',
+                    data: responseTimeData.map(d => d.time),
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99,102,241,0.16)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.35,
+                    pointRadius: 4,
+                    pointBackgroundColor: responseTimeData.map(d => 
+                      (d.status || '').toLowerCase().startsWith('success') ? '#22c55e' : '#ef4444'
+                    ),
+                    pointBorderWidth: 1,
+                    pointBorderColor: '#020617'
+                  },
+                  {
+                    label: 'Average (' + avgTime + ' ms)',
+                    data: new Array(responseTimeData.length).fill(avgTime),
+                    borderColor: '#f97316',
+                    backgroundColor: 'transparent',
+                    borderDash: [4,4],
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    fill: false
+                  }
+                ]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { display: true, labels: { font: { size: 11 } } },
+                  tooltip: {
+                    callbacks: {
+                      title: (ctx) => responseTimeData[ctx[0].dataIndex].fullLabel,
+                      label: (ctx) => ctx.parsed.y + ' ms'
+                    }
+                  }
+                },
+                scales: {
+                  x: {
+                    ticks: { color: '#9ca3af', font: { size: 10 } },
+                    grid: { color: 'rgba(148,163,184,0.12)' }
+                  },
+                  y: {
+                    ticks: { color: '#9ca3af', font: { size: 10 } },
+                    grid: { color: 'rgba(148,163,184,0.12)' },
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          }
+
+          if (document.getElementById('statusChart')) {
+            const successCount = 1;
+            const failCount = 1;
+            new Chart(document.getElementById('statusChart'), {
+              type: 'doughnut',
+              data: {
+                labels: ['Passed', 'Failed'],
+                datasets: [{
+                  data: [successCount, failCount],
+                  backgroundColor: ['#22c55e', '#ef4444'],
+                  borderColor: ['#020617', '#020617'],
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                  legend: { position: 'bottom', labels: { font: { size: 11 } } },
+                  tooltip: {
+                    callbacks: {
+                      label: (ctx) => ctx.label + ': ' + ctx.parsed + ' steps'
+                    }
+                  }
+                }
+              }
+            });
+          }
+        });
+      </script>
+    </body>
+    </html>
+  

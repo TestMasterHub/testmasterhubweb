@@ -274,17 +274,17 @@ const Home = () => {
                 <div className="d-flex flex-wrap gap-2">
                   <div className="feature-pill">
                     <PlayCircle size={14} className="me-1 text-success" />
-                    <span className="fw-bold text-white">TestGen:</span> Auto-generate
+                    <span className="fw-bold text-white">TestGen : </span> Auto-generate
                     test cases
                   </div>
                   <div className="feature-pill">
                     <FileText size={14} className="me-1 text-info" />
-                    <span className="fw-bold text-white">Doc Hub:</span> AI-generated
+                    <span className="fw-bold text-white">Doc Hub : </span> AI-generated
                     docs
                   </div>
                   <div className="feature-pill">
                     <RefreshCw size={14} className="me-1 text-warning" />
-                    <span className="fw-bold text-white">Migrate:</span> Postman to TMH
+                    <span className="fw-bold text-white">Migrate : </span> Postman to TMH
                     Assertions
                   </div>
                 </div>

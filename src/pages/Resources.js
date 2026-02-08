@@ -1,10 +1,16 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { FaRocket, FaCode, FaFileAlt, FaBars, FaArrowLeft, FaArrowRight, FaLayerGroup, FaGlobe, FaPlay,FaCheck } from 'react-icons/fa';
+import { FaRocket, FaCode, FaFileAlt, FaBars, FaArrowLeft, FaArrowRight, FaLayerGroup, FaGlobe, FaPlay,FaCheck,FaBrain } from 'react-icons/fa';
 import Prism from 'prismjs';
 import { gsap } from 'gsap';
 import { Helmet } from 'react-helmet';
-
+import aiAssertionImg from '../assets/docs/ai-assertion-script.png';
+import testScriptImg from '../assets/docs/test-script.png';
+import envPageImg from '../assets/docs/env-page.png';
+import assertionScriptImg from '../assets/docs/assertion-script.png';
+import createCollectionImg from '../assets/docs/create-collection.png';
+import createCollectionModalImg from '../assets/docs/create-collection-modal.png';
+import reportPageImg from '../assets/docs/Report-app.png';
 // Note: Ensure you have imported a dark Prism theme, e.g., 'prism-okaidia.css'
 // in your main App.js or index.js file.
 
@@ -60,7 +66,7 @@ const sections = {
       </div>
     `
   },
-  'API Requests': {
+  'Create Requests': {
     title: 'API Request & Response Handling',
     icon: <FaCode />,
     content: `
@@ -126,11 +132,21 @@ Headers:
         
         <h5>How to use collections:</h5>
         <ol>
-          <li><strong>Navigate to the Collections Page:</strong> Access the collection management interface from the main navigation.</li>
-          <li><strong>Click "New Collection":</strong> Provide a descriptive name that reflects the purpose of the requests it will contain.</li>
-          <li><strong>Add API Requests:</strong> Select your new collection and use the "Add Request" button to add and configure individual API calls.</li>
-          <li><strong>Organize Requests within Folders (Optional):</strong> For large collections, you can further organize requests into sub-folders for better structure.</li>
-          <li><strong>Execute the Collection:</strong> Run the entire collection at once or select and run specific requests within it.</li>
+          <li><strong>Open TestMasterHub App:</strong> Click on the <strong>Collection</strong> icon in the primary sidebar (leftmost strip) to open the explorer pane.</li>
+          <li><strong>Initiate Creation:</strong> Click the blue <strong>+ (Plus)</strong> button located at the top of the explorer panel.</li>
+          <img 
+            src="${createCollectionImg}"
+            alt="AI Assertion option in TestMasterHub Scripts panel"
+            class="docs-screenshot"
+          />
+          <li><strong>Name Your Collection:</strong> A modal titled "Enter Collection Name" will appear. Type a descriptive name for your collection in the input field.</li>
+          <li><strong>Submit:</strong> Click the <strong>Submit</strong> button in the modal to confirm.</li>
+          <img 
+            src="${createCollectionModalImg}"
+            alt="AI Assertion option in TestMasterHub Scripts panel"
+            class="docs-screenshot"
+          />
+          <li><strong>Ready to Use:</strong> Your new collection will instantly appear in the explorer list, ready for you to add requests or folders.</li>
         </ol>
       </div>
     `
@@ -144,6 +160,11 @@ Headers:
         <p>Assertions and validations are mechanisms used to programmatically verify the correctness and integrity of API responses. Instead of manually inspecting every response, assertions allow you to define expected outcomes that TestMasterHub automatically checks after each API call. If an assertion fails, it indicates a deviation from the expected behavior.</p>
         
         <h5>Why use it?</h5>
+        <img 
+          src="${assertionScriptImg}"
+          alt="AI Assertion option in TestMasterHub Scripts panel"
+          class="docs-screenshot"
+        />
         <ul>
           <li><strong>Automated Verification:</strong> Eliminates tedious manual checking, especially for large or frequent test runs.</li>
           <li><strong>Instant Failure Detection:</strong> Immediately highlights failures, helping developers pinpoint issues quickly.</li>
@@ -205,6 +226,11 @@ Headers:
         </ul>
         
         <h5>How to use environments:</h5>
+        <img 
+          src="${envPageImg}"
+          alt="Environment page in TestMasterHub"
+          class="docs-screenshot"
+        />
         <ol>
           <li><strong>Navigate to the Environment Page:</strong> Find the "Environments" tab in the main navigation.</li>
           <li><strong>Click "New Environment":</strong> Begin creating a new environment configuration.</li>
@@ -225,65 +251,446 @@ TMH.env.set("token", jsonData.access_token);</code></pre>
   title: 'Test Scripts & Custom Functions',
   icon: <FaPlay />,
   content: `
-    <div class="resource-section">
-      <h5>What is it?</h5>
-      <p>Test scripts in TestMasterHub provide a flexible way to extend your API testing capabilities beyond simple checks. Written in JavaScript, these scripts allow you to automate complex validation logic, dynamically manage environment variables, and perform intricate assertions.</p>
-      
-      <h5>Core Features:</h5>
-      <ol>
-        <li><strong>Dynamic Response Parsing:</strong> Programmatically access and extract specific data from JSON or other structured API responses.</li>
-        <li><strong>Advanced Assertions:</strong> Combine built-in assertions with custom JavaScript logic to create complex validation rules.</li>
-        <li><strong>Real-time Environment Management:</strong> Dynamically set and clear environment variables within your scripts.</li>
-        <li><strong>Custom Function Registration:</strong> Define and register your own reusable JavaScript functions to promote modularity.</li>
-      </ol>
-      
-      <h5>Response Parsing Examples:</h5>
-      <p>Accessing API response data is fundamental in test scripts:</p>
-      <pre><code class="language-javascript">// Accessing JSON Response Body
-var jsonData = TMH.response.json();
-console.log("User ID:", jsonData.user.id);
+   <div class="resource-section">
 
-// Getting Response Status Code
-var statusCode = TMH.response.status();
-console.log("HTTP Status Code:", statusCode);
+  <p>
+    The <strong>Scripts</strong> section in TestMasterHub provides a powerful,
+    Postman-compatible scripting environment backed by the
+    <strong>TMH Native Assertion Engine</strong>.
+    Scripts allow you to validate API behavior, enforce contracts,
+    extract runtime data, and automate real-world workflows reliably.
+  </p>
 
-// Getting Response Time
-var responseTime = TMH.response.time();
-console.log("Response Time (ms):", responseTime);</code></pre>
-      
-      <h5>Dynamic Environment Variable Usage:</h5>
-      <p>A common use case is to extract dynamic values like auth tokens and store them as environment variables.</p>
-      <pre><code class="language-javascript">var loginResponse = TMH.response.json();
-if (loginResponse && loginResponse.access_token) {
-  TMH.env.set("AUTH_TOKEN", loginResponse.access_token);
-}
-// In a subsequent request, you can use: Authorization: Bearer {{AUTH_TOKEN}}</code></pre>
+  <p>
+    Every assertion in TestMasterHub is designed to answer one critical question:
+    <em>“Did the API behave exactly as expected?”</em>
+    The sections below explain each assertion type in depth,
+    including theory, syntax, and real-life usage.
+  </p>
 
-      <h5>Complete Test Script Example:</h5>
-      <p>This example combines response parsing, environment variable setting, and standard assertions.</p>
-      <pre><code class="language-javascript">// 1. Parse the JSON response
-var jsonData = TMH.response.json();
+  <h5>Scripts</h5>
 
-// 2. Dynamically set an environment variable
-if (jsonData && jsonData.session_id) {
-  TMH.env.set("current_session_id", jsonData.session_id);
-}
+  <p>
+    Inside the Request Editor, the left pane contains:
+  </p>
+<img 
+  src="${testScriptImg}"
+  alt="TestMasterHub Scripts panel"
+  class="docs-screenshot"
+/>
+  <ul>
+    <li><strong>Pre-test</strong> – logic executed before sending the request</li>
+    <li><strong>Post-test</strong> – assertions and validations after response</li>
+    <li><strong>AI Assertion</strong> – automatic assertion generation and migration</li>
+  </ul>
 
-// 3. Perform standard assertions
-TMH.test("API call should return a 201 Created status", () => {
-  TMH.expect(TMH.response.status()).toBe(201);
-});
+  <p>
+    <strong>AI Assertion</strong> behaves like a dedicated scripting assistant.
+    It analyzes the response and generates TMH-native assertions automatically.
+  </p>
 
-TMH.test("Response time should be under 1500ms", () => {
-  TMH.expect(TMH.response.time()).toBeBelow(1500);
-});
+  <h5>Core Assertion Structure</h5>
 
-TMH.test("Resource name should match 'New Item'", () => {
-  TMH.expect(jsonData.name).toBe("New Item");
+  <p>
+    All validations in TestMasterHub follow a consistent and readable structure:
+  </p>
+
+  <pre><code class="language-javascript">TMH.test("Human-readable test description", () => {
+  TMH.expect(actualValue).matcher(expectedValue);
 });</code></pre>
-    </div>
+
+  <p>
+    This structure ensures that every validation:
+  </p>
+
+  <ul>
+    <li>Is clearly readable in reports</li>
+    <li>Has a deterministic pass/fail result</li>
+    <li>Can be traced back to business intent</li>
+  </ul>
+
+  <!-- ================= STATUS CODE ================= -->
+
+  <h5>Status Code Assertion</h5>
+
+  <p>
+    <strong>Theory:</strong><br/>
+    HTTP status codes represent the most fundamental contract between a client
+    and a server. A status code assertion ensures that the API endpoint
+    responds with the expected outcome (success, client error, or server error).
+  </p>
+
+  <p>
+    Without validating status codes, tests may falsely pass even when the API
+    fails silently or returns incorrect responses.
+  </p>
+
+  <p>
+    <strong>TMH Assertion:</strong>
+  </p>
+
+  <pre><code class="language-javascript">TMH.expect(TMH.response.status()).toBe(200);</code></pre>
+
+  <p>
+    <strong>Explanation:</strong>
+  </p>
+
+  <ul>
+    <li><code>TMH.response.status()</code> retrieves the HTTP status code</li>
+    <li><code>toBe(200)</code> enforces an exact match</li>
+  </ul>
+
+  <p>
+    <strong>Real-life Example:</strong><br/>
+    A production API for fetching subscribers must always return <code>200 OK</code>.
+    Any deviation indicates authentication failure, backend issues, or deployment problems.
+  </p>
+
+  <pre><code class="language-javascript">TMH.test("Status code should be 200", () => {
+  TMH.expect(TMH.response.status()).toBe(200);
+});</code></pre>
+
+  <!-- ================= RESPONSE TIME ================= -->
+
+  <h5>Response Time Assertion</h5>
+
+  <p>
+    <strong>Theory:</strong><br/>
+    Performance is as important as correctness.
+    An API that returns correct data but takes too long to respond
+    can degrade user experience and system reliability.
+  </p>
+
+  <p>
+    Response time assertions help detect:
+  </p>
+
+  <ul>
+    <li>Performance regressions</li>
+    <li>Infrastructure bottlenecks</li>
+    <li>Unexpected downstream delays</li>
+  </ul>
+
+  <p>
+    <strong>TMH Assertion:</strong>
+  </p>
+
+  <pre><code class="language-javascript">TMH.expect(TMH.response.time()).toBeBelow(500);</code></pre>
+
+  <p>
+    <strong>Real-life Example:</strong><br/>
+    A customer-facing API should respond within 500ms.
+    Any slower response indicates a potential scalability issue.
+  </p>
+
+  <pre><code class="language-javascript">TMH.test("Response time should be under 500ms", () => {
+  TMH.expect(TMH.response.time()).toBeBelow(500);
+});</code></pre>
+
+  <!-- ================= ARRAY ================= -->
+
+  <h5>Non-Empty Array Validation</h5>
+
+  <p>
+    <strong>Theory:</strong><br/>
+    List-based APIs often return arrays.
+    An empty array may indicate data issues, filtering problems,
+    or backend failures.
+  </p>
+
+  <p>
+    Validating array size ensures that meaningful data is returned.
+  </p>
+
+  <pre><code class="language-javascript">TMH.expect(JsonData.length).toBeGreaterThan(0);</code></pre>
+
+  <p>
+    <strong>Real-life Example:</strong><br/>
+    A subscriber list API should return at least one subscriber
+    when data exists in the database.
+  </p>
+
+  <pre><code class="language-javascript">TMH.test("Response should contain at least one subscriber", () => {
+  TMH.expect(JsonData.length).toBeGreaterThan(0);
+});</code></pre>
+
+  <!-- ================= PROPERTY ================= -->
+
+  <h5>Property Existence Assertion</h5>
+
+  <p>
+    <strong>Theory:</strong><br/>
+    APIs evolve over time.
+    Property validation ensures that mandatory fields
+    are never removed or renamed accidentally.
+  </p>
+
+  <p>
+    This is critical for frontend stability and contract enforcement.
+  </p>
+
+  <pre><code class="language-javascript">TMH.expect(JsonData[0]).toHaveProperty("email");</code></pre>
+
+  <p>
+    <strong>Real-life Example:</strong><br/>
+    Every subscriber object must contain an email address.
+  </p>
+
+  <pre><code class="language-javascript">TMH.test("Subscriber should contain email property", () => {
+  TMH.expect(JsonData[0]).toHaveProperty("email");
+});</code></pre>
+
+  <!-- ================= TYPE ================= -->
+
+  <h5>Type Validation Assertion</h5>
+
+  <p>
+    <strong>Theory:</strong><br/>
+    Type mismatches are one of the most common sources of runtime bugs.
+    A boolean becoming a string or number can silently break UI logic.
+  </p>
+
+  <pre><code class="language-javascript">TMH.expect(JsonData[0].verified).toBeType("boolean");</code></pre>
+
+  <p>
+    <strong>Real-life Example:</strong><br/>
+    The <code>verified</code> field must always be boolean for proper UI handling.
+  </p>
+
+  <pre><code class="language-javascript">TMH.test("Verified field should be boolean", () => {
+  TMH.expect(JsonData[0].verified).toBeType("boolean");
+});</code></pre>
+
+  <!-- ================= VALUE ================= -->
+
+  <h5>Exact Value Assertion</h5>
+
+  <p>
+    <strong>Theory:</strong><br/>
+    Exact value validation is useful for:
+  </p>
+
+  <ul>
+    <li>Mock environments</li>
+    <li>Seeded test data</li>
+    <li>Configuration APIs</li>
+  </ul>
+
+  <pre><code class="language-javascript">TMH.expect(JsonData[0].email).toBe("test2@email.com");</code></pre>
+
+  <p>
+    <strong>Real-life Example:</strong>
+  </p>
+
+  <pre><code class="language-javascript">TMH.test("Email should match expected test data", () => {
+  TMH.expect(JsonData[0].email).toBe("test2@email.com");
+});</code></pre>
+</div>
+
   `
 },
+'AI Assertions': {
+    title: 'AI-Powered Assertions',
+    icon: <FaBrain />,
+    content: `
+     <div class="resource-section">
+
+  <p>
+    <strong>AI Assertion</strong> is a first-class automation feature in TestMasterHub.
+    It is designed to eliminate manual effort in writing and maintaining assertions,
+    especially for large APIs, evolving schemas, and migrated Postman collections.
+  </p>
+
+  <p>
+    Unlike traditional script generators, AI Assertion does not generate generic code.
+    It produces <strong>TMH-native, production-ready assertions</strong> that integrate
+    directly with TestMasterHub’s execution engine and reporting system.
+  </p>
+
+  <h5>Why AI Assertion Exists</h5>
+
+  <p>
+    In real-world API testing, writing assertions is often the most time-consuming part:
+  </p>
+
+  <ul>
+    <li>Responses are large and deeply nested</li>
+    <li>Schemas change frequently</li>
+    <li>Manual assertions become outdated quickly</li>
+    <li>Postman collections require manual rewriting</li>
+  </ul>
+
+  <p>
+    AI Assertion solves these problems by understanding the response itself
+    and generating meaningful validations automatically.
+  </p>
+
+  <h5>Where to Find AI Assertion</h5>
+<img 
+  src="${aiAssertionImg}"
+  alt="AI Assertion option in TestMasterHub Scripts panel"
+  class="docs-screenshot"
+/>
+  <p>
+    AI Assertion appears as a <strong>dedicated option in the left Scripts pane</strong>,
+    alongside:
+  </p>
+
+  <ul>
+    <li>Pre-test</li>
+    <li>Post-test</li>
+    <li><strong>AI Assertion</strong></li>
+  </ul>
+
+  <p>
+    This positioning reflects its role as a core scripting capability,
+    not a secondary helper.
+  </p>
+
+  <h5>How AI Assertion Works (Conceptual Flow)</h5>
+
+  <ol>
+    <li>The API request is executed</li>
+    <li>The response body, headers, status, and timing are analyzed</li>
+    <li>Critical fields and patterns are identified</li>
+    <li>Assertions are generated using TMH native syntax</li>
+    <li>The generated assertions are inserted into Post-test scripts</li>
+  </ol>
+
+  <p>
+    The generated assertions are fully editable and behave exactly like
+    manually written TMH assertions.
+  </p>
+
+  <h5>Prerequisites to Use AI Assertion</h5>
+
+  <ol>
+    <li>Create and log in to a TestMasterHub account</li>
+    <li>Navigate to <strong>Settings → AI Configuration</strong></li>
+    <li>Select an AI provider (ChatGPT, Claude, Gemini)</li>
+    <li>Select the desired model</li>
+    <li>Enter your AI API key</li>
+    <li>Save the configuration</li>
+  </ol>
+
+  <p>
+    Once configured, AI Assertion becomes available across all requests.
+  </p>
+
+  <h5>Generating Assertions Using AI</h5>
+
+  <ol>
+    <li>Open any request in the Request Editor</li>
+    <li>Execute the request to get a response</li>
+    <li>Navigate to <strong>Scripts → AI Assertion</strong></li>
+    <li>Click the <strong>Generate</strong> button</li>
+  </ol>
+
+  <p>
+    The AI will generate assertions such as:
+  </p>
+
+  <ul>
+    <li>Status code validation</li>
+    <li>Response structure validation</li>
+    <li>Mandatory field checks</li>
+    <li>Type validations</li>
+    <li>Array length checks</li>
+  </ul>
+
+  <h5>Real-Time Example (Generated by AI)</h5>
+
+  <p>
+    Given a subscriber API response, AI Assertion may generate:
+  </p>
+
+  <pre><code class="language-javascript">// Generated by AI Assertion
+
+var JsonData = TMH.response.json();
+
+TMH.test("Status code should be 200", () => {
+  TMH.expect(TMH.response.status()).toBe(200);
+});
+
+TMH.test("Response should be a non-empty array", () => {
+  TMH.expect(JsonData.length).toBeGreaterThan(0);
+});
+
+TMH.test("Subscriber should contain email field", () => {
+  TMH.expect(JsonData[0]).toHaveProperty("email");
+});
+
+TMH.test("Verified field should be boolean", () => {
+  TMH.expect(JsonData[0].verified).toBeType("boolean");
+});</code></pre>
+
+  <p>
+    These assertions are immediately ready for execution and reporting.
+  </p>
+
+  <h5>Postman Script Migration Using AI Assertion</h5>
+
+  <p>
+    One of the most powerful capabilities of AI Assertion is automatic
+    migration of Postman test scripts.
+  </p>
+
+  <p>
+    When a request contains Postman syntax such as:
+  </p>
+
+  <pre><code class="language-javascript">pm.test("Status code is 200", function () {
+  pm.response.to.have.status(200);
+});</code></pre>
+
+  <p>
+    AI Assertion automatically converts it into:
+  </p>
+
+  <pre><code class="language-javascript">TMH.test("Status code is 200", () => {
+  TMH.expect(TMH.response.status()).toBe(200);
+});</code></pre>
+
+  <p>
+    This conversion preserves:
+  </p>
+
+  <ul>
+    <li>Test intent</li>
+    <li>Assertion logic</li>
+    <li>Readability</li>
+  </ul>
+
+  <p>
+    No manual rewriting is required.
+  </p>
+
+  <h5>When to Use AI Assertion</h5>
+
+  <ul>
+    <li>When onboarding new APIs</li>
+    <li>When migrating Postman collections</li>
+    <li>When responses are large or complex</li>
+    <li>When schemas change frequently</li>
+    <li>When speeding up automation creation</li>
+  </ul>
+
+  <h5>AI Assertion vs Manual Scripts</h5>
+
+  <ul>
+    <li>AI reduces scripting time drastically</li>
+    <li>Manual scripts provide fine-grained control</li>
+    <li>Both approaches can be combined seamlessly</li>
+  </ul>
+
+  <p>
+    AI Assertion is not a replacement for scripting knowledge —
+    it is an accelerator for professional testers and developers.
+  </p>
+
+</div>
+    `
+  },
   'Reports': {
     title: 'Understanding Reports',
     icon: <FaFileAlt />,
@@ -291,7 +698,11 @@ TMH.test("Resource name should match 'New Item'", () => {
       <div class="resource-section">
         <h5>What is it?</h5>
         <p>Reports in TestMasterHub are comprehensive summaries generated after each API test execution. These reports provide invaluable insights into test outcomes, helping you assess API health, performance, and correctness. They include summary statistics, detailed information for each request, the pass/fail status of all assertions, and critical performance metrics.</p>
-        
+        <img 
+          src="${reportPageImg}"
+          alt="TestMasterHub Report example"
+          class="docs-screenshot"
+        />
         <h5>Why use it?</h5>
         <ul>
           <li><strong>Track Execution History:</strong> Maintain a historical record of all test runs to identify trends in failures or performance.</li>
@@ -315,6 +726,11 @@ TMH.test("Resource name should match 'New Item'", () => {
           <li><strong>View the Dashboard:</strong> See the high-level overview of the test results.</li>
           <li><strong>Drill Down into Details:</strong> Navigate through the report sections to drill down into specific results.</li>
         </ol>
+        <h5>Preview Sample Report:</h5>
+        <p>Below is a preview of what a typical TestMasterHub report looks like:</p>
+       <a href="./assets/docs/report.html" target="_blank" rel="noopener noreferrer">
+        Open Sample Report
+      </a>
       </div>
     `
   }
