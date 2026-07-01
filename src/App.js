@@ -5,8 +5,8 @@ import { Helmet } from "react-helmet";
 import MainLayout from "./components/v2/MainLayout";
 
 // Import Pages
+import CompanyHome from "./pages/CompanyHome";
 import Home from "./pages/Home";
-import Product from "./pages/Product";
 import Pricing from "./pages/Pricing";
 import Enterprise from "./pages/Enterprise";
 import DownloadPage from "./pages/DownloadPage";
@@ -19,6 +19,7 @@ import ContactPage from "./pages/ContactPage";
 import InstallationGuide from "./pages/InstallationGuide";
 import QuestKit from "./pages/QuestKit";
 import Resources from "./pages/Resources";
+import ServicesPage from "./pages/ServicesPage";
 
 // Import Bootstrap (QuestKit needs this, so it stays global)
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -48,8 +49,9 @@ function AppContent() {
         They will all share the Navbar, Footer, tracking, and App.css styles.
       */}
       <Route element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/" element={<CompanyHome />} />
+        <Route path="/product" element={<Home />} />
+        <Route path="/services" element={<ServicesPage />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/enterprise" element={<Enterprise />} />
         <Route path="/resources" element={<Resources />} />

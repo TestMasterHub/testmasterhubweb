@@ -22,7 +22,7 @@ const BetaDownloadPage = () => {
           <Download className="icon-gradient mb-3" size={48} />
           <h2 className="fw-bold">TestMasterHub Beta Access</h2>
           <p className="text-white-50">
-            You're one click away from experiencing the future of API testing. This public beta is open for everyone!
+            You're one click away from experiencing the future of intelligent software testing. This public beta is open for everyone!
           </p>
           <div className="text-center mt-4">
             <button className="btn btn-primary-gradient btn-lg d-flex align-items-center justify-content-center mx-auto" onClick={handleDownload}>

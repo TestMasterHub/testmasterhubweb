@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Mail, Github, Twitter, Linkedin, Youtube } from "lucide-react";
+import { Github, Twitter, Linkedin, Youtube } from "lucide-react";
 import packageJson from "../../../package.json";
 const Footer = () => {
   return (
@@ -14,7 +14,7 @@ const Footer = () => {
               <sup className="ai-badge">AI Inside</sup>
             </h5>
             <p className="text-white-50 small">
-              The AI-native API testing platform for developers who demand speed, intelligence, and confidence.
+              TestMasterHub builds AI-powered software testing solutions for developers, QA engineers, SDETs, automation engineers, and security teams.
             </p>
             <div className="d-flex mt-4">
               <a href="https://github.com/TestMasterHub/testmasterhub-app-support" className="social-icon" aria-label="GitHub">
@@ -34,13 +34,16 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="col-lg-2 col-md-6 mb-4 mb-lg-0">
-            <h6 className="footer-heading mb-4">Product</h6>
+            <h6 className="footer-heading mb-4">Products</h6>
             <ul className="list-unstyled">
               <li className="mb-2">
-                <Link to="/product" className="footer-link">Features</Link>
+                <Link to="/product" className="footer-link">TestMasterHub API</Link>
               </li>
               <li className="mb-2">
-                <Link to="/download" className="footer-link">Download</Link>
+                <Link to="/testertools" className="footer-link">TesterTools</Link>
+              </li>
+              <li className="mb-2">
+                <a href="https://tapsecurex.netlify.app/" className="footer-link" target="_blank" rel="noopener noreferrer">TapSecureX</a>
               </li>
             </ul>
           </div>
@@ -52,26 +55,30 @@ const Footer = () => {
               <li className="mb-2">
                 <Link to="/resources" className="footer-link">Documentation</Link>
               </li>
+              <li className="mb-2">
+                <Link to="/comparison" className="footer-link">Compare Tools</Link>
+              </li>
+              <li className="mb-2">
+                <Link to="/contact" className="footer-link">Contact</Link>
+              </li>
             </ul>
           </div>
 
           {/* Newsletter */}
           <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
             <h6 className="footer-heading mb-4">Stay Updated</h6>
-            <p className="small text-white-50 mb-3">Get the latest product updates and news.</p>
-            <form>
-              <div className="input-group mb-3">
-                <input
-                  type="email"
-                  className="form-control form-control-dark"
-                  placeholder="your@email.com"
-                  aria-label="Email Address"
-                />
-                <button className="btn btn-primary-gradient" type="submit">
-                  Subscribe
-                </button>
-              </div>
-            </form>
+            <p className="small text-white-50 mb-3">Get product updates, roadmap news, and ecosystem launches.</p>
+            <div className="input-group mb-3">
+              <input
+                type="email"
+                className="form-control form-control-dark"
+                placeholder="your@email.com"
+                aria-label="Email Address"
+              />
+              <button className="btn btn-primary-gradient" type="button">
+                Subscribe
+              </button>
+            </div>
           </div>
         </div>
 

@@ -4,10 +4,10 @@ const TermsOfService = () => {
   return (
     <div className="bg-dark text-white py-5">
         <Helmet>
-            <title>TestMasterHub Installation Guide</title>
+            <title>TestMasterHub Terms of Service</title>
             <meta
               name="description"
-              content="Follow our step-by-step installation guide to get TestMasterHub up and running on your Windows machine."
+              content="Review the terms of use for TestMasterHub and its AI-powered software testing products and services."
             />
         </Helmet>
         <div className="container">
@@ -15,15 +15,15 @@ const TermsOfService = () => {
                 <div className="col-lg-8">
                     <div className="resource-section">
                         <h1 className="display-4 fw-bold mb-4 hero-title-gradient">Terms of Service</h1>
-                        <p className="text-white-50"><strong>Effective Date:</strong> September 14, 2025</p>
+                        <p className="text-white-50"><strong>Effective Date:</strong>  July 02, 2026</p>
 
-                        <p>Welcome to TestMasterHub. By accessing or using our platform, you agree to be bound by these Terms of Service. Please read them carefully.</p>
+                        <p>Welcome to TestMasterHub. By accessing or using our products and services, you agree to be bound by these Terms of Service. Please read them carefully.</p>
 
                         <h5>1. Acceptance of Terms</h5>
                         <p>By using TestMasterHub, you confirm that you agree to these terms and our Privacy Policy. If you do not agree, please do not use the platform.</p>
 
                         <h5>2. Description of Service</h5>
-                        <p>TestMasterHub is an API testing and automation platform. It allows users to create, organize, and monitor API test cases with optional AI-powered assertions.</p>
+                        <p>TestMasterHub provides AI-powered software testing solutions and related products, including TestMasterHub API, AIR, TapSecureX, and TesterTools. Our services help users design, automate, secure, and validate software testing workflows.</p>
 
                         <h5>3. User Accounts</h5>
                         <p>You are responsible for maintaining the confidentiality of your login credentials and for all activities that occur under your account.</p>
@@ -35,7 +35,7 @@ const TermsOfService = () => {
                         </ul>
 
                         <h5>5. Termination</h5>
-                        <p>We may suspend or terminate your access to TestMasterHub at any time for violation of these terms, with or without notice.</p>
+                        <p>We may suspend or terminate your access to TestMasterHub products or services at any time for violation of these terms, with or without notice.</p>
 
                         <h5>6. Limitation of Liability</h5>
                         <p>TestMasterHub is provided "as-is" without warranties of any kind. We are not liable for damages or losses resulting from your use of the service.</p>

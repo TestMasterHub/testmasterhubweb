@@ -77,7 +77,7 @@ const DownloadPage = () => {
                 Get <span className="text-gradient-pink-purple">TestMasterHub</span>
             </h1>
             <p className="lead text-white-50 mx-auto" style={{maxWidth: "600px"}}>
-                The local-first API automation platform. <br/>
+                AI-powered software testing solutions for teams that want speed, intelligence, and confidence. <br/>
                 Available for macOS, Windows, and Linux.
             </p>
         </div>

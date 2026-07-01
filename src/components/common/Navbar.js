@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import '../../styles/components/common/navbar.css'; // Import the CSS file for Navbar styling
 
 const Navbar = () => {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
+  const isProductsActive = () => ['/product', '/testertools'].includes(location.pathname);
 
   return (
     <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
@@ -31,14 +33,56 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarContent">
           {/* Main Navigation */}
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li className="nav-item mx-2">
-              <Link className={`nav-link ${isActive("/comparison") ? 'active' : ''}`} to="/comparison">
-                TestMasterHub Vs Bruno Vs Postman
-              </Link>
+            {/* Products Dropdown */}
+            <li className="nav-item dropdown mx-2 navbar-products-dropdown">
+              <a
+                className={`nav-link dropdown-toggle ${isProductsActive() ? 'active' : ''}`}
+                href="#"
+                id="productsDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                onClick={(e) => e.preventDefault()}
+              >
+                Products
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="productsDropdown">
+                <li>
+                  <Link className={`dropdown-item ${isActive("/product") ? 'active' : ''}`} to="/product">
+                    TestMasterHub API
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    className="dropdown-item"
+                    href="https://air.testmasterhub.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    AIR
+                  </a>
+                </li>
+                <li>
+                  <Link className={`dropdown-item ${isActive("/testertools") ? 'active' : ''}`} to="/testertools">
+                    TesterTools
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    className="dropdown-item"
+                    href="https://tapsecurex.netlify.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    TapSecureX
+                  </a>
+                </li>
+              </ul>
             </li>
+
             <li className="nav-item mx-2">
-              <Link className={`nav-link ${isActive("/product") ? 'active' : ''}`} to="/product">
-                Product
+              <Link className={`nav-link ${isActive("/services") ? 'active' : ''}`} to="/services">
+                Services
               </Link>
             </li>
              <li className="nav-item mx-2">
@@ -49,11 +93,6 @@ const Navbar = () => {
              <li className="nav-item mx-2">
               <Link className={`nav-link ${isActive("/enterprise") ? 'active' : ''}`} to="/enterprise">
                 Enterprise
-              </Link>
-            </li>
-             <li className="nav-item mx-2">
-              <Link className={`nav-link ${isActive("/testertools") ? 'active' : ''}`} to="/testertools" target="_blank">
-                Testing Tools
               </Link>
             </li>
             <li className="nav-item mx-2">

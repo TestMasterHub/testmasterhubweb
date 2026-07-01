@@ -23,11 +23,11 @@ const Enterprise = () => {
     <div className="bg-dark text-white" ref={pageRef}>
       <Helmet>
         <title>
-          TestMasterHub Enterprise – Secure, Local-First API Testing
+          TestMasterHub Enterprise – AI-Powered Software Testing Solutions
         </title>
         <meta
           name="description"
-          content="Enterprise-grade API testing platform with local-first architecture, encryption, team-ready workflows, offline automation, and Git sync."
+          content="Enterprise-grade software testing solutions with secure workflows, flexible deployment, and AI-powered automation for modern teams."
         />
       </Helmet>
 
@@ -40,7 +40,7 @@ const Enterprise = () => {
             className="lead text-white-50 mx-auto mt-4"
             style={{ maxWidth: "800px" }}
           >
-            Scalable, secure, and fully-supported API testing solutions designed
+            Scalable, secure, and fully-supported software testing solutions designed
             to integrate seamlessly into your business workflows.
           </p>
         </div>
@@ -54,8 +54,8 @@ const Enterprise = () => {
             </h2>
             <p className="text-white-50 mb-4">
               Our Enterprise plan provides the security, scalability, and
-              dedicated support your organization needs to perform API testing
-              with confidence and control.
+              dedicated support your organization needs to build reliable testing
+              workflows with confidence and control.
             </p>
             <ul className="list-unstyled fs-5">
               <li className="d-flex align-items-center mb-3">
@@ -68,11 +68,11 @@ const Enterprise = () => {
               </li>
               <li className="d-flex align-items-center mb-3">
                 <CheckCircle className="icon-gradient me-3 flex-shrink-0" />{" "}
-                Enhanced Security & Compliance
+                Enhanced Security & Governance
               </li>
               <li className="d-flex align-items-center">
                 <CheckCircle className="icon-gradient me-3 flex-shrink-0" />{" "}
-                On-Premise Deployment Options
+                Flexible Deployment Options
               </li>
             </ul>
           </div>
